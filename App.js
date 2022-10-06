@@ -7,6 +7,7 @@ export default function App() {
       <StatusBar style="auto" />
       <Text>ㅅㄷㄴㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅ</Text>
       <Text>ㅅㄷㄴㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅ</Text>
+      <Text>ㅅㄷㄴㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅ</Text>
     </View>
   );
 }
