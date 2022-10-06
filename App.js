@@ -4,10 +4,12 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
+      
       <Text>ㅅㄷㄴㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅ</Text>
+<<<<<<< HEAD
       <Text>ㅅㄷㄴㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅ</Text>
-      <Text>ㅅㄷㄴㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅㄴㄷㅅ</Text>
+=======
+>>>>>>> master
     </View>
   );
 }
