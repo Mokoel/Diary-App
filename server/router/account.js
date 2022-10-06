@@ -24,7 +24,7 @@ router.post("/auth", async (req, resp) => {
 
         //암호화된거 비교하기
         let pswdChk = bcrypt.compareSync(password, findUserEmail.password);
-
+        
         //비밀번호가 맞으면 -> 토큰생성(암호화키는 lastpass에서 받아옴)
         if (pswdChk) {
             //토큰생성 -> 페이로드는 이메일, 시크릿키
