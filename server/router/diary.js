@@ -9,7 +9,7 @@
 import express from "express";
 import diarySchema from "../model/diaryModel.js";
 import fs from "fs";
-
+import path from "path";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -67,15 +67,10 @@ router.post("/tagFind", async (req, resp) => {
 
 
 
-
-
-
-
-
 //글등록
 //경로:/api/diary/create
 router.post("/create", async (req, resp) => {
-
+    console.log(req.body.image,"<==createBody>")
     let recordData = {
         email: req.body.email,
         content: req.body.content,
@@ -86,8 +81,6 @@ router.post("/create", async (req, resp) => {
         createdAt: req.body.createdAt,
         tag: req.body.tag
     }
-
-
 
     try {
         let createData = await diarySchema.create(recordData);
