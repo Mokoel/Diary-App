@@ -7,8 +7,6 @@ import { useNavigation } from "@react-navigation/native";
 function CalendarView() {
   const navigation = useNavigation()
 
-
-
   const posts = [
     {
       id: 1,
@@ -39,11 +37,16 @@ function CalendarView() {
       marked: markedDates[selectedDate]?.marked,
     }
   }
+
+  const daySelectHandle = (day)=>{
+    setSelectedDate(day.dateString)
+    console.log(day.dateString)
+    navigation.navigate("diaryWrite",[day.dateString])
+  }
+
+
   return (
-    <Calendar style={styles.calendar} markedDates={markedSelectedDates} onDayPress={(day) => {
-      setSelectedDate(day.dateString)
-      navigation.navigate("diaryWrite",[selectedDate]) 
-    }} theme={{
+    <Calendar style={styles.calendar} markedDates={markedSelectedDates} onDayPress={daySelectHandle} theme={{
       //selectedDayBackgroundColor: 'red',  
       arrowColor: 'blue',
       dotColor: 'red',
