@@ -50,7 +50,6 @@ export async function listViewReq(email){
     //console.log(response.data)
 }
 
-}
 
 
 /** 글등록 API 함수*/
