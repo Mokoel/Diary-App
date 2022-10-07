@@ -1,15 +1,20 @@
 import axios from "axios";
-import {Buffer} from "buffer";
+import { Buffer } from "buffer";
 
+/** 이미지등록 API 함수*/
+let baseUrl = "http://192.168.4.25:8080"
 
-export async function imgStorageRegi(fileURI, fileData /* 각각 등록하는 종류에 따라 데이터 추가해주기 */) {
-    console.log(fileData.slice(0,10))
-    const fileName = fileURI.substring(fileURI.lastIndexOf("/")+ 1);
-    let baseUrl = "http://192.168.4.25:8080"
+export async function imgStorageRegi(fileURI, fileData) {
+console.log(fileURI)
+
+    const fileName = fileURI.substring(fileURI.lastIndexOf("/") + 1);
     console.log(fileName);
 
-    try{
-        const storageURI = `${baseUrl/*dog, memories 등등*/}/api/diary/img/${fileName}`;
+
+    try {
+
+        const storageURI = `${baseUrl}/api/diary/img/${fileName}`;
+
 
         const uploadRes = await axios({
             url: storageURI,
@@ -19,20 +24,20 @@ export async function imgStorageRegi(fileURI, fileData /* 각각 등록하는 �
             data: Buffer.from(fileData, "base64"),
             method: "post"
         });
-        
-        
 
-        const Item = {image: uploadRes.data.path/* 마찬가지로 위에서 받아온 데이터 보내주기 */};
-        const realDB = `${baseUrl}/api/diary/create`; 
-        
-        const createRes = await axios.post(realDB, Item);
-        
-        return createRes.data;
+
+        /**이미지 출력이 가능한 이미지url */
+        const Item = { image: uploadRes.data.path };
+  
+    //console.log(Item,"<===Item")
+    //console.log(uploadRes,"<===uploadRes")
+
+        return uploadRes.data;
 
     } catch (e) {
-
         console.log(e.message);
     }
+
 };
 
 /** 리스트 목록 요청 */
@@ -44,3 +49,17 @@ export async function listViewReq(email){
     return response.data
     //console.log(response.data)
 }
+
+}
+
+
+/** 글등록 API 함수*/
+export async function createDataRegi(email, content, nickname, image, emoji, chooseDate, createdAt, tag) {
+
+       const uploadData = await axios.post(baseUrl+"/api/diary/create",{email: email,content: content, nickname: nickname, image: image, emoji: emoji,chooseDate: chooseDate,createdAt: createdAt,tag: tag})
+       return uploadData.data;
+}
+
+
+
+
