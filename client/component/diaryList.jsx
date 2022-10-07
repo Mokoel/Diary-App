@@ -50,8 +50,6 @@ function DiaryList() {
 
 
 
-  const route = useRoute();
-  const email = ctx.auth.email;
   // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
   if (!ctx.auth) {
     return <></>;
