@@ -41,18 +41,17 @@ function ImagePicker({onImage}) {
         const rst = await launchImageLibraryAsync({
             quality: 0.5,
             allowsEditing: true,
-            //aspect: [16, 9],
+            aspect: [16, 9],
             exif: true,
             base64: true
         });
 
+        console.log(rst)
         if (!rst.cancelled) {
             setImgUri(rst.uri);
-            setImg(rst.uri);
-            setImgBase64(rst.base64);
+            onImage(rst.uri, rst.base64)
         }
 
-        onImage(img, base64data)
         
     }
 
