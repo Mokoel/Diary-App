@@ -1,26 +1,41 @@
-import { useState } from "react";
+// 회원가입 페이지
+
+import { useContext, useState } from "react";
 import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
-import { sendRegisterReq } from "../util/accounts";
+import { checkRegisterReq, sendRegisterReq } from "../util/accounts";
+import { useNavigation } from "@react-navigation/native";
+import { AccountContext } from "../context/context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 function DiaryJoin() {
+
+    const ctx = useContext(AccountContext);
+    const navigation = useNavigation()
     const [loading,setLoading] = useState(false);
     const [nickname,setnickname] = useState()
     const [email,setEmail] = useState()
     const [password,setPassword] = useState()
     const [checkPassword,setCheckPassword] = useState()
 
-    console.log(email)
-
+    
+    
+    /** 이메일 정규식 변수  */
     const regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
+    /** 가입하기 버튼 클릭시 작동 function */
     const registerHandle = ()=>{
         setLoading(true);
 
         !async function(){
         try{
-            if(regex.test(email) &&password==checkPassword){
+            if(regex.test(email) &&password==checkPassword){  // 이메일 형식이 맞고 비밀번호와 재확인 비밀번호가 같으면 
+                // 이메일 중복 체크 넣어야할듯
                 const recv = await sendRegisterReq(nickname,email,password)
                 Alert.alert("앱이름","회원가입이 완료되었습니다.")
+                const recv2 = await checkRegisterReq(email,password)  // 회원가입하면서 동시에 로그인 실행
+                ctx.dispatch({type:"login",payload:recv2})
+                AsyncStorage.setItem("authLoginSave", JSON.stringify(recv2))
+                navigation.navigate("calendar")
                 
             }else if(!nickname){
                 Alert.alert("앱이름","닉네임을 입력해주세요.")

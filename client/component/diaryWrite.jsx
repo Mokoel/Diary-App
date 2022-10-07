@@ -8,6 +8,19 @@ import EmojiComponent from "./emoji";
 
 
 function DiaryWrite() {
+
+ 
+    
+     const route = useRoute();  // 캘린더에서 누른 날짜를 글쓰기 페이지에서 출력하기 위해 씀
+    
+     const navigation = useNavigation()
+     /** 글쓰기 페이지에서 달력아이콘을 누르면 캘린더 출력 */
+     const calendarViewHandle = ()=>{
+        navigation.navigate("calendarView")
+     }
+/** 카메라 버튼 클릭시 갤러리에서 사진 가져오기 스토리지에 파일 생성됨 */
+     const ImageRegiHandle = async (img, base64data)=>{
+
     const [emojimodalShow, setEmojimodalShow] = useState(false);
     const [content, setContent] = useState("");
     const [image, setImage] = useState("");
@@ -26,9 +39,11 @@ function DiaryWrite() {
     /**[서버]스토리지 폴더에 저장*/
     const imageRegiHandle = async (img, base64data) => {
 
+
         let imgdata = await imgStorageRegi(img, base64data);
         setImage(imgdata.path)
     }
+
 
     const contentChangeHandle = (val) => {
         setContent(val)
@@ -48,6 +63,7 @@ function DiaryWrite() {
 
             let data = await createDataRegi(email, content, nickname, image, emoji, route.params, new Date(), tag);
             console.log(data, "등록결과")
+
 
             Alert.alert("Diary","일기 등록에 성공하셨습니다.",[
                 {
@@ -117,7 +133,9 @@ function DiaryWrite() {
                 </View>
             </TouchableWithoutFeedback>
 
+
     );
+
 }
 
 

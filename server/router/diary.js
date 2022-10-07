@@ -16,7 +16,9 @@ import bcrypt from "bcrypt";
 const router = express.Router();
 
 
+
 //1. 이미지 등록 
+
 router.post("/img/:fileName", (req, resp) => {
     console.log(req.headers["content-type"]);
     const base = path.resolve();
