@@ -21,12 +21,14 @@ const authReducer = (state=null, action)=>{
 export function AccountContextProvider({children}){
     // mainpage에서 마운트 될 때 Ayncstorage 확인하기.
     const [auth,dispatch] = useReducer(authReducer,null);
-    const [done,setDone] = useState(false)
+    const [done,setDone] = useState(false);
+    console.log(auth,"???너니")
     useEffect(()=>{
         AsyncStorage.getItem("authLoginSave").then((data)=>{
             if(data){
-                dispatch({type:"login",payload:JSON.parse(data)})
+                dispatch({type:"login", payload:JSON.parse(data)})
             }
+
             setDone(true);
         })
         },[]);
