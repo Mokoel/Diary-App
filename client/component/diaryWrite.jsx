@@ -40,8 +40,8 @@ function DiaryWrite() {
     /**글 등록 데이터: email, content, nickname, image, emoji, chooseDate, createdAt, tag  // !!!필수 데이터: email, content, nickname */
     const createPressHandle = async () => {
 
-        let email = "testyu@naver.com";
-        let nickname = "닉네임1";
+        // let email = "testyu@naver.com";
+        // let nickname = "닉네임1";
 
 
         try {
