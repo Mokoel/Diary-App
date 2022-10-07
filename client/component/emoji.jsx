@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { View, Text, StyleSheet, Modal, Pressable } from 'react-native';
 import EmojiSelector, { Categories } from 'react-native-emoji-selector'
 import { Entypo } from '@expo/vector-icons'; 
+import { ContentContext } from '../context/context';
 function EmojiComponent({ onEmoji }) {
     const [modalVisible, setModalVisible] = useState(false);
-    const [emojiPreview, setEmojiPreview] = useState(null)
+    const [emojiPreview, setEmojiPreview] = useState(null);
+    const contentCtx =  useContext(ContentContext);
+
+
 
     return (
         <View style={styles.outline}>
             <Pressable onPress={() => { setModalVisible(!modalVisible) }} style={{marginTop:10,marginBottom:20}}>
-                <Text style={styles.emojiText}>{emojiPreview !== null ? emojiPreview :<Entypo name="emoji-happy" size={50} color="grey" />}</Text>
+                <Text style={styles.emojiText}>{contentCtx.emojiPreview !== null ? contentCtx.emojiPreview  :<Entypo name="emoji-happy" size={50} color="grey" />}</Text>
             </Pressable>
             <Modal
                 //animationType="fade"
@@ -28,7 +32,8 @@ function EmojiComponent({ onEmoji }) {
                             console.log(emoji);
                             setModalVisible(false);
                             onEmoji(emoji); 
-                            setEmojiPreview(emoji); 
+                            contentCtx.setEmojiPreview(emoji)
+                            //setEmojiPreview(emoji); 
                         }}
                     />
                 </View>

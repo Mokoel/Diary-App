@@ -37,7 +37,7 @@ export async function imgStorageRegi(fileURI, fileData) {
 
 /** 리스트 목록 요청 */
 export async function listViewReq(email){
-    const response = await axios.post("http://192.168.4.93:8080/api/diary/find",
+    const response = await axios.post(baseUrl+"/api/diary/find",
     {
         email:email,
 

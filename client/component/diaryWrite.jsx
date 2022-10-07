@@ -5,11 +5,12 @@ import ImagePicker from "./ImagePicker";
 import { imgStorageRegi, createDataRegi } from "../util/diaryAPI";
 import { useContext, useEffect, useState } from "react";
 import EmojiComponent from "./emoji";
-import { AccountContext } from "../context/context";
+import { AccountContext, ContentContext } from "../context/context";
 
 
 function DiaryWrite() {
     const ctx = useContext(AccountContext);
+    const contentCtx = useContext(ContentContext);
     const route = useRoute();
     const navigation = useNavigation();
     const [content, setContent] = useState("");
@@ -53,10 +54,9 @@ function DiaryWrite() {
                   {
                     text: '확인',
                     onPress: () => {
-                        
+                        contentCtx.setEmojiPreview(null)
+                        contentCtx.setImgPreview(null)
                         setContent("")
-                        setImage("")
-                        setEmoji("")
                         setTag("")
                         navigation.navigate("list")
 
@@ -101,26 +101,26 @@ function DiaryWrite() {
                 <EmojiComponent onEmoji={emojiPressHandle}/>
 
                 <TextInput 
-                placeholder="#태그를 입력해보세요."
+                placeholder="#을 적어서 태그를 입력해보세요."
                 onChangeText={tagChangeHandle}
                 value={tag}
                 />
 
                 <TextInput
-                    placeholder={"글을 입력해주세요!."}
+                    placeholder={"일기를 작성해보세요."}
                     value={content}
                     multiline={true}
                     onChangeText={contentChangeHandle}
                     style={styles.input}
                 />
+
                 <View style={styles.imgBox}>
 
-                <ImagePicker onImage={imageRegiHandle} />
+                <ImagePicker onImage={imageRegiHandle}/>
                 </View>
                 <Pressable>
                     <Button onPress={createPressHandle} title="입력"></Button>
                 </Pressable>
-        
                 </View>
             </TouchableWithoutFeedback>
 

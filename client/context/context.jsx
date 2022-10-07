@@ -6,6 +6,7 @@ import Loading from "../component/loading";
 
 //컨텍스트 생성
 export const AccountContext = createContext({});
+export const ContentContext = createContext({});
 
 const authReducer = (state=null, action)=>{
     switch (action.type){
@@ -42,6 +43,20 @@ export function AccountContextProvider({children}){
     return(<AccountContext.Provider value={{auth, dispatch}}>
         {children}
     </AccountContext.Provider>)
+
+
+}
+
+
+
+
+export function ContentContextProvider({children}){
+   const [emojiPreview, setEmojiPreview] = useState(null);
+   const [imgPreview, setImgPreview] = useState(null);
+
+    return(<ContentContext.Provider value={{emojiPreview, setEmojiPreview,imgPreview, setImgPreview}}>
+        {children}
+    </ContentContext.Provider>)
 
 
 }
