@@ -16,21 +16,21 @@ import bcrypt from "bcrypt";
 const router = express.Router();
 
 
-//1. 이미지 등록 -> 테스트 해보기.
-router.post("/:fileName", (req, resp) => {
+//1. 이미지 등록 
+router.post("/img/:fileName", (req, resp) => {
     console.log(req.headers["content-type"]);
     const base = path.resolve();
 
     const wsStream = fs.createWriteStream(path.join(base, "storage", "img", req.params.fileName ));
 
     req.pipe(wsStream);
+    
     try{
         resp.json({result:true, path:"http://192.168.4.25:8080/storage/img/" + req.params.fileName});
 
     }catch(err){
         resp.json({result:false , msg:"사진 등록에 실패했습니다."})
     }
-  
 
 })
 
@@ -75,6 +75,7 @@ router.post("/tagFind", async (req, resp) => {
 //글등록
 //경로:/api/diary/create
 router.post("/create", async (req, resp) => {
+console.log(req.body,"<==")
     console.log(req.body.image,"<==createBody>")
     let recordData = {
         email: req.body.email,

@@ -26,7 +26,9 @@ app.use(express.json());
 
 //코스 오류방지
 app.use(cors());
-app.use("/api/diary",express.static("storage"));
+
+
+app.use("/storage",express.static("storage"));
 
 //경로 불러오기
 app.use("/api/account", account)
