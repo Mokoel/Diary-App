@@ -3,22 +3,20 @@ import { Button, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedbac
 import { Ionicons } from '@expo/vector-icons';
 import ImagePicker from "./ImagePicker";
 import { imgStorageRegi, createDataRegi } from "../util/diaryAPI";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import EmojiComponent from "./emoji";
+import { AccountContext } from "../context/context";
 
 
 function DiaryWrite() {
-
+    const ctx = useContext(AccountContext);
     const route = useRoute();
     const navigation = useNavigation();
-
-    const [emojimodalShow, setEmojimodalShow] = useState(false);
     const [content, setContent] = useState("");
     const [image, setImage] = useState("");
     const [emoji, setEmoji] = useState(null);
-    //const [chooseDate, setChooseDate] = useState("");
-    const [tag, setTag] = useState("");
-    
+    const [tag, setTag] = useState([]);
+    console.log(ctx.auth)
      /** 글쓰기 페이지에서 달력아이콘을 누르면 캘린더 출력 */
      const calendarViewHandle = ()=>{
         navigation.navigate("calendarView")
@@ -40,13 +38,8 @@ function DiaryWrite() {
     /**글 등록 데이터: email, content, nickname, image, emoji, chooseDate, createdAt, tag  // !!!필수 데이터: email, content, nickname */
     const createPressHandle = async () => {
 
-        let email = "testyu@naver.com";
-        let nickname = "닉네임1";
-
-
         try {
-
-            let data = await createDataRegi(email, content, nickname, image, emoji, route.params, new Date(), tag);
+            let data = await createDataRegi(ctx.auth?.email, content, ctx.auth?.nickname, image, emoji, route.params, new Date(), tag);
             console.log(data, "등록결과")
 
 
@@ -59,7 +52,13 @@ function DiaryWrite() {
                   {
                     text: '확인',
                     onPress: () => {
-                        return navigation.navigate("list")
+                        
+                        setContent("")
+                        setImage("")
+                        setEmoji("")
+                        setTag("")
+                        navigation.navigate("list")
+
                     }
                   }
             ])
@@ -80,8 +79,13 @@ function DiaryWrite() {
     }
 
     const tagChangeHandle = (val)=>{
-        setTag(val)
+        let tagArr=val.split("#");
+        setTag(tagArr);
     }
+
+
+
+
     return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
   
@@ -109,6 +113,7 @@ function DiaryWrite() {
                     style={styles.input}
                 />
                 <View style={styles.imgBox}>
+
                 <ImagePicker onImage={imageRegiHandle} />
                 </View>
                 <Pressable>

@@ -5,11 +5,8 @@ import { Buffer } from "buffer";
 let baseUrl = "http://192.168.4.25:8080"
 
 export async function imgStorageRegi(fileURI, fileData) {
-console.log(fileURI)
 
     const fileName = fileURI.substring(fileURI.lastIndexOf("/") + 1);
-    console.log(fileName);
-
 
     try {
 
@@ -29,9 +26,6 @@ console.log(fileURI)
         /**이미지 출력이 가능한 이미지url */
         const Item = { image: uploadRes.data.path };
   
-    //console.log(Item,"<===Item")
-    //console.log(uploadRes,"<===uploadRes")
-
         return uploadRes.data;
 
     } catch (e) {
@@ -40,25 +34,49 @@ console.log(fileURI)
 
 };
 
+
 /** 리스트 목록 요청 */
 export async function listViewReq(email){
     const response = await axios.post("http://192.168.4.93:8080/api/diary/find",
     {
         email:email,
+
     });
-    return response.data
-    //console.log(response.data)
+
+    return response.data;
+   
 }
 
 
-
-/** 글등록 API 함수*/
+/** 글등록 API */
 export async function createDataRegi(email, content, nickname, image, emoji, chooseDate, createdAt, tag) {
 
-       const uploadData = await axios.post(baseUrl+"/api/diary/create",{email: email,content: content, nickname: nickname, image: image, emoji: emoji,chooseDate: chooseDate,createdAt: createdAt,tag: tag})
+       const uploadData = await axios.post(baseUrl+"/api/diary/create",{email: email,content: content, nickname: nickname, image: image, emoji: emoji,chooseDate: chooseDate,createdAt: createdAt,tag: tag});
+
        return uploadData.data;
 }
 
 
+/**글 수정 API */
+export async function createUpdate(_id, email, content, nickname, image, emoji, chooseDate, createdAt, tag){
+
+    const uploadData = await axios.post(baseUrl+"/api/diary/update",{email: email,content: content, nickname: nickname, image: image, emoji: emoji,chooseDate: chooseDate,createdAt: createdAt,tag: tag});
+
+    return uploadData.data;
+}
 
 
+/**글 삭제 API */
+export async function contentDelete(_id){
+    const contentDelete = await axios.post(baseUrl+"/api/diary/update",{_id:_id});
+
+    return contentDelete.data;
+}
+
+
+/**태그검색 API */
+export async function tagFind(tag){
+    const findTagRes = await axios.post(baseUrl+"/api/diary/tagFind",{tag:tag,email:email});
+
+    return findTagRes.data;
+}

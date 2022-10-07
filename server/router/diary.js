@@ -1,9 +1,3 @@
-//삭제
-//수정
-//등록
-
-//넣어줘야하는거.
-
 
 
 import express from "express";
@@ -17,8 +11,7 @@ const router = express.Router();
 
 
 
-//1. 이미지 등록 
-
+//1. 이미지 등록
 router.post("/img/:fileName", (req, resp) => {
     console.log(req.headers["content-type"]);
     const base = path.resolve();
@@ -41,16 +34,16 @@ router.post("/img/:fileName", (req, resp) => {
 
 //2. (다이어리) find해서 리스트로 보이게.
 router.post("/find", async (req, resp) => {
-    //받아올 바디값 : 태그값(아직 안 정함), 등록날짜 , 이메일
+    //받아올 바디값 :  등록날짜 , 이메일
     let { chooseDate, email, tag } = req.body;
 
-    //tag array로 들어오니까 set함수로 중복값 없애고, 그 갯수가 length가 10이 넘어가면 false. 그럼 글 등록 실패.
 
     try {
         let findDiaryData = await diarySchema.find({ email }).sort({ chooseDate }).lean();
         resp.status(200).json({ result: true, data: findDiaryData });
 
     } catch (err) {
+
         resp.status(400).json({ result: false, message: "작성된 글을 찾아올 수 없습니다." });
     }
 })
@@ -78,7 +71,7 @@ router.post("/tagFind", async (req, resp) => {
 //경로:/api/diary/create
 router.post("/create", async (req, resp) => {
 console.log(req.body,"<==")
-    console.log(req.body.image,"<==createBody>")
+    console.log(req.body.image,"<==createBody")
     let recordData = {
         email: req.body.email,
         content: req.body.content,
