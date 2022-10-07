@@ -3,8 +3,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
-import { Alert, Button, Text } from "react-native";
+import { Alert, Button, StyleSheet, Text, View } from "react-native";
 import { AccountContext } from "../context/context";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 function DiaryInfo() {
     const navigation = useNavigation()
@@ -27,11 +28,37 @@ function DiaryInfo() {
     }
 
     return ( 
-        <>
-        <Text>내정보</Text>
-        <Button onPress={logoutHandle} title="로그아웃"/>
-        </>
+      
+      <View style={{flex:1}}>
+        <View style={styles.container}>
+        
+        <Text style={styles.font} >e-mail <MaterialCommunityIcons name="email-outline" size={16} /> : {ctx.auth.email}</Text>
+        <Text style={styles.font} >e-mail <MaterialCommunityIcons name="email-outline" size={16} /> : {ctx.auth.nickname}</Text>
+
+
+        <View style={{marginTop:30}}>
+        <Button onPress={logoutHandle} title={"로그아웃"}/>
+        </View>
+        </View>
+        </View>
+       
      );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    textAlign:"center",
+    justifyContent:"center",
+    alignItems:"center",
+    fontFamily:"GamjaFlower",
+},
+font :{
+  fontFamily:"GamjaFlower",
+  fontSize:18,
+  marginBottom:10,
+  marginTop:10,
+},
+  });
 
 export default DiaryInfo;

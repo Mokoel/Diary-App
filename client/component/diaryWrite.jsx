@@ -38,6 +38,7 @@ function DiaryWrite() {
     /**글 등록 데이터: email, content, nickname, image, emoji, chooseDate, createdAt, tag  // !!!필수 데이터: email, content, nickname */
     const createPressHandle = async () => {
 
+
         try {
             let data = await createDataRegi(ctx.auth?.email, content, ctx.auth?.nickname, image, emoji, route.params, new Date(), tag);
             console.log(data, "등록결과")
