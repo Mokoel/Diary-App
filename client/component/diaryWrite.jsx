@@ -8,17 +8,22 @@ import { useEffect } from "react";
 
 function DiaryWrite() {
  
-     const route = useRoute();
-
+    
+     const route = useRoute();  // 캘린더에서 누른 날짜를 글쓰기 페이지에서 출력하기 위해 씀
+    
      const navigation = useNavigation()
+     /** 글쓰기 페이지에서 달력아이콘을 누르면 캘린더 출력 */
      const calendarViewHandle = ()=>{
         navigation.navigate("calendarView")
      }
-
+/** 카메라 버튼 클릭시 갤러리에서 사진 가져오기 스토리지에 파일 생성됨 */
      const ImageRegiHandle = async (img, base64data)=>{
         let imgdata = await imgStorageRegi(img, base64data);
     }
-
+/** 입력버튼 클릭시 글등록 완료 후 리스트 페이지로 이동 */
+    const listShowHandle = ()=>{
+        navigation.navigate("list",{email:route.params})
+    }
 
     return ( 
         <>
@@ -36,7 +41,7 @@ function DiaryWrite() {
             
             <View style={{flex:1}}>
 
-            <Image source={require("../assets/clouds.jpg")} style={{width:180,height:180,marginLeft:"5%"}}/>
+            
             <Pressable  android_ripple={{color:"lightblue",borderless:true,}}>
             <View style={{alignItems:"flex-end"}}>
                 <Ionicons size={24} name="camera-outline" />
@@ -44,7 +49,7 @@ function DiaryWrite() {
             </Pressable>
             </View>
             <ImagePicker onImage={ImageRegiHandle}/>
-            <Button title="입력"></Button>
+            <Button onPress={listShowHandle} title="입력"></Button>
         </>
      );
 }

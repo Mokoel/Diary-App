@@ -17,7 +17,7 @@ const router = express.Router();
 
 
 //1. 이미지 등록 -> 테스트 해보기.
-router.post("/:fileName", (req, resp) => {
+router.post("/img/:fileName", (req, resp) => {
     console.log(req.headers["content-type"]);
     const base = path.resolve();
 

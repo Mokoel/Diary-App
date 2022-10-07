@@ -31,7 +31,7 @@ router.post("/auth", async (req, resp) => {
             let token = jwt.sign({ email: findUserEmail }, process.env.SECRET_KEY);
 
             //[로그인 성공 시]client쪽으로 토큰 보내주기.
-            resp.status(200).json({ result: true, message: "로그인에 성공하셨습니다.", token })
+            resp.status(200).json({ result: true, message: "로그인에 성공하셨습니다.", token , email:email })
 
 
             //비밀번호가 틀리면

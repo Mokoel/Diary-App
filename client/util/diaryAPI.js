@@ -9,7 +9,7 @@ export async function imgStorageRegi(fileURI, fileData /* 각각 등록하는 �
     console.log(fileName);
 
     try{
-        const storageURI = `${baseUrl/*dog, memories 등등*/}/api/diary/${fileName}`;
+        const storageURI = `${baseUrl/*dog, memories 등등*/}/api/diary/img/${fileName}`;
 
         const uploadRes = await axios({
             url: storageURI,
@@ -34,3 +34,13 @@ export async function imgStorageRegi(fileURI, fileData /* 각각 등록하는 �
         console.log(e.message);
     }
 };
+
+/** 리스트 목록 요청 */
+export async function listViewReq(email){
+    const response = await axios.post("http://192.168.4.93:8080/api/diary/find",
+    {
+        email:email,
+    });
+    return response.data
+    //console.log(response.data)
+}

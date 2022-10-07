@@ -13,6 +13,7 @@ import DiaryLogin from './component/diaryLogin';
 import DiaryJoin from './component/diaryJoin';
 import DiaryInfo from './component/diaryInfo';
 import { useContext } from 'react';
+import { AccountContext, AccountContextProvider } from './context/context';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -35,12 +36,6 @@ export default function App() {
         </Stack.Navigator>)
   }
 
-  function SettingNavigator(){
-    return (
-        <Stack.Navigator>
-        <Stack.Screen name="diarySet" component={SettingScreen} options={{title:"로그인",headerTitleStyle:{fontFamily:"GamjaFlower"}}}/>
-        </Stack.Navigator>)
-  }
 
   
   function GuestStackNavigator(){
@@ -60,7 +55,7 @@ export default function App() {
   
   function AccountStackNavigator(){
     //const ctx = useContext(AppContext)  //use가 붙은 hook은 함수형컴포넌트에서만 사용가능
-    const ctx = {auth:false}
+    const ctx = useContext(AccountContext)
     return (
        <>
        {ctx.auth ? <MemberStackNavigator/>:<GuestStackNavigator/>}
@@ -79,7 +74,7 @@ export default function App() {
   return (
       <>
         <StatusBar style="auto" />
-    
+        <AccountContextProvider>
       <NavigationContainer>
       <Tab.Navigator>
           <Tab.Screen name="calendar" component={CalendarNavigator} options={{title:"캘린더",headerShown:false,headerTitleStyle:{fontFamily:"GamjaFlower"},
@@ -92,7 +87,7 @@ export default function App() {
         </Tab.Navigator>
       </NavigationContainer>
       
-    
+      </AccountContextProvider>
     </>
   );
 }
