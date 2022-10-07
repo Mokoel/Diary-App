@@ -22,6 +22,8 @@ function CalendarView({route}) {
       date: "2022-10-07",
     }
   ];
+
+  
   const markedDates = posts.reduce((acc, current) => {
     const formattedDate = format(new Date(current.date), 'yyyy-MM-dd');
     acc[formattedDate] = {marked: true};

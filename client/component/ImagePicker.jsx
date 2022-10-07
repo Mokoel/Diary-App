@@ -1,14 +1,16 @@
 import { View, Text, Pressable, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useCameraPermissions, useMediaLibraryPermissions, PermissionStatus, launchImageLibraryAsync } from "expo-image-picker";
 import { sendData } from "../util/diaryAPI";
+import { ContentContext } from "../context/context";
 
 
 
 
 
-function ImagePicker({onImage}) {
+function ImagePicker({onImage, onPreview}) {
+    const contentCtx = useContext(ContentContext);
     const [imgUri, setImgUri] = useState(null);
     const [img, setImg] = useState(null);
     const [base64data, setImgBase64] = useState(null);
@@ -48,8 +50,9 @@ function ImagePicker({onImage}) {
 
         //console.log(rst)
         if (!rst.cancelled) {
-            setImgUri(rst.uri);
+            contentCtx.setImgPreview(rst.uri);
             onImage(rst.uri, rst.base64)
+            onPreview(rst.uri)
         }
 
     }
@@ -57,7 +60,7 @@ function ImagePicker({onImage}) {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.imagePreviewBox}>
-                {imgUri && <Image source={{ uri: imgUri }} style={{ flex: 1 }} />}
+                {contentCtx.imgPreview !== null ? <Image source={{ uri: contentCtx.imgPreview }} style={{ flex: 1 }} /> :null}
             </View>
             <TouchableOpacity onPress={albumPressHandle}>
                 <Ionicons name="image-outline" size={24} color="black" />
