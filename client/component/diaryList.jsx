@@ -14,10 +14,42 @@ import { AccountContext } from "../context/context";
 import { listViewReq } from "../util/diaryAPI";
 
 function DiaryList() {
-  const ctx = useContext(AccountContext);
-  const focused = useIsFocused();
+
+ 
   const [refresh, setRefresh] = useState(false);
-  const [listData, setListData] = useState([]);
+
+    const ctx = useContext(AccountContext)
+    const focused = useIsFocused();
+    const [listData,setListData] = useState([])
+    const route = useRoute();
+    const email = ctx.auth.email;
+    // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
+    if(!ctx.auth){  
+    return <>
+    </>
+}
+    console.log("email!!!!!!!",email)
+
+    useEffect(() => {
+        try{
+
+            if (focused) {
+                // updateItems();
+                ( async () => {
+                    //const newArr = [];
+                    const datas = await listViewReq(email);
+                    
+                    //newArr.push(datas);
+                    setListData([...datas]);
+                    console.log("!~~~~~~~~~~~~~~~~~~~~~~~:",listData)
+                })      
+            }
+        }catch(e){console.log(e)}
+        }, [focused]);
+        
+        console.log(listData)
+
+
 
   const route = useRoute();
   const email = ctx.auth.email;

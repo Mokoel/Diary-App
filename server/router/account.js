@@ -18,25 +18,30 @@ router.post("/auth", async (req, resp) => {
 
     //아이디 찾아오기.
     let findUserEmail = await accountSchema.findOne({ email });
-
+    console.log(findUserEmail)
+    
     //(찾아온 데이터가 있으면)찾아온거에서 비밀번호 맞는지 체크(암호화된거 확인)
-    if (findUserEmail) {
 
+    if (findUserEmail) {
+        
+   
         //암호화된거 비교하기
         let pswdChk = bcrypt.compareSync(password, findUserEmail.password);
-        
+
         //비밀번호가 맞으면 -> 토큰생성(암호화키는 lastpass에서 받아옴)
         if (pswdChk) {
             //토큰생성 -> 페이로드는 이메일, 시크릿키
             let token = jwt.sign({ email: findUserEmail }, process.env.SECRET_KEY);
 
             //[로그인 성공 시]client쪽으로 토큰 보내주기.
-            resp.status(200).json({ result: true, message: "로그인에 성공하셨습니다.", token , email:email })
+            resp.status(200).json({ result: true, message: "로그인에 성공하셨습니다.", token , email: findUserEmail.email, nickname: findUserEmail.nickname })
 
 
             //비밀번호가 틀리면
         } else if (!pswdChk) {
+
             resp.status(400).json({ result: false, message: "비밀번호를 확인해주세요." })
+
         }
 
 

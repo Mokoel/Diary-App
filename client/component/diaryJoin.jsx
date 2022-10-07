@@ -1,7 +1,7 @@
 // 회원가입 페이지
 
 import { useContext, useState } from "react";
-import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, Button, StyleSheet, Text, TextInput, View ,TouchableWithoutFeedback,Keyboard} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { checkRegisterReq, sendRegisterReq } from "../util/accounts";
 import { useNavigation } from "@react-navigation/native";
@@ -44,6 +44,7 @@ function DiaryJoin() {
             }else{
                 Alert.alert("앱이름","비밀번호가 같지 않습니다.")
             }
+
         }catch(e){
         Alert.alert("앱이름","회원가입이 처리되지 않았습니다.")
         console.log(e)
@@ -53,8 +54,8 @@ function DiaryJoin() {
 }
 
     return ( 
-        <>
-        
+
+         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
         <Text style={{marginBottom:10}}>
 
@@ -73,7 +74,7 @@ function DiaryJoin() {
         
         </View >
 
-        </>
+        </TouchableWithoutFeedback>
      );
 }
 

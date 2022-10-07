@@ -22,7 +22,7 @@ export function AccountContextProvider({children}){
     // mainpage에서 마운트 될 때 Ayncstorage 확인하기.
     const [auth,dispatch] = useReducer(authReducer,null);
     const [done,setDone] = useState(false);
-    console.log(auth,"???너니")
+
     useEffect(()=>{
         AsyncStorage.getItem("authLoginSave").then((data)=>{
             if(data){
