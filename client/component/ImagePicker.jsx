@@ -14,6 +14,7 @@ function ImagePicker({onImage}) {
     const [base64data, setImgBase64] = useState(null);
     const [cameraStatus, requestCameraPermission] = useCameraPermissions();
     const [albumStatus, requestAlbumPermission] = useMediaLibraryPermissions();
+    /**라이브러리로 접근 */
     const albumPressHandle = async () => {
 
 
@@ -33,7 +34,6 @@ function ImagePicker({onImage}) {
             return;
         }
 
-
         /**권한요청 */
         requestAlbumPermission();
 
@@ -46,15 +46,13 @@ function ImagePicker({onImage}) {
             base64: true
         });
 
-        console.log(rst)
+        //console.log(rst)
         if (!rst.cancelled) {
             setImgUri(rst.uri);
             onImage(rst.uri, rst.base64)
         }
 
-        
     }
-
 
     return (
         <View style={{ flex: 1 }}>
@@ -72,11 +70,12 @@ const styles = StyleSheet.create({
     imagePreviewBox: {
         flex: 1,
         backgroundColor: "white",
-        maxHeight: 250,
+        height: 200,
+        width: 200,
         marginHorizontal: 10,
         marginTop: 10,
         justifyContent: "center",
-        borderRadius: 10
+        borderRadius: 20
 
     }
 });
