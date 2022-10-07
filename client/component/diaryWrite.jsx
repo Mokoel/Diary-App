@@ -46,11 +46,7 @@ function DiaryWrite() {
 
 
             Alert.alert("Diary","일기 등록에 성공하셨습니다.",[
-                {
-                    text: '취소',
-                    onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel'
-                  },
+
                   {
                     text: '확인',
                     onPress: () => {
