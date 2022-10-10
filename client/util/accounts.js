@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-let baseUrl = "http://192.168.4.93:8080"
+let baseUrl = "http://192.168.55.184:8080"
 /** 회원가입 api요청*/
 export async function sendRegisterReq(nickname,email,password){
 

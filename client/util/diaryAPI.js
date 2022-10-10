@@ -2,7 +2,7 @@ import axios from "axios";
 import { Buffer } from "buffer";
 
 /** 이미지등록 API 함수*/
-let baseUrl = "http://192.168.4.93:8080"
+let baseUrl = "http://192.168.55.184:8080"
 
 export async function imgStorageRegi(fileURI, fileData) {
 
@@ -68,7 +68,7 @@ export async function createUpdate(_id, email, content, nickname, image, emoji, 
 
 /**글 삭제 API */
 export async function contentDelete(_id){
-    const contentDelete = await axios.post(baseUrl+"/api/diary/update",{_id:_id});
+    const contentDelete = await axios.post(baseUrl+"/api/diary/delete",{_id:_id});
 
     return contentDelete.data;
 }

@@ -1,6 +1,6 @@
 // 다이어리 리스트 페이지
 
-import { useIsFocused, useRoute } from "@react-navigation/native";
+import { useIsFocused, useNavigation, useRoute } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
 import {
   FlatList,
@@ -12,42 +12,38 @@ import {
 } from "react-native";
 import { AccountContext } from "../context/context";
 import { listViewReq } from "../util/diaryAPI";
+import ListItem from "./listItem";
 
 function DiaryList() {
-
- 
   const [refresh, setRefresh] = useState(false);
+  const ctx = useContext(AccountContext);
+  const navigation = useNavigation();
+  const focused = useIsFocused();
+  const [listData, setListData] = useState([]);
+  const email = ctx?.auth.email;
+  // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
+  if (!ctx.auth) {
+    return <></>;
+  }
+  //console.log("email!!!!!!!", email);
 
-    const ctx = useContext(AccountContext)
-    const focused = useIsFocused();
-    const [listData,setListData] = useState([])
+  useEffect(() => {
+    try {
+      if (focused) {
+        // updateItems();
+        async () => {
+          //const newArr = [];
+          const datas = await listViewReq(email);
 
-    // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
-    if(!ctx.auth){  
-    return <>
-    </>
-}
-    console.log("email!!!!!!!",email)
-
-    useEffect(() => {
-        try{
-
-            if (focused) {
-                // updateItems();
-                ( async () => {
-                    //const newArr = [];
-                    const datas = await listViewReq(email);
-                    
-                    //newArr.push(datas);
-                    setListData([...datas]);
-                    console.log("!~~~~~~~~~~~~~~~~~~~~~~~:",listData)
-                })      
-            }
-        }catch(e){console.log(e)}
-        }, [focused]);
-        
-        console.log(listData)
-
+          //newArr.push(datas);
+          setListData([...datas]);
+          console.log("!~~~~~~~~~~~~~~~~~~~~~~~:", listData);
+        };
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, [focused]);
 
 
   // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
@@ -55,12 +51,13 @@ function DiaryList() {
     return <></>;
   }
 
-  console.log("email!!!!!!!", email);
+  //console.log("email!!!!!!!", email);
+  /** 일기 데이터 목록*/
   async function findDatas() {
     try {
       const datas = await listViewReq(email);
       setListData(datas.data);
-      console.log("ddddddddddddddddd", listData.data);
+      
     } catch (e) {
       console.log(e);
     }
@@ -69,8 +66,13 @@ function DiaryList() {
   useEffect(() => {
     findDatas();
   }, [focused]);
+  
+  /** 리스트 목록 누르면 디테일창으로 이동 */
+  const listDetailHandle =(elm)=>{ 
+    navigation.navigate("listDetail",{datas:listData,index:elm})
+  }
 
-  console.log(listData);
+  //console.log("aaaaaaaaaaaaa",listData);
   return (
     <View style={styles.container}>
       <Text>😊😁😍😒🤩</Text>
@@ -86,26 +88,7 @@ function DiaryList() {
           setRefresh(false);
         }}
         renderItem={({ index, item }) => {
-          return (
-            // component로 수정예정
-            <View>
-                <Text>{item.chooseDate}</Text>
-              <View
-                style={{
-                  backgroundColor: "green",
-                  borderRadius: 5,
-                  height: 70,
-                  borderWidth: 1,
-                  borderRadius: 5,
-                }}
-              >
-                <View style={{ marginLeft: 10, marginTop: 5 }}>
-                  <Text>{item.emoji}</Text>
-                  <Text>{item.content}</Text>
-                </View>
-              </View>
-            </View>
-          );
+          return <ListItem item={item} onPress={()=>listDetailHandle(index)}/>
         }}
       />
     </View>
