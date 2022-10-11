@@ -44,8 +44,11 @@ function CalendarView() {
   /**포커싱될 때 데이터 파인드 해주기. */
   useEffect(() => {
     data();
+
     if (diarydata !== null) {
+
       let data = diarydata.map((one) => {
+        
         return {
           id: one._id,
           nickname: one.nickname,
@@ -106,9 +109,11 @@ console.log("diarydata!!!!!!!!!!!!!!!!!",diarydata)
     if(dateItem.length == 0){
       navigation.navigate("diaryWrite", [selectedDate]);
     }else if(dateItem.length >= 1 ){
+
       console.log("dateItem!!!!!!!!!!!!!!!",dateItem)
       navigation.navigate(
       "calendar", { screen: "diaryWrite-yu", params: {item:dateItem} })
+
     }
 
   },[selectedDate])
