@@ -122,6 +122,7 @@ function DiaryWrite() {
 
                             <TextInput
                                 placeholder={"일기를 작성해보세요."}
+                               // placeholderTextColor={"black"}
                                 value={content}
                                 multiline={true}
                                 onChangeText={contentChangeHandle}
@@ -196,12 +197,14 @@ const styles = StyleSheet.create({
     },
     input: {
         color: "#333",
+        //backgroundColor:"red",
         minWidth: "90%",
         fontFamily: "GamjaFlower",
         fontSize: 20,
         paddingLeft: 10,
         marginBottom: 30,
-        minHeight: "55%",
+        minHeight: 300,
+        
     },
     emoji: {
         fontSize: 40,

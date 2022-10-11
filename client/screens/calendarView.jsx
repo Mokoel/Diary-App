@@ -28,8 +28,8 @@ function CalendarView() {
   async function data() {
 
     try {
-      if (accountCtx.auth.email) {
-        let dataRst = await listViewReq(accountCtx.auth.email);
+      if (accountCtx?.auth.email) {
+        let dataRst = await listViewReq(accountCtx?.auth.email);
         setDiarydata(dataRst.data)
       } else {
         return;

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Buffer } from "buffer";
 
 /** 이미지등록 API 함수*/
-let baseUrl = "http://192.168.0.28:8080"
+let baseUrl = "http://192.168.4.25:8080"
 
 export async function imgStorageRegi(fileURI, fileData) {
 
