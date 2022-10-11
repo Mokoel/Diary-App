@@ -8,7 +8,7 @@ const diarySchema = new mongoose.Schema({
     emoji: String,
     chooseDate: Date,
     createdAt: Date,
-    tag: [String]
+    tag: {type:Array, trim:true}
 });
 
 export default mongoose.model("diary", diarySchema);
