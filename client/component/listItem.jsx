@@ -1,16 +1,16 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useContext, useEffect } from "react";
 import { Alert, Pressable, Text, View } from "react-native";
 import { AccountContext } from "../context/context";
 import { contentDelete } from "../util/diaryAPI";
 
-function ListItem({ item}) {
-
+function ListItem({item , navigation }) {
+ // const route = useRoute();
 
     
   //console.log("item!!!!!",item)
   const ctx = useContext(AccountContext);
-  const navigation = useNavigation();
+ // const navigation = useNavigation();
 
   const modifyHandle = () => {
     navigation.navigate("modifyList");
@@ -42,7 +42,12 @@ function ListItem({ item}) {
   };
 
   const detailPressHandle = ()=>{
-    navigation.navigate("listDetail",{item:item})
+    if(item){
+     //console.log(item,"???????????????")
+      navigation.navigate("listDetail", {data: item})
+    }
+   
+
   }
 
   return (
