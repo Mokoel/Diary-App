@@ -27,6 +27,7 @@ function DiaryList() {
   }
   //console.log("email!!!!!!!", email);
 
+
   useEffect(() => {
     try {
       if (focused) {
@@ -51,11 +52,12 @@ function DiaryList() {
     return <></>;
   }
 
+
   //console.log("email!!!!!!!", email);
   /** 일기 데이터 목록*/
   async function findDatas() {
     try {
-      const datas = await listViewReq(email);
+      const datas = await listViewReq(ctx.auth.email);
       setListData(datas.data);
       
     } catch (e) {

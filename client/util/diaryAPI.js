@@ -2,7 +2,9 @@ import axios from "axios";
 import { Buffer } from "buffer";
 
 /** 이미지등록 API 함수*/
-let baseUrl = "http://192.168.55.184:8080"
+
+let baseUrl = "http://192.168.4.25:8080"
+
 
 export async function imgStorageRegi(fileURI, fileData) {
 
@@ -75,7 +77,7 @@ export async function contentDelete(_id){
 
 
 /**태그검색 API */
-export async function tagFind(tag){
+export async function tagFind(email,tag){
     const findTagRes = await axios.post(baseUrl+"/api/diary/tagFind",{tag:tag,email:email});
 
     return findTagRes.data;
