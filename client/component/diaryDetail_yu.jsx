@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { AccountContext } from "../context/context";
 import { tagFind } from "../util/diaryAPI";
-function DiaryDetail() {
+function DiaryDetail_yu() {
   const [searchTag,setSearchTag] = useState("");
   const accountCtx = useContext(AccountContext);
   let route = useRoute();
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
  },
  miniHeader:{
    flexDirection:"row",
-   justifyContent:"left"
+   
  },
  headerTextBox:{
    //backgroundColor:"red",
@@ -128,4 +128,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default DiaryDetail;
+export default DiaryDetail_yu;
