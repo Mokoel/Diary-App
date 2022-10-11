@@ -9,7 +9,7 @@ import { ContentContext } from "../context/context";
 
 
 
-function ImagePicker({onImage, onPreview}) {
+function ImagePicker({ onImage }) {
     const contentCtx = useContext(ContentContext);
     const [imgUri, setImgUri] = useState(null);
     const [img, setImg] = useState(null);
@@ -52,34 +52,26 @@ function ImagePicker({onImage, onPreview}) {
         if (!rst.cancelled) {
             contentCtx.setImgPreview(rst.uri);
             onImage(rst.uri, rst.base64)
-            onPreview(rst.uri)
+
         }
 
     }
 
     return (
-        <View style={{ flex: 1 }}>
-            <View style={styles.imagePreviewBox}>
-                {contentCtx.imgPreview !== null ? <Image source={{ uri: contentCtx.imgPreview }} style={{ flex: 1 }} /> :null}
-            </View>
-            <TouchableOpacity onPress={albumPressHandle}>
+            <TouchableOpacity onPress={albumPressHandle} style={styles.imgPicker}>
                 <Ionicons name="image-outline" size={24} color="black" />
             </TouchableOpacity>
-        </View>);
+        );
 }
 
 
 const styles = StyleSheet.create({
-    imagePreviewBox: {
-        flex: 1,
-        backgroundColor: "white",
-        height: 200,
-        width: 200,
-        marginHorizontal: 10,
-        marginTop: 10,
-        justifyContent: "center",
-        borderRadius: 20
-
+    imgPicker:{
+        backgroundColor:"#d0d0d0",
+        paddingVertical:5,
+        paddingHorizontal:8,
+        borderRadius:10,
+        alignItems:"center",    
     }
 });
 export default ImagePicker;

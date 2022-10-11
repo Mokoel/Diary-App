@@ -25,7 +25,9 @@ export function AccountContextProvider({children}){
     const [done,setDone] = useState(false);
 
     useEffect(()=>{
+
         AsyncStorage.getItem("authLoginSave").then((data)=>{
+            
             if(data){
                 dispatch({type:"login", payload:JSON.parse(data)})
             }
