@@ -20,30 +20,31 @@ function DiaryList() {
   const navigation = useNavigation();
   const focused = useIsFocused();
   const [listData, setListData] = useState([]);
-  const email = ctx?.auth.email;
+  const email = ctx?.auth?.email;
   // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
-  if (!ctx.auth) {
+  if (!ctx?.auth) {
     return <></>;
   }
   //console.log("email!!!!!!!", email);
 
-
-  useEffect(() => {
-    try {
-      if (focused) {
+  async function emailFind(){
+    if (focused) {
+        try {
         // updateItems();
-        async () => {
+        
           //const newArr = [];
           const datas = await listViewReq(email);
 
           //newArr.push(datas);
           setListData([...datas]);
-          console.log("!~~~~~~~~~~~~~~~~~~~~~~~:", listData);
-        };
+        } catch (e) {
+          console.log(e);
       }
-    } catch (e) {
-      console.log(e);
     }
+  }
+
+  useEffect(() => {
+    emailFind()
   }, [focused]);
 
 
@@ -57,7 +58,7 @@ function DiaryList() {
   /** 일기 데이터 목록*/
   async function findDatas() {
     try {
-      const datas = await listViewReq(ctx.auth.email);
+      const datas = await listViewReq(ctx?.auth?.email);
       setListData(datas.data);
       
     } catch (e) {

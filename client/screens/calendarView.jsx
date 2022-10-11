@@ -66,7 +66,7 @@ function CalendarView() {
     }
 
   }, [isfocused, accountCtx.auth?.email])
-console.log("diarydata!!!!!!!!!!!!!!!!!",diarydata)
+
 
   /**날짜 밑에 점 찍어주는 변수*/
   const markedDates = posts?.reduce((acc, current) => {
