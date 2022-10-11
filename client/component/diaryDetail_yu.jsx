@@ -4,12 +4,16 @@ import { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, Modal, Pressable, TouchableOpacity, ScrollView } from "react-native";
 import { AccountContext } from "../context/context";
 import { tagFind } from "../util/diaryAPI";
+
+
 import CustomButton from "./customButton";
 
 function DiaryDetail_yu() {
   const [searchTag, setSearchTag] = useState("");
   const [tagGroup, setTagGroup] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+
+
 
 
   const accountCtx = useContext(AccountContext);
@@ -120,6 +124,7 @@ function DiaryDetail_yu() {
 }
 
 const styles = StyleSheet.create({
+
   outlineBox: {
     flex: 1,
     margin: 10
@@ -236,7 +241,6 @@ const styles = StyleSheet.create({
     fontSize:20,
     marginRight:8
   }
-
 
 });
 

@@ -8,7 +8,6 @@ import { useFonts } from 'expo-font';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import DiaryWrite from './component/diaryWrite';
-import SettingScreen from './screens/settingScreen';
 import DiaryLogin from './component/diaryLogin';
 import DiaryJoin from './component/diaryJoin';
 import DiaryInfo from './component/diaryInfo';
@@ -17,6 +16,7 @@ import { AccountContext, AccountContextProvider, ContentContextProvider } from '
 import DiaryDetail from './component/diaryDetail';
 import ModifyList from './component/modifyList';
 import DiaryDetail_yu from './component/diaryDetail_yu';
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -31,6 +31,7 @@ export default function App() {
         <Stack.Screen name="calendarView" component={CalendarView} options={{ title: "캘린더보기", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         <Stack.Screen name="diaryWrite" component={DiaryWrite} options={{ title: "글작성", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         <Stack.Screen name="diaryDetail" component={DiaryDetail_yu} />
+
       </Stack.Navigator>)
   }
 
