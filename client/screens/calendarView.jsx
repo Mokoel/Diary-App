@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Calendar } from "react-native-calendars";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { format } from "date-fns";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AccountContext, ContentContext } from "../context/context";
@@ -14,9 +14,9 @@ function CalendarView() {
 
   const [diarydata, setDiarydata] = useState(null);
   const [posts, setPosts] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(
-    format(new Date(), "yyyy.MM.dd"),
-  );
+  const [selectedDate, setSelectedDate] = useState(format(new Date(), "yyyy.MM.dd"));
+   
+  
 
   //content를 이메일로 찾고, 날짜 뽑아서 마크해주기.
   //조건 : 이미 날짜가 있는 애는 선택하면 데이터 보여주기.
@@ -59,7 +59,9 @@ function CalendarView() {
           content: one.content,
           tag: one.tag
         };
+
       })
+
       setPosts(data);
     } else {
       return;
@@ -80,7 +82,7 @@ function CalendarView() {
   const markedSelectedDates = {
     ...markedDates,
     [selectedDate]: {
-      selected: true,
+      //selected: true,
       //marked: markedDates[selectedDate]?.marked,
     }
   }
@@ -89,17 +91,14 @@ function CalendarView() {
   /**날짜찍으면 이동 (1.디테일 2.글작성)*/
   const daySelectHandle = (day) => {
     setSelectedDate(day.dateString)
-    // console.log(day.dateString)
-    
-
-
+  
   }
 
 
   useEffect(()=>{
 
+
     let dateItem = [];
-  
     posts?.forEach(elm => {
       if (elm.date.slice(0, 10) == selectedDate) {
         return dateItem.push(elm);
@@ -109,8 +108,9 @@ function CalendarView() {
     if(dateItem.length == 0){
       navigation.navigate("diaryWrite", [selectedDate]);
     }else if(dateItem.length >= 1 ){
-      navigation.navigate("diaryDetail",{item:dateItem})
+      navigation.navigate("diaryDetail",{item: {...dateItem , chooseDate : selectedDate }})
     }
+
 
   },[selectedDate])
 
@@ -122,13 +122,20 @@ function CalendarView() {
         markedDates={markedSelectedDates}
         onDayPress={daySelectHandle}
         maxDate={new Date().toISOString().slice(0, 10)}
+        enableSwipeMonths={true}
+        hideExtraDays={true}
         theme={{
-          //selectedDayBackgroundColor: 'red',  
-          arrowColor: 'blue',
+          arrowColor: '#f1f3f5',
           dotColor: 'grey',
-          todayTextColor: 'yellow',
-          todayBackgroundColor: 'green',
+          todayTextColor: 'black',
+          textDayFontFamily:"GamjaFlower",
+          textMonthFontFamily:"GamjaFlower",
+          todayBackgroundColor:"#f1f3f5",
+          weekVerticalMargin:15,
+          textMonthFontSize:25,
+          monthTextColor:'#303030',
         }} />
+
     </>
 
 

@@ -115,7 +115,7 @@ router.post("/update", async (req, resp) => {
 
     try {
 
-        let update = await diarySchema.findOneAndUpdate(_id, { content: req.body.content, image: req.body.image, emoji: req.body.emoji, chooseDate: req.body.chooseDate, tag: req.body.tag }, { returnDocument: "after" })
+        let update = await diarySchema.findByIdAndUpdate(_id, { content: req.body.content, image: req.body.image, emoji: req.body.emoji, chooseDate: req.body.chooseDate, tag: req.body.tag }, { returnDocument: "after" })
         resp.status(200).json({ result: true, message: "수정에 성공하셨습니다.", data: update })
 
     } catch (err) {

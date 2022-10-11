@@ -12,25 +12,25 @@ import SettingScreen from './screens/settingScreen';
 import DiaryLogin from './component/diaryLogin';
 import DiaryJoin from './component/diaryJoin';
 import DiaryInfo from './component/diaryInfo';
-import DiaryDetail_yu from './component/diaryDetail_yu';
-import Test from './screens/test';
 import { useContext } from 'react';
 import { AccountContext, AccountContextProvider, ContentContextProvider } from './context/context';
 import DiaryDetail from './component/diaryDetail';
 import ModifyList from './component/modifyList';
-
+import DiaryDetail_yu from './component/diaryDetail_yu';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
+
 
 export default function App() {
 
 
   function CalendarNavigator() {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName='calendarView'>
         <Stack.Screen name="calendarView" component={CalendarView} options={{ title: "캘린더보기", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         <Stack.Screen name="diaryWrite" component={DiaryWrite} options={{ title: "글작성", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
-        <Stack.Screen name="diaryDetail" component={DiaryDetail} />
+        <Stack.Screen name="diaryDetail" component={DiaryDetail_yu} />
       </Stack.Navigator>)
   }
 
