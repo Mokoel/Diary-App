@@ -106,7 +106,8 @@ function CalendarView() {
     if(dateItem.length == 0){
       navigation.navigate("diaryWrite", [selectedDate]);
     }else if(dateItem.length >= 1 ){
-      navigation.navigate("diaryDetail",{item:dateItem})
+      
+      navigation.navigate("listDetail",{datas:dateItem})
     }
 
   },[selectedDate])
