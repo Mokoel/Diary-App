@@ -80,7 +80,6 @@ function DiaryList() {
 
   return (
     <View style={styles.container}>
-      <Text>😊😁😍😒🤩</Text>
       <FlatList
         data={listData}
         keyExtractor={(one) => one._id}

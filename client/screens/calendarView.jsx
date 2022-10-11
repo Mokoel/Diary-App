@@ -59,10 +59,10 @@ function CalendarView() {
           content: one.content,
           tag: one.tag
         };
-
       })
 
       setPosts(data);
+      
     } else {
       return;
     }
