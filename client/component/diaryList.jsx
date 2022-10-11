@@ -21,12 +21,12 @@ function DiaryList() {
   const navigation = useNavigation();
   const focused = useIsFocused();
   const [listData, setListData] = useState([]);
+
   const email = ctx?.auth?.email;
   // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
   if (!ctx?.auth) {
     return <></>;
   }
-  //console.log("email!!!!!!!", email);
 
   async function emailFind(){
     if (focused) {
@@ -38,8 +38,10 @@ function DiaryList() {
 
           //newArr.push(datas);
           setListData([...datas]);
+
         } catch (e) {
           console.log(e);
+
       }
     }
   }
@@ -76,7 +78,6 @@ function DiaryList() {
   //   navigation.navigate("listDetail",{datas:listData,index:elm})
   // }
 
-  //console.log("aaaaaaaaaaaaa",listData);
   return (
     <View style={styles.container}>
       <Text>😊😁😍😒🤩</Text>
@@ -95,7 +96,6 @@ function DiaryList() {
           return <ListItem 
           item={item} 
           navigation={navigation}
-          // onPress={()=>listDetailHandle(index) }
           />
         }}
       />

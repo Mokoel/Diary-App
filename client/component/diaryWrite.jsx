@@ -98,7 +98,7 @@ function DiaryWrite() {
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}
             >
-
+           
                 <View style={styles.container}>
 
                     <View style={styles.firstHeader}>
@@ -108,15 +108,18 @@ function DiaryWrite() {
                     </View>
 
                     <View style={styles.inputBox}>
+       
                         <TextInput
                             placeholder="# 태그 를 입력해보세요."
                             onChangeText={tagChangeHandle}
                             value={tag}
                             style={styles.tag}
                         />
-                        <ScrollView>
+
+
+                      <ScrollView style={{flex:1}}>
                             {contentCtx?.imgPreview !== null ? <View style={styles.imagePreviewBox}>
-                                {contentCtx?.imgPreview !== null ? <Image source={{ uri: contentCtx.imgPreview }} style={{ flex: 1 }} /> : null}
+                                <Image source={{ uri: contentCtx.imgPreview }} style={{ flex: 1 }} /> 
                             </View> :
                                 null}
 
@@ -128,9 +131,8 @@ function DiaryWrite() {
                                 onChangeText={contentChangeHandle}
                                 style={styles.input}
                             />
-                        </ScrollView>
+                    </ScrollView>
                     </View>
-
 
                     <View style={styles.buttonGroup}>
                         <View style={styles.iconButton}>
@@ -153,7 +155,7 @@ function DiaryWrite() {
                     </View>
 
                 </View>
-
+   
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
 
@@ -167,7 +169,8 @@ const styles = StyleSheet.create({
         //backgroundColor:"red",
         flex: 8,
         borderBottomWidth: 1,
-        borderBottomColor: "#d0d0d0"
+        borderBottomColor: "#d0d0d0",
+
     },
     date: {
         flex: 1,
@@ -204,6 +207,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         marginBottom: 30,
         minHeight: 300,
+        textAlignVertical: 'top'
         
     },
     emoji: {
