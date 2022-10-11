@@ -17,6 +17,7 @@ function DiaryLogin() {
 
     /** 이메일 정규식 변수*/
     const regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
     const [loading, setLoading] = useState(false);
 
     /** 가입하기 페이지로 이동 네비게이션 */
@@ -26,7 +27,7 @@ function DiaryLogin() {
 
     /** 로그인 버튼 클릭시 작동 function */
     const loginHandle = () => {
-        console.log("dddddddddd", ctx.auth)
+       // console.log("dddddddddd", ctx.auth)
         setLoading(true);
 
         !async function () {
@@ -44,10 +45,11 @@ function DiaryLogin() {
                     navigation.navigate("calendar", { screen: "calendarView", params: { email: email } }) // 로그인 성공하면 캘린더 창으로 이동
 
                 } else if (!regex.test(email)) {
-                    Alert.alert("앱이름", "이메일 형식이 맞지않습니다.")
+                    Alert.alert("DayGram", "이메일 형식이 맞지않습니다.")
                 }
+                
             } catch (e) {
-                Alert.alert("앱이름", "이메일 또는 비밀번호가 맞지않습니다.")
+                Alert.alert("DayGram", "이메일 또는 비밀번호가 맞지않습니다.")
                 console.log(e)
             }
             setLoading(false);

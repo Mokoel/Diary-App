@@ -27,8 +27,6 @@ function DiaryList() {
     return <>
     </>
 }
-    console.log("email!!!!!!!",email)
-
     useEffect(() => {
         try{
 
@@ -36,7 +34,7 @@ function DiaryList() {
                 // updateItems();
                 ( async () => {
                     //const newArr = [];
-                    const datas = await listViewReq(email);
+                    const datas = await listViewReq(ctx.auth.email);
                     
                     //newArr.push(datas);
                     setListData([...datas]);
@@ -55,10 +53,9 @@ function DiaryList() {
     return <></>;
   }
 
-  console.log("email!!!!!!!", email);
   async function findDatas() {
     try {
-      const datas = await listViewReq(email);
+      const datas = await listViewReq(ctx.auth.email);
       setListData(datas.data);
       console.log("ddddddddddddddddd", listData.data);
     } catch (e) {

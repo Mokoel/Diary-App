@@ -12,6 +12,8 @@ import SettingScreen from './screens/settingScreen';
 import DiaryLogin from './component/diaryLogin';
 import DiaryJoin from './component/diaryJoin';
 import DiaryInfo from './component/diaryInfo';
+import DiaryDetail from './component/diaryDetail';
+import Test from './screens/test';
 import { useContext } from 'react';
 import { AccountContext, AccountContextProvider, ContentContextProvider } from './context/context';
 
@@ -26,6 +28,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="calendarView" component={CalendarView} options={{ title: "캘린더보기", headerTitleStyle: { fontFamily: "GamjaFlower" }, presentation: "modal" }} />
         <Stack.Screen name="diaryWrite" component={DiaryWrite} options={{ title: "글작성", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
+        <Stack.Screen name="diaryDetail" component={DiaryDetail} />
       </Stack.Navigator>)
   }
 
@@ -79,16 +82,18 @@ export default function App() {
           <NavigationContainer>
             <Tab.Navigator>
               <Tab.Screen name="calendar" component={CalendarNavigator} options={{
-                title: "캘린더", headerShown: false, headerTitleStyle: { fontFamily: "GamjaFlower" },
-                tabBarIcon: ({ color }) => <AntDesign name="calendar" color={color} size={20} />
+                title: "캘린더", headerShown: false, headerTitleStyle: { fontFamily: "GamjaFlower" }, tabBarActiveTintColor:"black", tabBarInactiveTintColor:"grey",
+                tabBarIcon: ({ color, focused }) => <AntDesign name="calendar"  color={ focused ? "black":"grey"} size={20} />
               }} />
-              <Tab.Screen name="list" component={ListNavigator} options={{
+              <Tab.Screen name="list" component={ListNavigator}  options={{
+                tabBarActiveTintColor:"black", tabBarInactiveTintColor:"grey",
                 title: "리스트", headerShown: false, headerTitleStyle: { fontFamily: "GamjaFlower" },
-                tabBarIcon: ({ color }) => <AntDesign name="bars" color={color} size={20} />
+                tabBarIcon: ({ color,focused }) => <AntDesign name="bars" color={focused ? "black":"grey"}  size={20} />
               }} />
               <Tab.Screen name="set" component={AccountStackNavigator} options={{
+                tabBarActiveTintColor:"black", tabBarInactiveTintColor:"grey",
                 title: "세팅", headerShown: false, headerTitleStyle: { fontFamily: "GamjaFlower" },
-                tabBarIcon: ({ color }) => <AntDesign name="setting" color={color} size={20} />
+                tabBarIcon: ({ color,focused }) => <AntDesign name="setting" color={ focused ? "black":"grey"} size={20} />
               }} />
 
             </Tab.Navigator>

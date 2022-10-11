@@ -11,13 +11,11 @@ function EmojiComponent({ onEmoji }) {
 
 
     return (
-        <View style={styles.outline}>
-            <Pressable onPress={() => { setModalVisible(!modalVisible) }} style={{marginTop:10,marginBottom:20}}>
+        <View>
+            <Pressable onPress={() => { setModalVisible(!modalVisible) }}>
                 <Text style={styles.emojiText}>{contentCtx.emojiPreview !== null ? contentCtx.emojiPreview  :<Entypo name="emoji-happy" size={50} color="grey" />}</Text>
             </Pressable>
             <Modal
-                //animationType="fade"
-                //transparent={true}
                 visible={modalVisible}
             >
                 <View style={styles.modalBox}>
@@ -32,8 +30,7 @@ function EmojiComponent({ onEmoji }) {
                             console.log(emoji);
                             setModalVisible(false);
                             onEmoji(emoji); 
-                            contentCtx.setEmojiPreview(emoji)
-                            //setEmojiPreview(emoji); 
+                            contentCtx.setEmojiPreview(emoji);
                         }}
                     />
                 </View>
@@ -42,15 +39,11 @@ function EmojiComponent({ onEmoji }) {
 }
 
 const styles = StyleSheet.create({
-    outline: {
-        width: 300
-    },
     emojiBox: {
         flex: 1,
         backgroundColor: "#fff",
     },
     emojiText: {
-        marginTop: 30,
         fontSize: 50,
         textAlign: "center",
     },

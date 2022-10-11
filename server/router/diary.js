@@ -21,7 +21,7 @@ router.post("/img/:fileName", (req, resp) => {
     req.pipe(wsStream);
     
     try{
-        resp.json({result:true, path:"http://192.168.4.25:8080/storage/img/" + req.params.fileName});
+        resp.json({result:true, path:"http://127.0.0.1:8080/storage/img/" + req.params.fileName});
 
     }catch(err){
         resp.json({result:false , msg:"사진 등록에 실패했습니다."})
@@ -64,6 +64,19 @@ router.post("/tagFind", async (req, resp) => {
     }
 })
 
+//4.날짜별로 find
+router.post("/date",async (req,resp)=>{
+    let {date,email} = req.body;
+
+    try{
+        let date = await diarySchema.find({email}).where("date").in({date});
+        resp.status(200).json({result: true, data: date});
+
+    }catch(err){
+        resp.status(400).json({result: false});
+    }
+    
+})
 
 
 
@@ -94,7 +107,7 @@ console.log(req.body,"<==")
 });
 
 
-
+//수정하기
 router.post("/update", async (req, resp) => {
     // 키값으로 _id
     let { _id } = req.body;
@@ -126,6 +139,8 @@ router.post("/delete", async (req, resp) => {
         console.log(err)
     }
 })
+
+
 
 
 export default router;
