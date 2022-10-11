@@ -16,6 +16,8 @@ import DiaryDetail_yu from './component/diaryDetail_yu';
 import Test from './screens/test';
 import { useContext } from 'react';
 import { AccountContext, AccountContextProvider, ContentContextProvider } from './context/context';
+import DiaryDetail from './component/diaryDetail';
+import ModifyList from './component/modifyList';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -36,6 +38,8 @@ export default function App() {
     return (
       <Stack.Navigator>
         <Stack.Screen name="diaryList" component={ListScreen} options={{ title: "리스트 목록", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
+        <Stack.Screen name="listDetail" component={DiaryDetail} options={{ title: "리스트 상세내용", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
+        <Stack.Screen name="modifyList" component={ModifyList} options={{ title: "리스트 수정", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
       </Stack.Navigator>)
   }
 
