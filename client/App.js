@@ -30,6 +30,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='calendarView'>
         <Stack.Screen name="calendarView" component={CalendarView} options={{ title: "캘린더보기", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         <Stack.Screen name="diaryWrite" component={DiaryWrite} options={{ title: "글작성", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
+
         <Stack.Screen name="diaryDetail" component={DiaryDetail_yu} />
 
       </Stack.Navigator>)
