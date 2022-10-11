@@ -63,7 +63,7 @@ function CalendarView() {
     }
 
   }, [isfocused, accountCtx.auth?.email])
-
+console.log("diarydata!!!!!!!!!!!!!!!!!",diarydata)
 
   /**날짜 밑에 점 찍어주는 변수*/
   const markedDates = posts?.reduce((acc, current) => {
@@ -106,8 +106,9 @@ function CalendarView() {
     if(dateItem.length == 0){
       navigation.navigate("diaryWrite", [selectedDate]);
     }else if(dateItem.length >= 1 ){
-      
-      navigation.navigate("listDetail",{datas:dateItem})
+      console.log("dateItem!!!!!!!!!!!!!!!",dateItem)
+      navigation.navigate(
+      "calendar", { screen: "diaryWrite-yu", params: {item:dateItem} })
     }
 
   },[selectedDate])
