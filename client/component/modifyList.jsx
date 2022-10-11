@@ -1,25 +1,40 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Button, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, Keyboard, View ,Alert } from "react-native";
+import { Button, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, Keyboard, View ,Alert, KeyboardAvoidingView, ScrollView, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import ImagePicker from "./ImagePicker";
-import { imgStorageRegi, createDataRegi } from "../util/diaryAPI";
+import { imgStorageRegi, createDataRegi, createUpdate } from "../util/diaryAPI";
 import { useContext, useEffect, useState } from "react";
 import EmojiComponent from "./emoji";
 import { AccountContext, ContentContext } from "../context/context";
+import CustomButton from "./customButton";
 
 
-function ModifyList({item}) {
+function ModifyList() {
     const route = useRoute();
-    
-    console.log("item!!!@@@@!!@@!!@!@!@!@!@@!",item)
+    const item = route.params
+    console.log("datas!!!@@@@!!@@!!@!@!@!@!@@!",item)
     const ctx = useContext(AccountContext);
     const contentCtx = useContext(ContentContext);
     const navigation = useNavigation();
-    const [content, setContent] = useState("");
-    const [image, setImage] = useState("");
-    const [emoji, setEmoji] = useState(null);
+    const [content, setContent] = useState();
+    const [image, setImage] = useState();
+    const [emoji, setEmoji] = useState();
     const [tag, setTag] = useState([]);
-    console.log("ctx!!!!!",ctx.auth)
+    const chooseDate = item.chooseDate
+    //console.log("ctx!!!!!",ctx.auth)
+    const _id = item._id
+    
+    // const [modifyEmoji,setModifyEmoji] = useState();
+    // const [modifyContent,setModifyContent] = useState();
+    // const [modifyTag,setModifyTag] = useState();
+    useEffect(()=>{
+        setEmoji(item.emoji)
+        setContent(item.content)
+        setTag(item.tag)
+        
+      },[])
+  
+
      /** 글쓰기 페이지에서 달력아이콘을 누르면 캘린더 출력 */
      const calendarViewHandle = ()=>{
         navigation.navigate("calendarView")
@@ -27,10 +42,13 @@ function ModifyList({item}) {
 
     /**[서버]스토리지 폴더에 저장*/
     const imageRegiHandle = async (img, base64data) => {
-        let imgdata = await imgStorageRegi(img, base64data);
-        setImage(imgdata.path)
+        try{
+            let imgdata = await imgStorageRegi(img, base64data);
+            setImage(imgdata.path)
+        }catch(err){
+            console.log(err)
+        }
     }
-
 
     const contentChangeHandle = (val) => {
         setContent(val)
@@ -43,26 +61,22 @@ function ModifyList({item}) {
 
 
         try {
-            let data = await createDataRegi(ctx.auth?.email, content, ctx.auth?.nickname, image, emoji, route.params, new Date(), tag);
-            console.log(data, "등록결과")
+            let data = await createUpdate(_id ,content ,image, emoji,chooseDate,tag);
+            console.log(data, "수정결과")
 
 
-            Alert.alert("Diary","일기 등록에 성공하셨습니다.",[
+            Alert.alert("Diary","일기 수정에 성공하셨습니다.",[
 
                   {
                     text: '확인',
                     onPress: () => {
-                        contentCtx.setEmojiPreview(null)
-                        contentCtx.setImgPreview(null)
-                        setContent("")
-                        setTag("")
-                        navigation.navigate("list")
+                        navigation.navigate("calendar")
 
                     }
                   }
             ])
         } catch (err) {
-            console.log(err, "등록실패")
+            console.log(err, "수정실패")
             Alert.alert("Diary","내용을 입력해주세요!",[
                   {
                     text: '확인',
@@ -77,93 +91,175 @@ function ModifyList({item}) {
         setEmoji(emoji)
     }
 
-    const tagChangeHandle = (val)=>{
-        let tagArr=val.split("#");
-        setTag(tagArr);
-    }
+    // const tagChangeHandle = (val)=>{
+    //     let tagArr=val.split("#");
+    //     setTag(tagArr);
+    // }
 
 
 
 
     return (
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-  
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}
+        >
 
-                <View style={styles.container}>
-               
-                <View style={styles.dateSelect}>
-                <Text>{route?.params}</Text>
-                <Text onPress={calendarViewHandle}><Ionicons size={24} name="calendar" /></Text>
+            <View style={styles.container}>
+
+                <View style={styles.firstHeader}>
+
+                    <EmojiComponent  onEmoji={emojiPressHandle} />
+                    <Text style={styles.date}>{item.chooseDate.substr(0,10)}</Text>
                 </View>
 
-                <EmojiComponent onEmoji={emojiPressHandle}/>
+                <View style={styles.inputBox}>
+                    <TextInput
+                        placeholder="# 태그 를 입력해보세요."
+                        onChangeText={setTag}
+                        value={tag}
+                        style={styles.tag}
+                    />
+                    <ScrollView>
+                        {contentCtx?.imgPreview !== null ? <View style={styles.imagePreviewBox}>
+                            {contentCtx?.imgPreview !== null ? <Image source={{ uri: contentCtx.imgPreview }} style={{ flex: 1 }} /> : null}
+                        </View> :
+                            null}
 
-                <TextInput 
-                placeholder="#을 적어서 태그를 입력해보세요."
-                onChangeText={tagChangeHandle}
-                value={tag}
-                />
-
-                <TextInput
-                    placeholder={"일기를 작성해보세요."}
-                    value={content}
-                    multiline={true}
-                    onChangeText={contentChangeHandle}
-                    style={styles.input}
-                />
-
-                <View style={styles.imgBox}>
-
-                <ImagePicker onImage={imageRegiHandle}/>
+                        <TextInput
+                            placeholder={"일기를 작성해보세요."}
+                           // placeholderTextColor={"black"}
+                            value={content}
+                            multiline={true}
+                            onChangeText={contentChangeHandle}
+                            style={styles.input}
+                        />
+                    </ScrollView>
                 </View>
-                <Pressable>
-                    <Button onPress={createPressHandle} title="입력"></Button>
-                </Pressable>
+
+
+                <View style={styles.buttonGroup}>
+                    <View style={styles.iconButton}>
+                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                            <TouchableOpacity onPress={calendarViewHandle} style={styles.calender}>
+                                <Ionicons size={24} name="calendar" />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.imgPick}>
+                            <ImagePicker onImage={imageRegiHandle}/>
+                        </View>
+
+                    </View>
+                    <TouchableOpacity onPress={createPressHandle}
+                        style={styles.button}>
+                        <CustomButton>
+                            수정
+                        </CustomButton>
+                    </TouchableOpacity>
                 </View>
-            </TouchableWithoutFeedback>
 
+            </View>
 
-    )
+        </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+
+)
 
 }
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems:"center",
-        textAlign: "center",
-        fontFamily: "GamjaFlower",
-        marginTop:20
-    },
-    font: {
-        fontFamily: "GamjaFlower",
-        fontSize: 20,
-        marginBottom: 10,
-        marginTop: 10
-    },
-    input: {
-        width: "90%",
-        fontFamily: "GamjaFlower", 
-        fontSize: 20, 
-        borderWidth: 1, 
-        borderRadius: 5,
-         paddingLeft: 10, 
-         height: 200, 
-         marginBottom: 30
-    },
-    emoji: {
-        fontSize: 40, 
-        textAlign: "center", 
-        marginTop: 20
-    },
-    dateSelect:{
-        flexDirection:"row"
-    },
-    imgBox:{
-        flex:1,
+inputBox: {
+    //backgroundColor:"red",
+    flex: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#d0d0d0"
+},
+date: {
+    flex: 1,
+    fontSize: 15,
+    color: "#333",
+    paddingVertical: 10
+},
+firstHeader: {
+    //backgroundColor:"red",
+    flex: 2,
+    marginTop: "3%",
+    alignItems: "center"
+},
+container: {
+    flex: 1,
+    fontFamily: "GamjaFlower",
+    padding: 24
+},
+tag: {
+    marginBottom: 20,
+    fontSize: 16,
+    paddingLeft: 10,
+    color: "#333",
+    backgroundColor: "#d0d0d0",
+    padding: 10,
+    borderRadius: 15
+},
+input: {
+    color: "#333",
+    //backgroundColor:"red",
+    minWidth: "90%",
+    fontFamily: "GamjaFlower",
+    fontSize: 20,
+    paddingLeft: 10,
+    marginBottom: 30,
+    minHeight: 300,
+    
+},
+emoji: {
+    fontSize: 40,
+    textAlign: "center",
+},
+buttonGroup: {
+    flex: 1,
+    flexDirection: "row",
+    borderRadius: 20,
+    marginBottom: "2%",
+    alignItems: "flex-end",
+    justifyContent: "center"
+},
+button: {
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "flex-end",
+    marginRight: 10,
+    //backgroundColor:"red"
+},
+calender: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#d0d0d0",
+    marginHorizontal: 2,
+    borderRadius: 10,
+    paddingHorizontal: 8
+},
+iconButton: {
+    flex: 1,
+    flexDirection: "row",
+    //backgroundColor:"red"
+},
+imgPick: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+},
 
-    }
+imagePreviewBox: {
+    flex: 1,
+    backgroundColor: "#fOfada",
+    marginHorizontal: 10,
+    marginTop: 10,
+    justifyContent: "center",
+    borderRadius: 20,
+    minHeight: 300
+
+}
 });
 
 export default ModifyList;

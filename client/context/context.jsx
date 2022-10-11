@@ -55,8 +55,8 @@ export function AccountContextProvider({children}){
 export function ContentContextProvider({children}){
    const [emojiPreview, setEmojiPreview] = useState(null);
    const [imgPreview, setImgPreview] = useState(null);
-
-    return(<ContentContext.Provider value={{emojiPreview, setEmojiPreview,imgPreview, setImgPreview}}>
+    const [refresh,setRefresh] = useState(false)
+    return(<ContentContext.Provider value={{emojiPreview, setEmojiPreview,imgPreview, setImgPreview,refresh,setRefresh}}>
         {children}
     </ContentContext.Provider>)
 

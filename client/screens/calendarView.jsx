@@ -96,6 +96,7 @@ function CalendarView() {
   }
 
 
+
   useEffect(()=>{
 
     let dateItem = [];
@@ -117,8 +118,6 @@ function CalendarView() {
     }
 
   },[selectedDate])
-
-
 
   return (
     <>

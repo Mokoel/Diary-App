@@ -10,13 +10,14 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { AccountContext } from "../context/context";
+import { AccountContext, ContentContext } from "../context/context";
 import { listViewReq } from "../util/diaryAPI";
 import ListItem from "./listItem";
 
 function DiaryList() {
   const [refresh, setRefresh] = useState(false);
   const ctx = useContext(AccountContext);
+  const contentCtx = useContext(ContentContext)
   const navigation = useNavigation();
   const focused = useIsFocused();
   const [listData, setListData] = useState([]);
@@ -45,7 +46,7 @@ function DiaryList() {
 
   useEffect(() => {
     emailFind()
-  }, [focused]);
+  }, [focused,contentCtx.refresh]);
 
 
   // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
@@ -68,7 +69,7 @@ function DiaryList() {
 
   useEffect(() => {
     findDatas();
-  }, [focused]);
+  }, [focused,contentCtx.refresh]);
   
   /** 리스트 목록 누르면 디테일창으로 이동 */
   // const listDetailHandle =(elm)=>{ 

@@ -1,19 +1,19 @@
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect } from "react";
 import { Alert, Pressable, Text, View } from "react-native";
-import { AccountContext } from "../context/context";
+import { AccountContext, ContentContext } from "../context/context";
 import { contentDelete } from "../util/diaryAPI";
 
 function ListItem({ item}) {
+  
 
-
-    
-  //console.log("item!!!!!",item)
+  console.log("item!!!!!",item)
   const ctx = useContext(AccountContext);
+  const contentCtx = useContext(ContentContext)
   const navigation = useNavigation();
 
-  const modifyHandle = () => {
-    navigation.navigate("modifyList");
+  const modifyHandle = (elm) => {
+    navigation.navigate("modifyList",elm);
   };
 
   const deleteHandle = () => {
@@ -28,9 +28,10 @@ function ListItem({ item}) {
           {
             text: "삭제",
             onPress: () => {
-              const modify = contentDelete(_id);
+              const deleteList = contentDelete(_id);
+              contentCtx.setRefresh((current)=>!current)
               Alert.alert("Diary", "삭제성공.");
-              navigation.navigate("list")
+              
             },
           },
         ]);

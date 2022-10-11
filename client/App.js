@@ -28,7 +28,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="calendarView" component={CalendarView} options={{ title: "캘린더보기", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         <Stack.Screen name="diaryWrite" component={DiaryWrite} options={{ title: "글작성", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
-        <Stack.Screen name="diaryWrite-yu" component={DiaryDetail} options={{ title: "글작성", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
+        <Stack.Screen name="diaryWrite-yu" component={DiaryDetail_yu} options={{ title: "글작성", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         
       </Stack.Navigator>)
   }
