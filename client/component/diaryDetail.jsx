@@ -1,7 +1,7 @@
 
 import { useRoute } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, Modal, Pressable, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, Modal, Pressable, TouchableOpacity, ScrollView, Alert } from "react-native";
 import { AccountContext } from "../context/context";
 import { tagFind } from "../util/diaryAPI";
 import CustomButton from "./customButton";
