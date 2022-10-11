@@ -70,9 +70,9 @@ function DiaryList() {
   }, [focused]);
   
   /** 리스트 목록 누르면 디테일창으로 이동 */
-  const listDetailHandle =(elm)=>{ 
-    navigation.navigate("listDetail",{datas:listData,index:elm})
-  }
+  // const listDetailHandle =(elm)=>{ 
+  //   navigation.navigate("listDetail",{datas:listData,index:elm})
+  // }
 
   //console.log("aaaaaaaaaaaaa",listData);
   return (
@@ -90,7 +90,11 @@ function DiaryList() {
           setRefresh(false);
         }}
         renderItem={({ index, item }) => {
-          return <ListItem item={item} onPress={()=>listDetailHandle(index)}/>
+          return <ListItem 
+          item={item} 
+          navigation={navigation}
+          // onPress={()=>listDetailHandle(index) }
+          />
         }}
       />
     </View>

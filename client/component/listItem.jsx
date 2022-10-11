@@ -4,11 +4,11 @@ import { Alert, Pressable, Text, View } from "react-native";
 import { AccountContext } from "../context/context";
 import { contentDelete } from "../util/diaryAPI";
 
-function ListItem({ item, onPress }) {
+function ListItem({ item}) {
 
 
     
-    //console.log("item!!!!!",item)
+  //console.log("item!!!!!",item)
   const ctx = useContext(AccountContext);
   const navigation = useNavigation();
 
@@ -18,6 +18,7 @@ function ListItem({ item, onPress }) {
 
   const deleteHandle = () => {
     const _id = item._id;
+
     if (ctx.auth) {
       try {
         Alert.alert("Diary", "삭제 하시겠습니까?", [
@@ -39,6 +40,10 @@ function ListItem({ item, onPress }) {
       }
     }
   };
+
+  const detailPressHandle = ()=>{
+    navigation.navigate("listDetail",{item:item})
+  }
 
   return (
     <View style={{ margin: 3, marginBottom: 5 }}>
@@ -69,7 +74,7 @@ function ListItem({ item, onPress }) {
           삭제
         </Text>
       </View>
-      <Pressable onPress={onPress}>
+      <Pressable onPress={detailPressHandle}>
         <View
           style={{
             backgroundColor: "green",
@@ -79,7 +84,8 @@ function ListItem({ item, onPress }) {
             borderRadius: 5,
           }}
         >
-          <View style={{ marginLeft: 10, marginTop: 5 }}>
+
+          <View style={{ marginLeft: 10, marginTop: 5 }} >
             <Text>{item.emoji}</Text>
             <Text>{item.content}</Text>
           </View>
