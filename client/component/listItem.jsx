@@ -11,6 +11,7 @@ function ListItem({item , navigation }) {
     
   //console.log("item!!!!!",item)
   const ctx = useContext(AccountContext);
+  const contentCtx = useContext(ContentContext)
  // const navigation = useNavigation();
 
   const modifyHandle = (elm) => {

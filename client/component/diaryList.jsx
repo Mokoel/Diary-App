@@ -48,7 +48,7 @@ function DiaryList() {
 
   useEffect(() => {
     emailFind()
-  }, [focused,contentCtx.refresh]);
+  }, [focused,contentCtx?.refresh]);
 
 
   // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
@@ -71,7 +71,7 @@ function DiaryList() {
 
   useEffect(() => {
     findDatas();
-  }, [focused,contentCtx.refresh]);
+  }, [focused,contentCtx?.refresh]);
   
   /** 리스트 목록 누르면 디테일창으로 이동 */
   // const listDetailHandle =(elm)=>{ 
