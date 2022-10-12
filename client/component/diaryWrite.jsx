@@ -70,8 +70,10 @@ function DiaryWrite() {
                     }
                 }
             ])
+
+
+            
         } catch (err) {
-            console.log(err, "등록실패")
             Alert.alert("Diary", "내용을 입력해주세요!", [
                 {
                     text: '확인',

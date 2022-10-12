@@ -8,10 +8,12 @@ import { AccountContext } from "../context/context";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 function DiaryInfo() {
-    const navigation = useNavigation()
-    const ctx = useContext(AccountContext)
+
+    const navigation = useNavigation();
+    const ctx = useContext(AccountContext);
+  
     const logoutHandle = ()=>{
-      console.log("로그아웃")
+
       Alert.alert("앱이름","로그아웃 하시겠습니까?",[
         {
           text:"취소",
