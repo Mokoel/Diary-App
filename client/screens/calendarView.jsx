@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Calendar } from "react-native-calendars";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { format } from "date-fns";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AccountContext, ContentContext } from "../context/context";
@@ -95,7 +95,7 @@ function CalendarView() {
 
 
   return (
-    <>
+    <View style={{backgroundColor:"white",flex:1}}>
       <Calendar style={styles.calendar}
         
         markedDates={markedSelectedDates}
@@ -119,7 +119,7 @@ function CalendarView() {
           monthTextColor: '#303030',
         }} />
 
-    </>
+    </View>
   );
 }
 
@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
   calendar: {
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
-    height: "80%"
+    height: "80%",
+    top:"20%"
   }
 });
 

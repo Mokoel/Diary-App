@@ -78,7 +78,7 @@ function ListItem({ item, navigation }) {
         <View style={styles.contentBox} >
 
           <Text style={styles.emoji}>{item.emoji}</Text>
-          <Text style={styles.content}>{item.content}</Text>
+          <Text numberOfLines={1} style={styles.content}>{item.content}</Text>
         <View style={styles.imgBox}>
                     {item.image !== "" ?
                         <Image
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: "row",
     alignItems: "center",
-    
+    minHeight:63
 
   },
   emoji: {
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 15,
     fontFamily:"GamjaFlower",
+    width:"70%"
   },
 
   imgBox: {

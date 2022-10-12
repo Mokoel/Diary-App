@@ -87,17 +87,17 @@ export default function App() {
           <NavigationContainer>
             <Tab.Navigator>
               <Tab.Screen name="calendar" component={CalendarNavigator} options={{
-                title: "캘린더", headerShown: false, headerTitleStyle: { fontFamily: "GamjaFlower" }, tabBarActiveTintColor:"black", tabBarInactiveTintColor:"grey",
+                title: "캘린더", headerShown: false, tabBarLabelStyle:{ fontFamily: "GamjaFlower",fontSize:12} ,headerTitleStyle: { fontFamily: "GamjaFlower" }, tabBarActiveTintColor:"black", tabBarInactiveTintColor:"grey",
                 tabBarIcon: ({ color, focused }) => <AntDesign name="calendar"  color={ focused ? "black":"grey"} size={20} />
               }} />
               <Tab.Screen name="list" component={ListNavigator}  options={{
                 tabBarActiveTintColor:"black", tabBarInactiveTintColor:"grey",
-                title: "리스트", headerShown: false, headerTitleStyle: { fontFamily: "GamjaFlower" },
+                title: "리스트", headerShown: false, tabBarLabelStyle:{ fontFamily: "GamjaFlower",fontSize:12}, headerTitleStyle: { fontFamily: "GamjaFlower" },
                 tabBarIcon: ({ color,focused }) => <AntDesign name="bars" color={focused ? "black":"grey"}  size={20} />
               }} />
               <Tab.Screen name="set" component={AccountStackNavigator} options={{
                 tabBarActiveTintColor:"black", tabBarInactiveTintColor:"grey",
-                title: "세팅", headerShown: false, headerTitleStyle: { fontFamily: "GamjaFlower" },
+                title: "세팅", headerShown: false, tabBarLabelStyle:{ fontFamily: "GamjaFlower",fontSize:12}, headerTitleStyle: { fontFamily: "GamjaFlower" },
                 tabBarIcon: ({ color,focused }) => <AntDesign name="setting" color={ focused ? "black":"grey"} size={20} />
               }} />
 

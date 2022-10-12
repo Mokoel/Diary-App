@@ -3,7 +3,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
-import { Alert, Button, StyleSheet, Text, View } from "react-native";
+import { Alert, Button, Pressable, StyleSheet, Text, View } from "react-native";
 import { AccountContext } from "../context/context";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomButton from "./customButton";
@@ -12,8 +12,8 @@ import { Octicons } from '@expo/vector-icons';
 
 function DiaryInfo() {
 
+  const ctx = useContext(AccountContext);
     const navigation = useNavigation();
-    const ctx = useContext(AccountContext);
   
     const logoutHandle = ()=>{
 
@@ -42,7 +42,9 @@ function DiaryInfo() {
 
 
         <View style={{marginTop:30}}>
-        <CustomButton onPress={logoutHandle}>로그아웃</CustomButton>
+        <Pressable onPress={logoutHandle}>
+        <CustomButton>로그아웃</CustomButton>
+        </Pressable>
         </View>
         </View>
         </View>

@@ -90,8 +90,8 @@ function DiaryDetail_yu() {
           {item.emoji !== "" ? <Text style={styles.emoji}>{item.emoji}</Text> : null}
         </View>
         <View style={styles.headerTextBox}>
-          <Text>{item.chooseDate.slice(0, 10)}</Text>
-          <Text>{item.nickname}</Text>
+          <Text style={styles.todayDate}>{item.chooseDate.slice(0, 10)}</Text>
+          <Text style={styles.nickname}>{item.nickname}</Text>
         </View>
 
       </View>
@@ -240,11 +240,14 @@ const styles = StyleSheet.create({
     //backgroundColor:"skyblue",
     //borderWidth:2,
     padding: 5,
-    borderRadius: 20
+    borderRadius: 20,
+    fontFamily: "GamjaFlower",
+    fontSize: 20,
     //marginHorizontal:8,
   },
   contentText: {
-    fontSize: 16,
+    fontSize: 20,
+    fontFamily: "GamjaFlower",
 
   },
   centeredView: {
@@ -283,7 +286,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "left",
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    
   },
   tagModalBox: {
     //backgroundColor:"red",
@@ -299,30 +303,43 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   tagContent: {
-    fontSize: 14
+    fontSize: 14,
+    
   },
   tagEmoji: {
     fontSize: 20,
     marginRight: 8
   },
+
+  todayDate:{
+    fontSize: 18,
+    fontFamily: "GamjaFlower",
+},
+nickname:{
+    fontSize: 18,
+    fontFamily: "GamjaFlower",
+},
+
   miniHeaderInfo: {
     flexDirection: "row"
   },
   modalMenuModiText: {
     marginBottom: 10,
-    fontSize: 15,
+    fontSize: 17,
     textAlign: "center",
     borderBottomColor: "grey",
     paddingBottom: 10,
     borderBottomWidth: 2,
-    color: "#303030"
+    color: "#303030",
+    fontFamily: "GamjaFlower",
 
   },
   modalMenuDelText: {
     marginBottom: 10,
-    fontSize: 15,
+    fontSize: 17,
     textAlign: "center",
-    color: "#303030"
+    color: "#303030",
+    fontFamily: "GamjaFlower",
   },
   modalMenuTextBox: {
     height: 100

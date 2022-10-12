@@ -1,19 +1,20 @@
 // 로그인 페이지
 
-import { ActivityIndicator, Alert, Button, StyleSheet, Text, TextInput, View, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { ActivityIndicator, Alert, Button, StyleSheet, Text, TextInput, View, TouchableWithoutFeedback, Keyboard, Pressable } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { useContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { checkRegisterReq } from "../util/accounts";
 import { AccountContext } from "../context/context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomButton from "./customButton";
 
 function DiaryLogin() {
-    const navigation = useNavigation()
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [loading, setLoading] = useState(false);
-
+    const navigation = useNavigation()
+    
     const ctx = useContext(AccountContext);
 
     /** 이메일 정규식 변수*/
@@ -26,9 +27,9 @@ function DiaryLogin() {
     }
 
     /** 로그인 버튼 클릭시 작동 function */
-    const loginHandle = () => {
-       // console.log("dddddddddd", ctx.auth)
-        setLoading(true);
+     const loginHandle = () => {
+    //    // console.log("dddddddddd", ctx.auth)
+    //     setLoading(true);
 
         !async function () {
 
@@ -55,7 +56,7 @@ function DiaryLogin() {
                 console.log(e)
             }
 
-            setLoading(false);
+            //setLoading(false);
 
         }();
     }
@@ -78,7 +79,10 @@ function DiaryLogin() {
                 <Text style={styles.font}>비밀번호</Text>
                 <TextInput secureTextEntry={true} onChangeText={(elm) => setPassword(elm)} style={{ borderWidth: 1, width: "60%", fontFamily: "GamjaFlower", fontSize: 20, borderWidth: 1, borderRadius: 5, paddingLeft: 7 }}></TextInput>
                 <View style={{ marginTop: 20 }}>
-                    <Button onPress={loginHandle} title={"로그인"} />
+                    
+                    <Pressable onPress={loginHandle}>
+        <CustomButton>로그인</CustomButton>
+        </Pressable>
                 </View>
                 
                 <View style={{ marginTop: 10 }}>

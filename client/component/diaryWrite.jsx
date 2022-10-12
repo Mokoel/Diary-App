@@ -8,7 +8,6 @@ import EmojiComponent from "./emoji";
 import { AccountContext, ContentContext } from "../context/context";
 import CustomButton from "./customButton";
 
-
 /**글 등록 창
  * 1. 해야 할 일: 키보드 올라오면 버튼도 올라오기
  * 2. 캘린더는 날짜만 선택하게 모달로 띄우기
@@ -26,12 +25,19 @@ function DiaryWrite() {
     //console.log(ctx.auth)
     /** 글쓰기 페이지에서 달력아이콘을 누르면 캘린더 출력 */
 
+    if (!ctx?.auth) {
+        return <>
+        <Text style={styles.loginX}>로그인 후 사용해주세요!</Text></>;
+      }
+
+
     const calendarViewHandle = () => {
         navigation.navigate("calendar")
     }
 
     /**[서버]스토리지 폴더에 저장*/
     const imageRegiHandle = async (img, base64data) => {
+        
         try{
             let imgdata = await imgStorageRegi(img, base64data);
             setImage(imgdata.path)
@@ -39,6 +45,7 @@ function DiaryWrite() {
             console.log(err)
         }
     }
+    
 
 
     const contentChangeHandle = (val) => {
@@ -95,6 +102,7 @@ function DiaryWrite() {
         
     }
 
+    
 
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -104,9 +112,10 @@ function DiaryWrite() {
                 <View style={styles.container}>
 
                     <View style={styles.firstHeader}>
-
+                  
                         <EmojiComponent onEmoji={emojiPressHandle} />
                         <Text style={styles.date}>{route?.params}</Text>
+                        
                     </View>
 
                     <View style={styles.inputBox}>
@@ -144,7 +153,9 @@ function DiaryWrite() {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.imgPick}>
+                                
                                 <ImagePicker onImage={imageRegiHandle} />
+                            
                             </View>
 
                         </View>
@@ -260,6 +271,12 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         minHeight: 300
 
+    },
+    loginX:{
+        textAlign:"center",
+        top:"50%",
+        fontFamily: "GamjaFlower",
+        fontSize:17
     }
 });
 

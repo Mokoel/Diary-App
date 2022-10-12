@@ -25,7 +25,8 @@ function DiaryList() {
   const email = ctx?.auth?.email;
   // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
   if (!ctx?.auth) {
-    return <></>;
+    return <>
+    <Text style={styles.loginX}>로그인 후 사용해주세요!</Text></>;;
   }
 
   async function emailFind(){
@@ -109,6 +110,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
   },
+  loginX:{
+    textAlign:"center",
+    top:"50%",
+    fontFamily: "GamjaFlower",
+    fontSize:17
+}
 });
 
 export default DiaryList;

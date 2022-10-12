@@ -236,7 +236,6 @@ const styles = StyleSheet.create({
         flex: 0.3,
         justifyContent: "center",
         alignItems: "center",
-        
 
     },
     tagText: {
