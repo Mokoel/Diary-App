@@ -48,6 +48,7 @@ function DiaryList() {
   
 
   useEffect(() => {
+
     if(focused){
 
       emailFind()
