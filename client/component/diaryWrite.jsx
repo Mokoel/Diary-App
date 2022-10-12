@@ -29,7 +29,7 @@ function DiaryWrite() {
     const [emoji, setEmoji] = useState(null);
     const [dateValue, setDateValue] = useState(new Date());
     const [tag, setTag] = useState([]);
-    const [andDatePicker,setAndDatePicker] = useState(false)
+    const [andDatePicker, setAndDatePicker] = useState(false)
     const isFocused = useIsFocused();
     //console.log(ctx.auth)
     /** 글쓰기 페이지에서 달력아이콘을 누르면 캘린더 출력 */
@@ -37,8 +37,8 @@ function DiaryWrite() {
 
     if (!ctx?.auth) {
         return <>
-        <Text style={styles.loginX}>로그인 후 사용해주세요!</Text></>;
-      }
+            <Text style={styles.loginX}>로그인 후 사용해주세요!</Text></>;
+    }
 
 
 
@@ -66,7 +66,7 @@ function DiaryWrite() {
             console.log(err)
         }
     }
-    
+
 
 
     const contentChangeHandle = (val) => {
@@ -80,7 +80,7 @@ function DiaryWrite() {
 
 
         try {
-            let data = await createDataRegi(ctx.auth?.email, content, ctx.auth?.nickname, image, emoji, createDate , new Date(), tag);
+            let data = await createDataRegi(ctx.auth?.email, content, ctx.auth?.nickname, image, emoji, createDate, new Date(), tag);
             console.log(data, "등록결과")
 
 
@@ -123,7 +123,7 @@ function DiaryWrite() {
 
     }
 
-    
+
 
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -135,7 +135,7 @@ function DiaryWrite() {
                 <View style={styles.container}>
 
                     <View style={styles.firstHeader}>
-                  
+
                         <EmojiComponent onEmoji={emojiPressHandle} />
 
 
@@ -197,57 +197,58 @@ function DiaryWrite() {
                                         onTouchEnd={true}
                                     />
                                 </View>
-
                             </View>
 
                             <TouchableOpacity onPress={createPressHandle}
-                        style={styles.button}>
-                        <CustomButton>
-                            입력
-                        </CustomButton>
-                    </TouchableOpacity>
+                                style={styles.button}>
+                                <CustomButton>
+                                    입력
+                                </CustomButton>
+                            </TouchableOpacity>
                         </View>
                         :
                         <View style={styles.AndButtonGroup}>
-                        <View style={styles.AndIconButton}>
-                            <View style={styles.AndImgPick}>
+                            <View style={styles.AndIconButton}>
+                                <View style={styles.AndImgPick}>
 
-                                <ImagePicker onImage={imageRegiHandle} />
-                            
+                                    <ImagePicker onImage={imageRegiHandle} />
+
+                                </View>
+
+                                <TouchableOpacity onPress={calendarViewHandle} style={styles.calender}>
+                                    <Ionicons size={24} name="calendar" />
+                                </TouchableOpacity>
                             </View>
 
-                            <TouchableOpacity onPress={calendarViewHandle} style={styles.calender}>
-                                <Ionicons size={24} name="calendar" />
-                            </TouchableOpacity>
-                        </View>
+                            {andDatePicker ?
 
-        {andDatePicker ? 
-                        <DateTimePicker
-                                        style={{ flex: 1 }}
-                                        locale="ko"
-                                        testID="dateTimePicker"
-                                        value={dateValue}
-                                        mode="date"
-                                        is24Hour={true}
-                                        onChange={(d) => {
-                                            if(d.type == "set"){
-                                                let selDate = new Date(d.nativeEvent.timestamp).toISOString().slice(0, 10);
-                                                setCreateDate(selDate);
-                                                setDateValue(new Date(d.nativeEvent.timestamp));
-                                            }
-
-                                            setAndDatePicker(false);
+                                <DateTimePicker
+                                    style={{ flex: 1 }}
+                                    locale="ko"
+                                    testID="dateTimePicker"
+                                    value={dateValue}
+                                    mode="date"
+                                    is24Hour={true}
+                                    
+                                    onChange={(d) => {
+                                        if (d.type == "set") {
+                                            let selDate = new Date(d.nativeEvent.timestamp).toISOString().slice(0, 10);
+                                            setCreateDate(selDate);
+                                            setDateValue(new Date(d.nativeEvent.timestamp));
                                         }
+                                        setAndDatePicker(false);
                                     }
-                                    />
-                               :  null }
-                        <TouchableOpacity onPress={createPressHandle}
+                                    }
+                                />
+                                : null}
 
-                        style={styles.button}>
-                        <CustomButton>
-                            입력
-                        </CustomButton>
-                    </TouchableOpacity>
+                            <TouchableOpacity onPress={createPressHandle}
+
+                                style={styles.button}>
+                                <CustomButton>
+                                    입력
+                                </CustomButton>
+                            </TouchableOpacity>
 
                         </View>
 
@@ -255,8 +256,8 @@ function DiaryWrite() {
 
 
                 </View>
-           
-        </TouchableWithoutFeedback>
+
+            </TouchableWithoutFeedback>
         </KeyboardAvoidingView >
 
     )
@@ -270,7 +271,7 @@ const styles = StyleSheet.create({
         flex: 8,
         borderBottomWidth: 1,
         borderBottomColor: "#d0d0d0",
-        flex:4,
+        flex: 4,
     },
     date: {
         flex: 1,
@@ -313,7 +314,7 @@ const styles = StyleSheet.create({
         fontSize: 40,
         textAlign: "center",
     },
-   
+
     button: {
         flex: 2,
         justifyContent: "center",
@@ -322,9 +323,9 @@ const styles = StyleSheet.create({
 
     },
     calender: {
-       // flex: 1,
+        // flex: 1,
         //justifyContent: "center",
-       // alignItems: "center",
+        // alignItems: "center",
         backgroundColor: "#d0d0d0",
         marginHorizontal: 3,
         borderRadius: 10,
@@ -356,31 +357,31 @@ const styles = StyleSheet.create({
 
     },
 
-    loginX:{
-        textAlign:"center",
-        top:"50%",
+    loginX: {
+        textAlign: "center",
+        top: "50%",
         fontFamily: "GamjaFlower",
-        fontSize:17
+        fontSize: 17
     },
-    AndButtonGroup:{
+    AndButtonGroup: {
         flex: 1,
         flexDirection: "row",
         //borderRadius: 20,
         //marginBottom: "2%",
         //justifyContent: "center"
     },
-    AndIconButton:{
+    AndIconButton: {
         //backgroundColor:"red",
-        alignItems:"center",
+        alignItems: "center",
         flexDirection: "row",
         justifyContent: "center",
-       // justifyContent: "flex-start",
+        // justifyContent: "flex-start",
     },
-    AndImgPick:{
-        paddingVertical:6,
+    AndImgPick: {
+        paddingVertical: 6,
         justifyContent: "center",
     },
-    AndCalender:{
+    AndCalender: {
         justifyContent: "center",
 
     }

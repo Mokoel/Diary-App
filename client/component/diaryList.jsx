@@ -48,7 +48,7 @@ function DiaryList() {
   }
 
   useEffect(() => {
-    emailFind()
+    emailFind();
   }, [focused,contentCtx?.refresh]);
 
 

@@ -26,39 +26,37 @@ function DiaryLogin() {
         navigation.navigate("join")
     }
 
-    /** 로그인 버튼 클릭시 작동 function */
-     const loginHandle = () => {
-    //    // console.log("dddddddddd", ctx.auth)
-    //     setLoading(true);
+    async function login() {
 
-        !async function () {
+        try {
 
-            try {
+            if (regex.test(email)) {
+                const recv = await checkRegisterReq(email, password)  // util폴더 - account.js / 이메일,비밀번호 확인 후 로그인 실행
+                ctx.dispatch({ type: "login", payload: recv })
+                console.log(recv)
+                AsyncStorage.setItem("authLoginSave", JSON.stringify(recv))
 
-                if (regex.test(email)) {
-                    const recv = await checkRegisterReq(email, password)  // util폴더 - account.js / 이메일,비밀번호 확인 후 로그인 실행
-                    ctx.dispatch({ type: "login", payload: recv })
-                    console.log(recv)
-                    AsyncStorage.setItem("authLoginSave", JSON.stringify(recv))
+                // ctx.dispatch({type:"login",payload:recv})
+                // AsyncStorage.setItem("authLoginSave", JSON.stringify(recv))
 
-                    // ctx.dispatch({type:"login",payload:recv})
-                    // AsyncStorage.setItem("authLoginSave", JSON.stringify(recv))
+                Alert.alert("앱이름", "로그인 성공")
+                navigation.navigate("calendar", { screen: "calendarView", params: { email: email } }) // 로그인 성공하면 캘린더 창으로 이동
 
-                    Alert.alert("앱이름", "로그인 성공")
-                    navigation.navigate("calendar", { screen: "calendarView", params: { email: email } }) // 로그인 성공하면 캘린더 창으로 이동
-
-                } else if (!regex.test(email)) {
-                    Alert.alert("DayGram", "이메일 형식이 맞지않습니다.")
-                }
-                
-            } catch (e) {
-                Alert.alert("DayGram", "이메일 또는 비밀번호가 맞지않습니다.")
-                console.log(e)
+            } else if (!regex.test(email)) {
+                Alert.alert("DayGram", "이메일 형식이 맞지않습니다.")
             }
+            
+        } catch (e) {
+            Alert.alert("DayGram", "이메일 또는 비밀번호가 맞지않습니다.")
+            console.log(e)
+        }
 
-            //setLoading(false);
+        //setLoading(false);
 
-        }();
+    }
+
+     const loginHandle = () => {
+        login();
     }
 
     // 로딩이 있으면 로딩바 출력!
