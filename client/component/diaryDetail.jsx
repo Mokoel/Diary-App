@@ -14,56 +14,53 @@ function DiaryDetail({ route }) {
     const [tagGroup, setTagGroup] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
     const accountCtx = useContext(AccountContext);
-
     async function findTag() {
         //태그리스트로 가서 태그들만 모아보는 리스트 띄워주기.
         try {
             let findTagRst = await tagFind(accountCtx?.auth?.email, searchTag);
             setTagGroup(findTagRst.data)
-            console.log(findTagRst.data)
+            //console.log(findTagRst.data)
         } catch (err) {
             console.log(err)
         }
     }
-
+    
     useEffect(() => {
         findTag();
     }, [searchTag])
-
-
-
+    
+    console.log("data!!!!!!!!!!!!!!!",data)
+    console.log("dddddddddddddddddddddddd",data.image)
+    
 
 
     return (
         <View style={styles.outlineBox}>
 
             <View style={styles.miniHeader}>
-
                 <View>
-
                     <Text style={styles.emoji}>{data?.emoji}</Text>
-
-
+                    
                 </View>
-
-
                 <View style={styles.headerTextBox}>
 
 
-                    <Text>{data?.chooseDate.slice(0, 10)}</Text>
-                    <Text>{data?.nickname}</Text>
+                    <Text style={styles.todayDate}>{data?.chooseDate.slice(0, 10)}</Text>
+                    <Text style={styles.nickname}>{data?.nickname}</Text>
 
 
                 </View>
             </View>
-            {data.image !== "" ?
                 <View style={styles.imgBox}>
+            {data.image !== "" ?
                     <Image
-                        source={{ uri: data?.image }}
+                        source={{ uri: data.image }}
                         style={styles.img}
-                    />
-                </View>
-                : null}
+                        
+                        />
+                        : <></>}
+                        </View>
+                        
             <View style={styles.contentBox}>
                 <Text style={styles.contentText}>{data.content}</Text>
             </View>
@@ -138,9 +135,9 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     img: {
-        flex: 1,
-        height: 200,
-        width: 200,
+        // flex: 1,
+        height: 180,
+        width: "95%",
         borderRadius: 15,
         margin: 10,
    
@@ -166,18 +163,22 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flex: 0.3,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        
 
     },
     tagText: {
         //backgroundColor:"skyblue",
         //borderWidth:2,
         padding: 5,
-        borderRadius: 20
+        borderRadius: 20,
+        fontFamily: "GamjaFlower",
+        fontSize:20,
         //marginHorizontal:8,
     },
     contentText: {
-        fontSize: 16,
+        fontSize: 20,
+        fontFamily: "GamjaFlower",
 
     },
     centeredView: {
@@ -230,14 +231,24 @@ const styles = StyleSheet.create({
     tagDate: {
         fontWeight: "bold",
         fontStyle: "italic",
-        marginLeft:10
+        marginLeft:10,
+        
     },
     tagContent: {
-        fontSize: 14
+        fontSize: 14,
+        
     },
     tagEmoji: {
         fontSize: 20,
         marginRight: 8
+    },
+    todayDate:{
+        fontSize: 18,
+        fontFamily: "GamjaFlower",
+    },
+    nickname:{
+        fontSize: 18,
+        fontFamily: "GamjaFlower",
     }
 
 

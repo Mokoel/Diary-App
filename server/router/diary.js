@@ -22,7 +22,7 @@ router.post("/img/:fileName", (req, resp) => {
     
     try{
 
-        resp.json({result:true, path:"http://127.0.0.1:8080/storage/img/" + req.params.fileName});
+        resp.json({result:true, path:"http://192.168.4.93:8080/storage/img/" + req.params.fileName});
 
     }catch(err){
         resp.json({result:false , msg:"사진 등록에 실패했습니다."})
@@ -112,10 +112,12 @@ console.log(req.body,"<==")
 router.post("/update", async (req, resp) => {
     // 키값으로 _id
     let { _id } = req.body;
-
+    console.log(req.body)
+    console.log(_id)
     try {
 
         let update = await diarySchema.findByIdAndUpdate(_id, { content: req.body.content, image: req.body.image, emoji: req.body.emoji, chooseDate: req.body.chooseDate, tag: req.body.tag }, { returnDocument: "after" })
+        console.log(update)
         resp.status(200).json({ result: true, message: "수정에 성공하셨습니다.", data: update })
 
     } catch (err) {

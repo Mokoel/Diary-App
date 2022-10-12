@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end"
   },
   button: {
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    
   },
   miniHeader: {
     flexDirection: "row",
@@ -114,16 +115,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    
 
   },
   emoji: {
-    fontSize: 30
+    fontSize: 25,
+    fontFamily:"GamjaFlower",
   },
   content: {
     marginLeft: 10,
-    fontSize: 12
-
+    fontSize: 15,
+    fontFamily:"GamjaFlower",
   }
 
 });

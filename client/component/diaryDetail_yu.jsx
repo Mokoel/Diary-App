@@ -38,7 +38,6 @@ function DiaryDetail_yu() {
   useEffect(() => {
     findTag();
   }, [searchTag])
-
   return (<View style={styles.outlineBox}>
 
     <View style={styles.miniHeader}>
