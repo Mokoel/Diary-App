@@ -36,6 +36,7 @@ function DiaryDetail_yu() {
 
   const tagPressHandle = (one) => {
     setSearchTag(one)
+    console.log(one,"<==searchTag")
     setModalVisible(true);
     findTag(one);
   }
