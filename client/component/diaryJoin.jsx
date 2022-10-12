@@ -1,12 +1,13 @@
 // 회원가입 페이지
 
 import { useContext, useState } from "react";
-import { Alert, Button, StyleSheet, Text, TextInput, View ,TouchableWithoutFeedback,Keyboard} from "react-native";
+import { Alert, Button, StyleSheet, Text, TextInput, View ,TouchableWithoutFeedback,Keyboard, Pressable} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { checkRegisterReq, sendRegisterReq } from "../util/accounts";
 import { useNavigation } from "@react-navigation/native";
 import { AccountContext } from "../context/context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomButton from "./customButton";
 function DiaryJoin() {
 
     const ctx = useContext(AccountContext);
@@ -69,7 +70,9 @@ function DiaryJoin() {
         <Text style={styles.font}>비밀번호 확인</Text>
         <TextInput onChangeText={(elm)=>setCheckPassword(elm)} secureTextEntry={true} style={{borderWidth:1,width:"60%",fontFamily:"GamjaFlower",fontSize:20,borderWidth:1,borderRadius:5,paddingLeft:7}}></TextInput>
         <View style={{marginTop:20}}>
-        <Button onPress={registerHandle} title={"가입하기"}/>
+        <Pressable onPress={registerHandle}>
+        <CustomButton>가입하기</CustomButton>
+        </Pressable>
         </View>
         
         </View >

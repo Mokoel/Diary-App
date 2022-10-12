@@ -7,9 +7,11 @@ import { useContext, useEffect, useState } from "react";
 import EmojiComponent from "./emoji";
 import { AccountContext, ContentContext } from "../context/context";
 import CustomButton from "./customButton";
+
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ko } from "date-fns/locale";
+
 
 /**글 등록 창
  * 1. 해야 할 일: 키보드 올라오면 버튼도 올라오기
@@ -33,15 +35,12 @@ function DiaryWrite() {
     /** 글쓰기 페이지에서 달력아이콘을 누르면 캘린더 출력 */
 
 
+    if (!ctx?.auth) {
+        return <>
+        <Text style={styles.loginX}>로그인 후 사용해주세요!</Text></>;
+      }
 
 
-    const showDatePicker = () => {
-        setDatePickerVisibility(true);
-    };
-
-    const hideDatePicker = () => {
-        setDatePickerVisibility(false);
-    };
 
     const handleConfirm = (date) => {
         console.warn("A date has been picked: ", date);
@@ -50,6 +49,7 @@ function DiaryWrite() {
     useEffect(() => {
         setCreateDate(route?.params)
     }, [route.params])
+
     const calendarViewHandle = () => {
 
         setAndDatePicker(true)
@@ -57,13 +57,16 @@ function DiaryWrite() {
 
     /**[서버]스토리지 폴더에 저장*/
     const imageRegiHandle = async (img, base64data) => {
+
         try {
+
             let imgdata = await imgStorageRegi(img, base64data);
             setImage(imgdata.path)
         } catch (err) {
             console.log(err)
         }
     }
+    
 
 
     const contentChangeHandle = (val) => {
@@ -120,6 +123,7 @@ function DiaryWrite() {
 
     }
 
+    
 
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -131,10 +135,12 @@ function DiaryWrite() {
                 <View style={styles.container}>
 
                     <View style={styles.firstHeader}>
-
+                  
                         <EmojiComponent onEmoji={emojiPressHandle} />
 
+
                         <Text style={styles.date}>{createDate}</Text>
+
                     </View>
 
                     <View style={styles.inputBox}>
@@ -193,6 +199,7 @@ function DiaryWrite() {
                                 </View>
 
                             </View>
+
                             <TouchableOpacity onPress={createPressHandle}
                         style={styles.button}>
                         <CustomButton>
@@ -204,7 +211,9 @@ function DiaryWrite() {
                         <View style={styles.AndButtonGroup}>
                         <View style={styles.AndIconButton}>
                             <View style={styles.AndImgPick}>
+
                                 <ImagePicker onImage={imageRegiHandle} />
+                            
                             </View>
 
                             <TouchableOpacity onPress={calendarViewHandle} style={styles.calender}>
@@ -346,6 +355,13 @@ const styles = StyleSheet.create({
         minHeight: 300
 
     },
+
+    loginX:{
+        textAlign:"center",
+        top:"50%",
+        fontFamily: "GamjaFlower",
+        fontSize:17
+    },
     AndButtonGroup:{
         flex: 1,
         flexDirection: "row",
@@ -366,6 +382,7 @@ const styles = StyleSheet.create({
     },
     AndCalender:{
         justifyContent: "center",
+
     }
 });
 

@@ -191,7 +191,9 @@ date: {
     flex: 1,
     fontSize: 15,
     color: "#333",
-    paddingVertical: 10
+    paddingVertical: 10,
+    fontFamily: "GamjaFlower",
+    fontSize: 18,
 },
 firstHeader: {
     //backgroundColor:"red",
