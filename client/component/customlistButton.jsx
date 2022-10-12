@@ -19,7 +19,8 @@ buttonBox:{
 button:{
     color:"#333",
    // fontWeight:"bold",
-    fontSize:12
+    fontSize:15,
+    fontFamily:"GamjaFlower",
 
 }
 });

@@ -233,6 +233,7 @@ function DiaryWrite() {
                                     />
                                :  null }
                         <TouchableOpacity onPress={createPressHandle}
+
                         style={styles.button}>
                         <CustomButton>
                             입력
@@ -242,6 +243,7 @@ function DiaryWrite() {
                         </View>
 
                     }
+
 
                 </View>
            
@@ -259,7 +261,7 @@ const styles = StyleSheet.create({
         flex: 8,
         borderBottomWidth: 1,
         borderBottomColor: "#d0d0d0",
-
+        flex:4,
     },
     date: {
         flex: 1,
@@ -269,7 +271,7 @@ const styles = StyleSheet.create({
     },
     firstHeader: {
         //backgroundColor:"red",
-        flex: 2,
+        flex: 1,
         marginTop: "3%",
         alignItems: "center"
     },
