@@ -59,7 +59,6 @@ function ListItem({ item, navigation }) {
 
         <View style={styles.buttonBox}>
           <TouchableOpacity onPress={()=>modifyHandle(item)}>
-            
             <CustomListButton style={styles.button}>
               수정
             </CustomListButton>

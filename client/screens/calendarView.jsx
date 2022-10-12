@@ -7,7 +7,6 @@ import { AccountContext, ContentContext } from "../context/context";
 import { listViewReq } from "../util/diaryAPI";
 
 function CalendarView() {
-
   const navigation = useNavigation();
   const accountCtx = useContext(AccountContext);
   const isfocused = useIsFocused();
@@ -15,12 +14,6 @@ function CalendarView() {
   const [diarydata, setDiarydata] = useState(null);
   const [posts, setPosts] = useState(null);
   const [selectedDate, setSelectedDate] = useState(format(new Date(), "yyyy.MM.dd"));
-   
-  
-
-  //content를 이메일로 찾고, 날짜 뽑아서 마크해주기.
-  //조건 : 이미 날짜가 있는 애는 선택하면 데이터 보여주기.
-  //해당 날짜에 데이터가 없으면 글 작성으로 가기.
 
 
 
@@ -44,17 +37,17 @@ function CalendarView() {
   /**포커싱될 때 데이터 파인드 해주기. */
   useEffect(() => {
     data();
-
     if (diarydata !== null) {
 
       let data = diarydata.map((one) => {
-        
+
         return {
-          id: one._id,
+          _id: one._id,
           nickname: one.nickname,
           email: one.email,
           imageURI: one.image,
           date: one.chooseDate,
+          chooseDate: one.chooseDate,
           emoji: one.emoji,
           content: one.content,
           tag: one.tag
@@ -62,18 +55,18 @@ function CalendarView() {
       })
 
       setPosts(data);
-      
+
     } else {
       return;
     }
 
-  }, [isfocused, accountCtx.auth?.email])
+  }, [isfocused, accountCtx?.auth?.email])
 
 
   /**날짜 밑에 점 찍어주는 변수*/
   const markedDates = posts?.reduce((acc, current) => {
-    const formattedDate = format(new Date(current.date), 'yyyy-MM-dd');
-    acc[formattedDate] = { marked: true };
+    let markDate = current.date.slice(0,10);
+    acc[markDate] = { marked: true };
     return acc;
   }, {});
 
@@ -81,39 +74,48 @@ function CalendarView() {
 
   const markedSelectedDates = {
     ...markedDates,
+    /**이거는선택하면 색나오는 아이 */
     [selectedDate]: {
-      //selected: true,
-      //marked: markedDates[selectedDate]?.marked,
+      // selected: true,
+      // marked: markedDates[selectedDate]?.marked,
     }
   }
 
 
-  /**날짜찍으면 이동 (1.디테일 2.글작성)*/
   const daySelectHandle = (day) => {
-    setSelectedDate(day.dateString)
-  
-  }
+    console.log(day)
 
-
-
-  useEffect(()=>{
-
-
-    let dateItem = [];
-    posts?.forEach(elm => {
-      if (elm.date.slice(0, 10) == selectedDate) {
-        return dateItem.push(elm);
+    let sameDate = posts?.map(one => {
+      if (one.date.slice(0, 10) === day.dateString) {
+        return one;
       }
+      return;
     });
 
-    if(dateItem.length == 0){
-      navigation.navigate("diaryWrite", [selectedDate]);
-    }else if(dateItem.length >= 1 ){
-      navigation.navigate("diaryDetail",{item: {...dateItem , chooseDate : selectedDate }})
+    let naviDate = sameDate[0];
+
+    if (naviDate !== undefined && naviDate !== null) {
+      navigation.navigate("diaryDetail", { item: naviDate })
+
+    } else {
+      navigation.navigate("diaryWrite", [day.dateString]);
     }
 
 
-  },[selectedDate])
+    setSelectedDate(day.dateString)
+
+
+
+
+
+  }
+
+
+
+
+
+
+
 
   return (
     <>
@@ -127,12 +129,12 @@ function CalendarView() {
           arrowColor: '#f1f3f5',
           dotColor: 'grey',
           todayTextColor: 'black',
-          textDayFontFamily:"GamjaFlower",
-          textMonthFontFamily:"GamjaFlower",
-          todayBackgroundColor:"#f1f3f5",
-          weekVerticalMargin:15,
-          textMonthFontSize:25,
-          monthTextColor:'#303030',
+          textDayFontFamily: "GamjaFlower",
+          textMonthFontFamily: "GamjaFlower",
+          todayBackgroundColor: "#f1f3f5",
+          weekVerticalMargin: 15,
+          textMonthFontSize: 25,
+          monthTextColor: '#303030',
         }} />
 
     </>
