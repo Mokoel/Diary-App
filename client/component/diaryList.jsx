@@ -30,7 +30,7 @@ function DiaryList() {
   }
 
   async function emailFind(){
-    if (focused) {
+    
         try {
         // updateItems();
         
@@ -45,11 +45,14 @@ function DiaryList() {
 
       }
     }
-  }
+  
 
   useEffect(() => {
-    emailFind()
-  }, [focused,contentCtx?.refresh]);
+    if(focused){
+
+      emailFind()
+    }
+  }, [focused]);
 
 
   // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
