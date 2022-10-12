@@ -11,19 +11,35 @@ function CalendarView() {
   const accountCtx = useContext(AccountContext);
   const isfocused = useIsFocused();
 
-  const [diarydata, setDiarydata] = useState(null);
   const [posts, setPosts] = useState(null);
   const [selectedDate, setSelectedDate] = useState(format(new Date(), "yyyy.MM.dd"));
 
 
 
-  /**다이어리 데이터 가져오는 함수 */
+  /**다이어리 데이터들 가져오는 함수 */
   async function data() {
 
     try {
+
       if (accountCtx?.auth.email) {
         let dataRst = await listViewReq(accountCtx?.auth.email);
-        setDiarydata(dataRst.data)
+
+        let data = dataRst.data.map((one) => {
+          return {
+            _id: one._id,
+            nickname: one.nickname,
+            email: one.email,
+            imageURI: one.image,
+            date: one.chooseDate,
+            chooseDate: one.chooseDate,
+            emoji: one.emoji,
+            content: one.content,
+            tag: one.tag
+          };
+        })
+
+      setPosts(data);
+
       } else {
         return;
       }
@@ -34,57 +50,24 @@ function CalendarView() {
   }
 
 
-  /**포커싱될 때 데이터 파인드 해주기. */
+
+  /**포커싱, 마운트, 이메일 로그인 될 때 데이터 파인드 해주기. */
   useEffect(() => {
     data();
-    if (diarydata !== null) {
-
-      let data = diarydata.map((one) => {
-
-        return {
-          _id: one._id,
-          nickname: one.nickname,
-          email: one.email,
-          imageURI: one.image,
-          date: one.chooseDate,
-          chooseDate: one.chooseDate,
-          emoji: one.emoji,
-          content: one.content,
-          tag: one.tag
-        };
-      })
-
-      setPosts(data);
-
-    } else {
-      return;
-    }
-
   }, [isfocused, accountCtx?.auth?.email])
 
 
   /**날짜 밑에 점 찍어주는 변수*/
-  const markedDates = posts?.reduce((acc, current) => {
-    let markDate = current.date.slice(0,10);
+  const markedSelectedDates = posts?.reduce((acc, current) => {
+    let markDate = current.date.slice(0, 10);
     acc[markDate] = { marked: true };
     return acc;
   }, {});
 
 
 
-  const markedSelectedDates = {
-    ...markedDates,
-    /**이거는선택하면 색나오는 아이 */
-    [selectedDate]: {
-      // selected: true,
-      // marked: markedDates[selectedDate]?.marked,
-    }
-  }
-
-
+  /**글작성 또는 디테일로 이동 */
   const daySelectHandle = (day) => {
-    console.log(day)
-
     let sameDate = posts?.map(one => {
       if (one.date.slice(0, 10) === day.dateString) {
         return one;
@@ -92,22 +75,22 @@ function CalendarView() {
       return;
     });
 
-    let naviDate = sameDate[0];
 
-    if (naviDate !== undefined && naviDate !== null) {
-      navigation.navigate("diaryDetail", { item: naviDate })
-
-    } else {
-      navigation.navigate("diaryWrite", [day.dateString]);
+    let naviDate;
+    if (sameDate !== undefined) {
+      naviDate = sameDate[0];
     }
 
+    if (sameDate.length >= 1) {
 
+      if (naviDate !== undefined && naviDate !== null) {
+        navigation.navigate("diaryDetail", { item: naviDate })
+      } else {
+        navigation.navigate("diaryWrite", [day.dateString]);
+      }
+    }
     setSelectedDate(day.dateString)
-
   }
-
-
-
 
 
 
@@ -118,7 +101,9 @@ function CalendarView() {
       <Calendar style={styles.calendar}
         markedDates={markedSelectedDates}
         onDayPress={daySelectHandle}
-        onDayLongPress={()=> console.log("!!")}
+
+        onDayLongPress={() => console.log("뭐해줄지고민")}
+
         maxDate={new Date().toISOString().slice(0, 10)}
         enableSwipeMonths={true}
         hideExtraDays={true}
@@ -143,7 +128,6 @@ function CalendarView() {
 
 const styles = StyleSheet.create({
   calendar: {
-    // flex: 1,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
     height: "80%"
