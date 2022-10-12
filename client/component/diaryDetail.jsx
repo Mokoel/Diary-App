@@ -1,24 +1,26 @@
 
-import { useRoute } from "@react-navigation/native";
+import { useRoute ,useNavigation} from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
+
 import { View, Text, StyleSheet, Image, Modal, Pressable, TouchableOpacity, ScrollView, Alert } from "react-native";
+
 import { AccountContext } from "../context/context";
 import { tagFind } from "../util/diaryAPI";
 import CustomButton from "./customButton";
-
-
-
+import { Entypo } from '@expo/vector-icons';
+import { contentDelete } from "../util/diaryAPI";
 function DiaryDetail({ route }) {
     let { data } = route.params;
     const [searchTag, setSearchTag] = useState("");
     const [tagGroup, setTagGroup] = useState(null);
+    const [dotModalVisible, setDotModalVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const accountCtx = useContext(AccountContext);
-
-    async function findTag() {
-        //태그리스트로 가서 태그들만 모아보는 리스트 띄워주기.
+    const navigation = useNavigation();
+    
+    async function findTag(one) {
         try {
-            let findTagRst = await tagFind(accountCtx?.auth?.email, searchTag);
+            let findTagRst = await tagFind(accountCtx?.auth?.email, one);
             setTagGroup(findTagRst.data)
             console.log(findTagRst.data)
         } catch (err) {
@@ -26,54 +28,115 @@ function DiaryDetail({ route }) {
         }
     }
 
-    useEffect(() => {
-        findTag();
-    }, [searchTag])
+    const tagPressHandle = (one) => {
+        setSearchTag
+        setModalVisible(true);
+        findTag(one);
+      }
+    
+      const dotMenuPressHandle = () => {
+        setDotModalVisible(true);
+      }
+    
 
+  //수정하기 
+  const modiPressHandle = () => {
+    console.log(data, "수정하기 아이템")
+    navigation.navigate("modifyDetail", data);
+    setDotModalVisible(false);
+  }
 
+  //삭제하기
+  const delPressHandle = () => {
+    setDotModalVisible(false);
 
+    Alert.alert("", "게시물을 삭제하시겠습니까?", [{
+      text: "확인",
+      onPress: async () => {
+        try {
+          let ItemDel = await contentDelete(data._id);
+          console.log(ItemDel, "삭제데이터")
+        } catch (err) {
+          console.log(err)
+        }
+        //캘린더로 돌아가기
+        navigation.goBack();
+      }
+    }, {
+      text: "취소",
+      onPress: () => { console.log("삭제취소") }
+    }])
+  }
+
+  //올리기
 
 
     return (
         <View style={styles.outlineBox}>
+  <View style={styles.miniHeader}>
+      <View style={styles.miniHeaderInfo}>
+        <View>
+          {data?.emoji !== "" ? <Text style={styles.emoji}>{data?.emoji}</Text> : null}
+        </View>
+        <View style={styles.headerTextBox}>
+          <Text>{data?.chooseDate.slice(0, 10)}</Text>
+          <Text>{data?.nickname}</Text>
+        </View>
 
-            <View style={styles.miniHeader}>
+      </View>
 
-                <View>
+      <TouchableOpacity style={styles.dotmenu} onPress={dotMenuPressHandle}>
+        <Entypo name="dots-three-vertical" size={14} color="#333" />
+      </TouchableOpacity>
 
-                    <Text style={styles.emoji}>{data?.emoji}</Text>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={dotModalVisible}
+        onRequestClose={() => {
+          setDotModalVisible(!dotModalVisible);
+        }}
+      >
 
-
-                </View>
-
-
-                <View style={styles.headerTextBox}>
-
-
-                    <Text>{data?.chooseDate.slice(0, 10)}</Text>
-                    <Text>{data?.nickname}</Text>
-
-
-                </View>
+        <View style={styles.centeredView}>
+          <Pressable onPress={() => { console.log("?"); setDotModalVisible(false) }} style={{ flex: 1, width: "100%" }}>
+          </Pressable>
+          <View style={styles.modalView}>
+            <View style={styles.modalMenuTextBox}>
+              <TouchableOpacity onPress={modiPressHandle}>
+                <Text style={styles.modalMenuModiText}>수정하기</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={delPressHandle}>
+                <Text style={styles.modalMenuDelText}>삭제하기</Text>
+              </TouchableOpacity>
             </View>
-            {data.image !== "" ?
+          </View>
+        </View>
+      </Modal>
+
+
+
+    </View>
+            <ScrollView>
                 <View style={styles.imgBox}>
-                    <Image
-                        source={{ uri: data?.image }}
-                        style={styles.img}
-                    />
+                    {data.image !== "" ?
+                        <Image
+                            source={{ uri: data?.image }}
+                            style={styles.img}
+                        />
+                        : null}
                 </View>
-                : null}
-            <View style={styles.contentBox}>
-                <Text style={styles.contentText}>{data.content}</Text>
-            </View>
+                <View style={styles.contentBox}>
+                    <Text style={styles.contentText}>{data.content}</Text>
+                </View>
+            </ScrollView>
+
             <View style={styles.tagBox}>
-                {data.tag ?
+                {
                     data.tag.map((one, index) => {
-                        // console.log(index,"key!!Q")
-                        return <TouchableOpacity key={index} onPress={() => { setSearchTag(one); setModalVisible(true); }}><Text key={index} style={styles.tagText} >#{one}</Text></TouchableOpacity>
+
+                        return <TouchableOpacity key={index} onPress={() => { tagPressHandle(one); }}><Text key={index} style={styles.tagText} >#{one}</Text></TouchableOpacity>
                     })
-                    : <></>
                 }
             </View>
 
@@ -82,8 +145,6 @@ function DiaryDetail({ route }) {
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
-
-                    Alert.alert("Modal has been closed.");
                     setModalVisible(!modalVisible);
                 }}
 
@@ -122,12 +183,15 @@ function DiaryDetail({ route }) {
 
 
 const styles = StyleSheet.create({
+
     outlineBox: {
         flex: 1,
         margin: 10
     },
     miniHeader: {
-        flexDirection: "row"
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
     },
     headerTextBox: {
         justifyContent: "center",
@@ -135,15 +199,14 @@ const styles = StyleSheet.create({
     },
     imgBox: {
         flex: 1,
-        alignItems:"center"
+        alignItems: "center"
     },
     img: {
-        flex: 1,
+        // flex: 1,
         height: 200,
         width: 200,
         borderRadius: 15,
-        margin: 10,
-   
+        margin: 10
     },
     contentBox: {
         flex: 2,
@@ -186,7 +249,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginTop: 22,
-        backgroundColor: '#dfdfdf'
     },
     modalView: {
         marginTop: 'auto',
@@ -230,7 +292,7 @@ const styles = StyleSheet.create({
     tagDate: {
         fontWeight: "bold",
         fontStyle: "italic",
-        marginLeft:10
+        marginLeft: 10
     },
     tagContent: {
         fontSize: 14
@@ -238,8 +300,29 @@ const styles = StyleSheet.create({
     tagEmoji: {
         fontSize: 20,
         marginRight: 8
-    }
+    },
+    miniHeaderInfo: {
+        flexDirection: "row"
+    },
+    modalMenuModiText: {
+        marginBottom: 10,
+        fontSize: 15,
+        textAlign: "center",
+        borderBottomColor: "grey",
+        paddingBottom: 10,
+        borderBottomWidth: 2,
+        color: "#303030"
 
+    },
+    modalMenuDelText: {
+        marginBottom: 10,
+        fontSize: 15,
+        textAlign: "center",
+        color: "#303030"
+    },
+    modalMenuTextBox: {
+        height: 100
+    }
 
 });
 

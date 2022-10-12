@@ -31,7 +31,9 @@ function DiaryLogin() {
         setLoading(true);
 
         !async function () {
+
             try {
+
                 if (regex.test(email)) {
                     const recv = await checkRegisterReq(email, password)  // util폴더 - account.js / 이메일,비밀번호 확인 후 로그인 실행
                     ctx.dispatch({ type: "login", payload: recv })
@@ -52,7 +54,9 @@ function DiaryLogin() {
                 Alert.alert("DayGram", "이메일 또는 비밀번호가 맞지않습니다.")
                 console.log(e)
             }
+
             setLoading(false);
+
         }();
     }
 
@@ -76,6 +80,7 @@ function DiaryLogin() {
                 <View style={{ marginTop: 20 }}>
                     <Button onPress={loginHandle} title={"로그인"} />
                 </View>
+                
                 <View style={{ marginTop: 10 }}>
                     <Text style={styles.font} onPress={joinHandle}>가입하기</Text>
                 </View>

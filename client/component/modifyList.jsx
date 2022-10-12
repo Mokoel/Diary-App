@@ -11,7 +11,8 @@ import CustomButton from "./customButton";
 
 function ModifyList() {
     const route = useRoute();
-    const item = route.params
+    const item = route.params;
+
     console.log("datas!!!@@@@!!@@!!@!@!@!@!@@!",item)
     const ctx = useContext(AccountContext);
     const contentCtx = useContext(ContentContext);
@@ -109,7 +110,7 @@ function ModifyList() {
                 <View style={styles.firstHeader}>
 
                     <EmojiComponent  onEmoji={emojiPressHandle} />
-                    <Text style={styles.date}>{item.chooseDate.substr(0,10)}</Text>
+                    <Text style={styles.date}>{item?.chooseDate?.substr(0,10)}</Text>
                 </View>
 
                 <View style={styles.inputBox}>

@@ -58,10 +58,11 @@ router.post("/tagFind", async (req, resp) => {
 
     try {
         let findTag = await diarySchema.find({ email }).where("tag").in([tag]);
-        resp.status(200).json({ result: true, data: findTag })
+        resp.status(200).json({ result: true, data: findTag , result:"태그 별 검색에 성공하셨습니다." })
 
     } catch (err) {
         console.log(err)
+        resp.status(400).json({ result: true, data: findTag , result:"태그 별 검색에 실패하셨습니다." })
     }
 })
 
@@ -129,6 +130,7 @@ router.post("/update", async (req, resp) => {
 //삭제
 //경로:/api/diary/delete
 router.post("/delete", async (req, resp) => {
+
     let { _id } = req.body;
 
     try {
