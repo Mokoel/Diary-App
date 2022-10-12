@@ -6,6 +6,9 @@ import { useContext } from "react";
 import { Alert, Button, StyleSheet, Text, View } from "react-native";
 import { AccountContext } from "../context/context";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import CustomButton from "./customButton";
+import { Ionicons } from '@expo/vector-icons'; 
+import { Octicons } from '@expo/vector-icons'; 
 
 function DiaryInfo() {
 
@@ -35,11 +38,11 @@ function DiaryInfo() {
         <View style={styles.container}>
         
         <Text style={styles.font} >e-mail <MaterialCommunityIcons name="email-outline" size={16} /> : {ctx.auth.email}</Text>
-        <Text style={styles.font} >e-mail <MaterialCommunityIcons name="email-outline" size={16} /> : {ctx.auth.nickname}</Text>
+        <Text style={styles.font} >닉네임 <Octicons name="person" size={16} /> : {ctx.auth.nickname}</Text>
 
 
         <View style={{marginTop:30}}>
-        <Button onPress={logoutHandle} title={"로그아웃"}/>
+        <CustomButton onPress={logoutHandle}>로그아웃</CustomButton>
         </View>
         </View>
         </View>

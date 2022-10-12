@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useContext, useEffect } from "react";
-import { Alert, Pressable, Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Alert, Pressable, Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { AccountContext, ContentContext } from "../context/context";
 import { contentDelete } from "../util/diaryAPI";
 import CustomListButton from "../component/customlistButton"
@@ -79,6 +79,14 @@ function ListItem({ item, navigation }) {
 
           <Text style={styles.emoji}>{item.emoji}</Text>
           <Text style={styles.content}>{item.content}</Text>
+        <View style={styles.imgBox}>
+                    {item.image !== "" ?
+                        <Image
+                            source={{ uri: item?.image }}
+                            style={styles.img}
+                        />
+                        : null}
+                </View>
         </View>
       </Pressable>
     </View>
@@ -92,6 +100,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginHorizontal: 10,
+    
     
   },
   miniHeader: {
@@ -126,7 +135,21 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 15,
     fontFamily:"GamjaFlower",
-  }
+  },
+
+  imgBox: {
+    flex: 1,
+    alignItems: "flex-end"
+  },
+  img: {
+    // flex: 1,
+
+    height: 40,
+    width: 60,
+
+    borderRadius: 5,
+    margin: 1
+  },
 
 });
 export default ListItem;

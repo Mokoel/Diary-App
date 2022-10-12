@@ -82,8 +82,8 @@ function DiaryDetail({ route }) {
           {data?.emoji !== "" ? <Text style={styles.emoji}>{data?.emoji}</Text> : null}
         </View>
         <View style={styles.headerTextBox}>
-          <Text>{data?.chooseDate.slice(0, 10)}</Text>
-          <Text>{data?.nickname}</Text>
+          <Text  style={styles.todayDate}>{data?.chooseDate.slice(0, 10)}</Text>
+          <Text style={styles.nickname}>{data?.nickname}</Text>
         </View>
 
       </View>

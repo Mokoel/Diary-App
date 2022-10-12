@@ -18,8 +18,8 @@ buttonBox:{
 },
 button:{
     color:"white",
-    fontWeight:"bold",
-
+    fontFamily: "GamjaFlower",
+    fontSize:17
 }
 });
 
