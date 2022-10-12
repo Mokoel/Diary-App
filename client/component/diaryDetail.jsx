@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     nickname:{
         fontSize: 18,
         fontFamily: "GamjaFlower",
-    }
+    },
 
     miniHeaderInfo: {
         flexDirection: "row"
