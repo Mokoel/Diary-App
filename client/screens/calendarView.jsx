@@ -68,27 +68,25 @@ function CalendarView() {
 
   /**글작성 또는 디테일로 이동 */
   const daySelectHandle = (day) => {
-    let sameDate = posts?.map(one => {
+  let sameDate=[];
+   posts?.forEach(one => {
       if (one.date.slice(0, 10) === day.dateString) {
-        return one;
+        return sameDate.push(one);
       }
+
       return;
     });
-
-
-    let naviDate;
-    if (sameDate !== undefined) {
-      naviDate = sameDate[0];
-    }
-
-    if (sameDate.length >= 1) {
-
-      if (naviDate !== undefined && naviDate !== null) {
-        navigation.navigate("diaryDetail", { item: naviDate })
-      } else {
+ 
+      //console.log(sameDate,"sameDate")
+      if(sameDate.length == 0 || sameDate == undefined || sameDate == null) {
         navigation.navigate("diaryWrite", [day.dateString]);
+        
+
+      } else if(sameDate.length !== 0 || sameDate !== undefined || sameDate !== null) {
+    
+        navigation.navigate("diaryDetail", { item: sameDate[0] })
       }
-    }
+    
     setSelectedDate(day.dateString)
   }
 
@@ -99,6 +97,7 @@ function CalendarView() {
   return (
     <>
       <Calendar style={styles.calendar}
+        
         markedDates={markedSelectedDates}
         onDayPress={daySelectHandle}
 
@@ -107,6 +106,7 @@ function CalendarView() {
         maxDate={new Date().toISOString().slice(0, 10)}
         enableSwipeMonths={true}
         hideExtraDays={true}
+
         theme={{
           arrowColor: '#f1f3f5',
           dotColor: 'grey',
@@ -120,9 +120,6 @@ function CalendarView() {
         }} />
 
     </>
-
-
-
   );
 }
 
