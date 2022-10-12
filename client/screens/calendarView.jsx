@@ -104,10 +104,6 @@ function CalendarView() {
 
     setSelectedDate(day.dateString)
 
-
-
-
-
   }
 
 
@@ -122,6 +118,7 @@ function CalendarView() {
       <Calendar style={styles.calendar}
         markedDates={markedSelectedDates}
         onDayPress={daySelectHandle}
+        onDayLongPress={()=> console.log("!!")}
         maxDate={new Date().toISOString().slice(0, 10)}
         enableSwipeMonths={true}
         hideExtraDays={true}
