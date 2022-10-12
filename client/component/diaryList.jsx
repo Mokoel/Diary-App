@@ -84,13 +84,6 @@ function DiaryList() {
         data={listData}
         keyExtractor={(one) => one._id}
         style={{ width: "95%", height: 50, margin: 5 }}
-        refreshing={refresh}
-        onRefresh={async () => {
-          setRefresh(true);
-          const result = await listViewReq(email);
-          setListData(result);
-          setRefresh(false);
-        }}
         renderItem={({ index, item }) => {
           return <ListItem 
           item={item} 

@@ -12,13 +12,13 @@ function DiaryLogin() {
     const navigation = useNavigation()
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [loading, setLoading] = useState(false);
 
     const ctx = useContext(AccountContext);
 
     /** 이메일 정규식 변수*/
     const regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
-    const [loading, setLoading] = useState(false);
 
     /** 가입하기 페이지로 이동 네비게이션 */
     const joinHandle = () => {

@@ -16,17 +16,20 @@ function DiaryDetail({ route }) {
     const [dotModalVisible, setDotModalVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const accountCtx = useContext(AccountContext);
+
     const navigation = useNavigation();
     
     async function findTag(one) {
+
         try {
             let findTagRst = await tagFind(accountCtx?.auth?.email, one);
             setTagGroup(findTagRst.data)
-            console.log(findTagRst.data)
+            //console.log(findTagRst.data)
         } catch (err) {
             console.log(err)
         }
     }
+
 
     const tagPressHandle = (one) => {
         setSearchTag
@@ -113,6 +116,7 @@ function DiaryDetail({ route }) {
           </View>
         </View>
       </Modal>
+
 
 
 
@@ -203,8 +207,10 @@ const styles = StyleSheet.create({
     },
     img: {
         // flex: 1,
-        height: 200,
-        width: 200,
+
+        height: 180,
+        width: "95%",
+
         borderRadius: 15,
         margin: 10
     },
@@ -229,18 +235,22 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flex: 0.3,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        
 
     },
     tagText: {
         //backgroundColor:"skyblue",
         //borderWidth:2,
         padding: 5,
-        borderRadius: 20
+        borderRadius: 20,
+        fontFamily: "GamjaFlower",
+        fontSize:20,
         //marginHorizontal:8,
     },
     contentText: {
-        fontSize: 16,
+        fontSize: 20,
+        fontFamily: "GamjaFlower",
 
     },
     centeredView: {
@@ -293,14 +303,26 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontStyle: "italic",
         marginLeft: 10
+
     },
     tagContent: {
-        fontSize: 14
+        fontSize: 14,
+        
     },
     tagEmoji: {
         fontSize: 20,
         marginRight: 8
     },
+
+    todayDate:{
+        fontSize: 18,
+        fontFamily: "GamjaFlower",
+    },
+    nickname:{
+        fontSize: 18,
+        fontFamily: "GamjaFlower",
+    }
+
     miniHeaderInfo: {
         flexDirection: "row"
     },

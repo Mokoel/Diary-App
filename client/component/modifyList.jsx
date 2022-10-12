@@ -21,10 +21,11 @@ function ModifyList() {
     const [image, setImage] = useState();
     const [emoji, setEmoji] = useState();
     const [tag, setTag] = useState([]);
+    
     const chooseDate = item.chooseDate
     //console.log("ctx!!!!!",ctx.auth)
-    const _id = item._id
-    
+    const {_id, email, nickname, createdAt} = item
+
     // const [modifyEmoji,setModifyEmoji] = useState();
     // const [modifyContent,setModifyContent] = useState();
     // const [modifyTag,setModifyTag] = useState();
@@ -34,8 +35,10 @@ function ModifyList() {
         setTag(item.tag)
         
       },[])
-  
-
+      
+    //console.log(tag.join())
+    
+    console.log("tagsssssssssssssssssss",tag)
      /** 글쓰기 페이지에서 달력아이콘을 누르면 캘린더 출력 */
      const calendarViewHandle = ()=>{
         navigation.navigate("calendarView")
@@ -55,6 +58,12 @@ function ModifyList() {
         setContent(val)
     }
 
+    const tagChangeHandle = (val) => {
+        let tagText =val.replace(/\s/g, "")
+        let tagArr = tagText.split("#");
+        setTag(tagArr);
+        
+    }
 
 
     /**글 등록 데이터: email, content, nickname, image, emoji, chooseDate, createdAt, tag  // !!!필수 데이터: email, content, nickname */
@@ -62,8 +71,9 @@ function ModifyList() {
 
 
         try {
-            let data = await createUpdate(_id ,content ,image, emoji,chooseDate,tag);
+            let data = await createUpdate(_id, email, content, nickname, image, emoji, chooseDate, createdAt, tag);
             console.log(data, "수정결과")
+            console.log(_id, email, content, nickname, image, emoji, chooseDate, createdAt, tag, "수정결과")
 
 
             Alert.alert("Diary","일기 수정에 성공하셨습니다.",[
@@ -109,15 +119,17 @@ function ModifyList() {
 
                 <View style={styles.firstHeader}>
 
-                    <EmojiComponent  onEmoji={emojiPressHandle} />
-                    <Text style={styles.date}>{item?.chooseDate?.substr(0,10)}</Text>
+                    
+                    <Text style={{fontSize:30}}>{item.emoji}</Text>
+                    <Text style={styles.date}>{item.chooseDate.substr(0,10)}</Text>
+
                 </View>
 
                 <View style={styles.inputBox}>
                     <TextInput
                         placeholder="# 태그 를 입력해보세요."
-                        onChangeText={setTag}
-                        value={tag}
+                        onChangeText={tagChangeHandle}
+                        value={tag.join(" #")}
                         style={styles.tag}
                     />
                     <ScrollView>
@@ -248,7 +260,7 @@ iconButton: {
 imgPick: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
 },
 
 imagePreviewBox: {
@@ -258,7 +270,7 @@ imagePreviewBox: {
     marginTop: 10,
     justifyContent: "center",
     borderRadius: 20,
-    minHeight: 300
+    minHeight:180,
 
 }
 });

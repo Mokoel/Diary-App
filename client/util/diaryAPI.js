@@ -62,7 +62,7 @@ export async function createDataRegi(email, content, nickname, image, emoji, cho
 /**글 수정 API */
 export async function createUpdate(_id, email, content, nickname, image, emoji, chooseDate, createdAt, tag){
 
-    const uploadData = await axios.post(baseUrl+"/api/diary/update",{email: email,content: content, nickname: nickname, image: image, emoji: emoji,chooseDate: chooseDate,createdAt: createdAt,tag: tag});
+    const uploadData = await axios.post(baseUrl+"/api/diary/update",{_id:_id, email: email,content: content, nickname: nickname, image: image, emoji: emoji,chooseDate: chooseDate,createdAt: createdAt,tag: tag});
 
     return uploadData.data;
 }

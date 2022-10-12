@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         paddingLeft: 10,
         marginBottom: 30,
-        minHeight: 300,
+        minHeight: 180,
         textAlignVertical: 'top'
         
     },
