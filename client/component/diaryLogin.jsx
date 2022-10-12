@@ -17,10 +17,6 @@ function DiaryLogin() {
     
     const ctx = useContext(AccountContext);
 
-    /** 이메일 정규식 변수*/
-    const regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-
-
     /** 가입하기 페이지로 이동 네비게이션 */
     const joinHandle = () => {
         navigation.navigate("join")
@@ -30,7 +26,8 @@ function DiaryLogin() {
 
         try {
 
-            if (regex.test(email)) {
+            if (email) {
+
                 const recv = await checkRegisterReq(email, password)  // util폴더 - account.js / 이메일,비밀번호 확인 후 로그인 실행
                 ctx.dispatch({ type: "login", payload: recv })
                 console.log(recv)
@@ -42,7 +39,8 @@ function DiaryLogin() {
                 Alert.alert("앱이름", "로그인 성공")
                 navigation.navigate("calendar", { screen: "calendarView", params: { email: email } }) // 로그인 성공하면 캘린더 창으로 이동
 
-            } else if (!regex.test(email)) {
+            } else if (email) {
+
                 Alert.alert("DayGram", "이메일 형식이 맞지않습니다.")
             }
             
@@ -57,6 +55,7 @@ function DiaryLogin() {
 
      const loginHandle = () => {
         login();
+
     }
 
     // 로딩이 있으면 로딩바 출력!
