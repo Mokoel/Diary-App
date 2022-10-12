@@ -50,7 +50,7 @@ function ImagePicker({ onImage }) {
 
         //console.log(rst)
         if (!rst.cancelled) {
-            contentCtx.setImgPreview(rst.uri);
+            contentCtx?.setImgPreview(rst.uri);
             onImage(rst.uri, rst.base64)
 
         }

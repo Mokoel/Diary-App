@@ -13,7 +13,7 @@ function EmojiComponent({ onEmoji }) {
     return (
         <View>
             <Pressable onPress={() => { setModalVisible(!modalVisible) }}>
-                <Text style={styles.emojiText}>{contentCtx.emojiPreview !== null ? contentCtx.emojiPreview  :<Entypo name="emoji-happy" size={50} color="grey" />}</Text>
+                <Text style={styles.emojiText}>{contentCtx?.emojiPreview !== null ? contentCtx.emojiPreview  :<Entypo name="emoji-happy" size={50} color="grey" />}</Text>
             </Pressable>
             <Modal
                 visible={modalVisible}
@@ -30,7 +30,7 @@ function EmojiComponent({ onEmoji }) {
                             console.log(emoji);
                             setModalVisible(false);
                             onEmoji(emoji); 
-                            contentCtx.setEmojiPreview(emoji);
+                            contentCtx?.setEmojiPreview(emoji);
                         }}
                     />
                 </View>

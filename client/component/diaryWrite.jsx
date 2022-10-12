@@ -61,8 +61,8 @@ function DiaryWrite() {
                 {
                     text: '확인',
                     onPress: () => {
-                        contentCtx.setEmojiPreview(null)
-                        contentCtx.setImgPreview(null)
+                        contentCtx?.setEmojiPreview(null)
+                        contentCtx?.setImgPreview(null)
                         setContent("")
                         setTag("")
                         navigation.navigate("list")
@@ -89,8 +89,10 @@ function DiaryWrite() {
     }
 
     const tagChangeHandle = (val) => {
-        let tagArr = val.split("#");
+        let tagText =val.replace(/\s/g, "")
+        let tagArr = tagText.split("#");
         setTag(tagArr);
+        
     }
 
 
@@ -119,7 +121,7 @@ function DiaryWrite() {
 
                       <ScrollView style={{flex:1}}>
                             {contentCtx?.imgPreview !== null ? <View style={styles.imagePreviewBox}>
-                                <Image source={{ uri: contentCtx.imgPreview }} style={{ flex: 1 }} /> 
+                                <Image source={{ uri: contentCtx?.imgPreview }} style={{ flex: 1 }} /> 
                             </View> :
                                 null}
 
