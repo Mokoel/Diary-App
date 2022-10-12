@@ -68,7 +68,7 @@ function DiaryDetail({ route }) {
     }])
   }
 
-
+  //올리기
 
 
     return (
