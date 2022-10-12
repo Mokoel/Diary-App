@@ -24,7 +24,6 @@ function DiaryDetail({ route }) {
         try {
             let findTagRst = await tagFind(accountCtx?.auth?.email, one);
             setTagGroup(findTagRst.data)
-            //console.log(findTagRst.data)
         } catch (err) {
             console.log(err)
         }
@@ -32,7 +31,7 @@ function DiaryDetail({ route }) {
 
 
     const tagPressHandle = (one) => {
-        setSearchTag
+        setSearchTag(one)
         setModalVisible(true);
         findTag(one);
       }
