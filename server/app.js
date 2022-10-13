@@ -7,6 +7,7 @@ import cors from "cors";
 //라우터 불러오기
 import account from "./router/account.js"
 import diary from "./router/diary.js"
+import todo from "./router/todo.js"
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -31,8 +32,9 @@ app.use(cors());
 app.use("/storage",express.static("storage"));
 
 //경로 불러오기
-app.use("/api/account", account)
-app.use("/api/diary", diary)
+app.use("/api/account", account);
+app.use("/api/diary", diary);
+app.use("/api/todo", todo);
 
 app.listen(8080,()=>{
     console.log("ServerStart--!")
