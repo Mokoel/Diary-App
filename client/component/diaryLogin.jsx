@@ -27,6 +27,7 @@ function DiaryLogin() {
         try {
 
             if (email) {
+
                 const recv = await checkRegisterReq(email, password)  // util폴더 - account.js / 이메일,비밀번호 확인 후 로그인 실행
                 AsyncStorage.setItem("authLoginSave", JSON.stringify(recv))
                 ctx.dispatch({ type: "login", payload: recv })
@@ -34,6 +35,7 @@ function DiaryLogin() {
                 navigation.navigate("calendar", { screen: "calendarView", params: { email: email } }) // 로그인 성공하면 캘린더 창으로 이동
 
             } else if (email) {
+
                 Alert.alert("DayGram", "이메일 형식이 맞지않습니다.")
             }
         } catch (e) {
@@ -42,9 +44,10 @@ function DiaryLogin() {
         }
     }
 
-    /** 로그인 버튼 클릭시 작동 function */
      const loginHandle = () => {
-        login() ;
+
+        login();
+
     }
 
     // 로딩이 있으면 로딩바 출력!

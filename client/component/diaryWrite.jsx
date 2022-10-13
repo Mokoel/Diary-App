@@ -121,6 +121,7 @@ function DiaryWrite() {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
                     <View style={styles.firstHeader}>
+
                         <EmojiComponent onEmoji={emojiPressHandle} />
 
 
@@ -178,7 +179,6 @@ function DiaryWrite() {
                                         onTouchEnd={true}
                                     />
                                 </View>
-
                             </View>
 
                             <TouchableOpacity onPress={createPressHandle}
@@ -192,14 +192,19 @@ function DiaryWrite() {
                         <View style={styles.AndButtonGroup}>
                             <View style={styles.AndIconButton}>
                                 <View style={styles.AndImgPick}>
+
+
                                     <ImagePicker onImage={imageRegiHandle} />
+
                                 </View>
+
                                 <TouchableOpacity onPress={calendarViewHandle} style={styles.calender}>
                                     <Ionicons size={24} name="calendar" />
                                 </TouchableOpacity>
                             </View>
 
                             {andDatePicker ?
+
                                 <DateTimePicker
                                     style={{ flex: 1 }}
                                     locale="ko"
@@ -207,6 +212,7 @@ function DiaryWrite() {
                                     value={dateValue}
                                     mode="date"
                                     is24Hour={true}
+
                                     onChange={(d) => {
                                         if (d.type == "set") {
                                             let selDate = new Date(d.nativeEvent.timestamp).toISOString().slice(0, 10);
@@ -221,12 +227,12 @@ function DiaryWrite() {
                                 : null}
 
                             <TouchableOpacity onPress={createPressHandle}
+
                                 style={styles.button}>
                                 <CustomButton>
                                     입력
                                 </CustomButton>
                             </TouchableOpacity>
-
 
                         </View>
 
@@ -346,7 +352,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "center",
-        // justifyContent: "flex-start",
     },
     AndImgPick: {
         paddingVertical: 6,

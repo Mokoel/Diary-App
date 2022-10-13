@@ -8,7 +8,8 @@ import CustomListButton from "../component/customlistButton"
 function ListItem({ item, navigation }) {
   
   const ctx = useContext(AccountContext);
-  const contentCtx = useContext(ContentContext);
+
+  const contentCtx = useContext(ContentContext)
 
 
   const modifyHandle = (elm) => {
@@ -28,7 +29,7 @@ function ListItem({ item, navigation }) {
             text: "삭제",
             onPress: () => {
               const deleteList = contentDelete(_id);
-              contentCtx.setRefresh((current) => !current)
+              contentCtx.setRefresh(true)
               Alert.alert("Diary", "삭제성공.");
 
             },

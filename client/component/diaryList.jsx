@@ -47,11 +47,9 @@ function DiaryList() {
   
 
   useEffect(() => {
-
     if(focused){
       emailFind()
     }
-    
   }, [focused]);
 
   /**리스트에서 글등록으로 */
