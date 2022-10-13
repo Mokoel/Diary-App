@@ -90,7 +90,7 @@ function DiaryList() {
       />
 
       <TouchableOpacity onPress={writePressHandle}>
-      <AntDesign name="pluscircle" size={40} color="#333" style={styles.plusIcon} />
+      <AntDesign name="pluscircle" size={45} color="#333" style={styles.plusIcon} />
       </TouchableOpacity>
 
     </View>
@@ -99,29 +99,30 @@ function DiaryList() {
 
 const styles = StyleSheet.create({
   plusIcon:{
-    padding:10,
-    marginBottom:10,
-    borderRadius:15,
+    //padding:10,
+    marginBottom:30,
+    borderRadius:50,
+    shadowColor: "#000",
+      shadowOffset: {
+         width: 1,
+         height: 1,
+      },
+      shadowOpacity: 0.2,
+      shadowRadius: 0.3,
+      elevation: 2,
     },
   container: {
     flex: 1,
     textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
-    fontFamily: "GamjaFlower",
   },
   font: {
-    fontFamily: "GamjaFlower",
     fontSize: 20,
     marginBottom: 10,
     marginTop: 10,
-  },
-  loginX:{
-    textAlign:"center",
-    top:"50%",
-    fontFamily: "GamjaFlower",
-    fontSize:17
-}
+  }
+
 });
 
 export default DiaryList;

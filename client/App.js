@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import CalendarView from './screens/calendarView';
 import { NavigationContainer } from "@react-navigation/native";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign , Ionicons} from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -27,8 +27,8 @@ export default function App() {
   function CalendarNavigator() {
     return (
       <Stack.Navigator initialRouteName='calendarView'>
-        <Stack.Screen name="calendarView" component={CalendarView} />
-        <Stack.Screen name="diaryWrite" component={DiaryWrite} options={{ headerShown: false }} />
+        <Stack.Screen name="calendarView" component={CalendarView}  options={{ headerShown: false }} />
+        <Stack.Screen name="diaryWrite" component={DiaryWrite} />
         <Stack.Screen name="diaryDetail" component={DiaryDetail_yu} />
         <Stack.Screen name="modifyDetail" component={ModifyList} options={{ title: "리스트 수정", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         
@@ -93,11 +93,10 @@ export default function App() {
               <Tab.Screen 
                 name="calendar" 
                 component={CalendarNavigator} options={{
-                  tabBarStyle:{/** bottom Tab이랑 헤더 스타일 어떻게 줄지 고민*/},
                 title: "캘린더", 
                 headerShown: false, 
-                tabBarLabelStyle: { fontFamily: "GamjaFlower", fontSize: 12 }, headerTitleStyle: { fontFamily: "GamjaFlower" }, tabBarActiveTintColor: "black", tabBarInactiveTintColor: "grey",
-                tabBarIcon: ({ color, focused }) => <AntDesign name="calendar" color={focused ? "black" : "grey"} size={25} style={{marginBottom:10}} />
+                tabBarShowLabel:false,
+                tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? "ios-home" : "ios-home-outline"} color={focused ? "#333" : "#d0d0d0" } size={25} />
               }} />
 
               <Tab.Screen name="list" component={ListNavigator} options={{
@@ -105,14 +104,16 @@ export default function App() {
                 tabBarInactiveTintColor: "grey",
                 title: "리스트", 
                 headerShown: false,
-                tabBarLabelStyle: { fontFamily: "GamjaFlower", fontSize: 12 }, headerTitleStyle: { fontFamily: "GamjaFlower" },
-                tabBarIcon: ({ color, focused }) => <AntDesign name="bars" color={focused ? "black" : "grey"} size={25} style={{marginBottom:10}}/>
+                tabBarShowLabel:false,
+                tabBarIcon: ({ color, focused }) =>  <Ionicons name={focused ? "ios-albums" : "ios-albums-outline"} color={focused ? "#333" : "#d0d0d0" } size={25} />
               }} />
 
               <Tab.Screen name="set" component={AccountStackNavigator} options={{
                 tabBarActiveTintColor: "black", tabBarInactiveTintColor: "grey",
-                title: "세팅", headerShown: false, tabBarLabelStyle: { fontFamily: "GamjaFlower", fontSize: 12 }, headerTitleStyle: { fontFamily: "GamjaFlower" },
-                tabBarIcon: ({ color, focused }) => <AntDesign name="setting" color={focused ? "black" : "grey"} size={25} style={{marginBottom:10}}/>
+
+                title: "세팅", headerShown: false,   tabBarShowLabel:false, headerTitleStyle: { fontFamily: "GamjaFlower" },
+
+                tabBarIcon: ({ color, focused }) => <Ionicons name={focused ? "ios-settings" : "ios-settings-outline"} color={focused ? "#333" : "#d0d0d0" } size={25} />
               }} />
 
             </Tab.Navigator>
