@@ -117,29 +117,25 @@ function DiaryWrite() {
     }
 
     return (
-        <KeyboardAvoidingView style={{ flex: 1, marginTop: 30 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
-                    <View style={styles.firstHeader}>
-
-                        <EmojiComponent onEmoji={emojiPressHandle} />
-
-
-                        <Text style={styles.date}>{createDate}</Text>
-
-                    </View>
-
-                    <View style={styles.inputBox}>
-
-                        <TextInput
-                            placeholder="# 태그 를 입력해보세요."
-                            onChangeText={tagChangeHandle}
-                            value={tag}
-                            style={styles.tag}
-                        />
+                <ScrollView >
+                        <View style={styles.firstHeader}>
+                            <EmojiComponent onEmoji={emojiPressHandle} />
+                            <Text style={styles.date}>{createDate}</Text>
+                        </View>
+                
+                        <View style={styles.inputBox}>
+                            <TextInput
+                                placeholder="# 태그 를 입력해보세요."
+                                onChangeText={tagChangeHandle}
+                                value={tag}
+                                style={styles.tag}
+                            />
 
 
-                        <ScrollView style={{ flex: 1 }}>
+
                             {contentCtx?.imgPreview !== null ? <View style={styles.imagePreviewBox}>
                                 <Image source={{ uri: contentCtx?.imgPreview }} style={{ flex: 1 }} />
                             </View> :
@@ -147,15 +143,14 @@ function DiaryWrite() {
 
                             <TextInput
                                 placeholder={"일기를 작성해보세요."}
-                                // placeholderTextColor={"black"}
                                 value={content}
                                 multiline={true}
                                 onChangeText={contentChangeHandle}
                                 style={styles.input}
                             />
-                        </ScrollView>
-                    </View>
 
+                        </View>
+                    </ScrollView>
                     {Platform.OS === "ios" ?
                         <View style={styles.iosButtonGroup}>
                             <View style={styles.iosIconButton}>
@@ -212,7 +207,6 @@ function DiaryWrite() {
                                     value={dateValue}
                                     mode="date"
                                     is24Hour={true}
-
                                     onChange={(d) => {
                                         if (d.type == "set") {
                                             let selDate = new Date(d.nativeEvent.timestamp).toISOString().slice(0, 10);
@@ -223,11 +217,9 @@ function DiaryWrite() {
                                     }
                                     }
                                 />
-
                                 : null}
 
                             <TouchableOpacity onPress={createPressHandle}
-
                                 style={styles.button}>
                                 <CustomButton>
                                     입력
@@ -235,10 +227,7 @@ function DiaryWrite() {
                             </TouchableOpacity>
 
                         </View>
-
                     }
-
-
                 </View>
 
             </TouchableWithoutFeedback>
@@ -250,30 +239,21 @@ function DiaryWrite() {
 
 
 const styles = StyleSheet.create({
-    inputBox: {
-
-        //backgroundColor:"red",
-        flex: 8,
-        borderBottomWidth: 1,
-        borderBottomColor: "#d0d0d0",
-        flex: 4,
-    },
     date: {
         flex: 1,
-        fontSize: 15,
+        fontSize: 18,
         color: "#333",
-        paddingVertical: 10
+        paddingVertical: 10,
     },
     firstHeader: {
-        //backgroundColor:"red",
         flex: 1,
-        marginTop: "3%",
         alignItems: "center"
     },
     container: {
         flex: 1,
-        fontFamily: "GamjaFlower",
-        padding: 24
+        paddingHorizontal: 20,
+        paddingTop: 30,
+        paddingBottom:10
     },
     tag: {
         marginBottom: 20,
@@ -286,20 +266,16 @@ const styles = StyleSheet.create({
     },
     input: {
         color: "#333",
-        minWidth: "90%",
         fontFamily: "GamjaFlower",
         fontSize: 20,
-        paddingLeft: 10,
-        marginBottom: 30,
-        minHeight: 180,
-        textAlignVertical: 'top'
-
+        paddingLeft: 5,
+        minHeight: 350,
+        textAlignVertical: 'top',
     },
     emoji: {
         fontSize: 40,
         textAlign: "center",
     },
-
     button: {
         justifyContent: "center",
         alignItems: "flex-end",
@@ -313,12 +289,12 @@ const styles = StyleSheet.create({
         paddingVertical: 6,
     },
     iosButtonGroup: {
-        flex: 1,
+        borderTopWidth: 0.5,
+        paddingTop: 10,
+        borderTopColor: "#d0d0d0",
         flexDirection: "row",
-        borderRadius: 20,
-        marginBottom: "2%",
-        justifyContent: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        alignItems: "center"
     },
     iosIconButton: {
         flexDirection: "row",
@@ -336,17 +312,13 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         minHeight: 300
     },
-
-    loginX: {
-        textAlign: "center",
-        top: "50%",
-        fontFamily: "GamjaFlower",
-        fontSize: 17
-    },
     AndButtonGroup: {
-        flex: 1,
+        borderTopWidth: 0.5,
+        paddingTop: 10,
+        borderTopColor: "#d0d0d0",
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        alignItems: "center"
     },
     AndIconButton: {
         alignItems: "center",
@@ -358,8 +330,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     AndCalender: {
-        justifyContent: "center",
-
+        justifyContent: "center"
     }
 });
 

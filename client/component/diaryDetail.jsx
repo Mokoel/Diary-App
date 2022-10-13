@@ -75,10 +75,10 @@ function DiaryDetail({ route }) {
 
     return (
         <View style={styles.outlineBox}>
-  <View style={styles.miniHeader}>
+        <View style={styles.miniHeader}>
       <View style={styles.miniHeaderInfo}>
         <View>
-          {data?.emoji !== "" ? <Text style={styles.emoji}>{data?.emoji}</Text> : null}
+        {data.emoji ? <Text style={styles.emoji}>{data.emoji}</Text> : <Entypo style={styles.emoji} name="emoji-neutral" size={37} color="grey" />}
         </View>
         <View style={styles.headerTextBox}>
           <Text  style={styles.todayDate}>{data?.chooseDate.slice(0, 10)}</Text>
@@ -292,7 +292,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontStyle: "italic",
         marginLeft: 10
-
     },
     tagContent: {
         fontSize: 14,

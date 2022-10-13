@@ -9,7 +9,6 @@ function EmojiComponent({ onEmoji }) {
     const contentCtx =  useContext(ContentContext);
 
 
-
     return (
         <View>
             <Pressable onPress={() => { setModalVisible(!modalVisible) }}>

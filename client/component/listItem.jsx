@@ -4,6 +4,7 @@ import { Alert, Pressable, Text, View, StyleSheet, TouchableOpacity, Image } fro
 import { AccountContext, ContentContext } from "../context/context";
 import { contentDelete } from "../util/diaryAPI";
 import CustomListButton from "../component/customlistButton"
+import { Entypo } from '@expo/vector-icons'; 
 
 function ListItem({ item, navigation }) {
   
@@ -49,8 +50,6 @@ function ListItem({ item, navigation }) {
     }
   }
 
-
-
   return (
     <View style={styles.outline}>
       <View style={styles.miniHeader}>
@@ -73,8 +72,10 @@ function ListItem({ item, navigation }) {
       </View>
       <Pressable onPress={detailPressHandle}>
         <View style={styles.contentBox} >
+            {item.emoji ? <Text style={styles.emoji}>{item.emoji}</Text> : <Entypo name="emoji-neutral" size={27} color="#d0d0d0" />}
+          
 
-          <Text style={styles.emoji}>{item.emoji}</Text>
+
           <Text numberOfLines={1} style={styles.content}>{item.content}</Text>
         <View style={styles.imgBox}>
                     {item.image !== "" ?
