@@ -107,7 +107,7 @@ export default function App() {
                 tabBarShowLabel:false,
                 tabBarIcon: ({ color, focused }) =>  <Ionicons name={focused ? "ios-albums" : "ios-albums-outline"} color={focused ? "#333" : "#d0d0d0" } size={25} />
               }} />
-
+    
               <Tab.Screen name="set" component={AccountStackNavigator} options={{
                 tabBarActiveTintColor: "black", tabBarInactiveTintColor: "grey",
 

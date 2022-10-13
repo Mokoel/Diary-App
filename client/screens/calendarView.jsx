@@ -1,16 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Calendar } from "react-native-calendars";
-import { Alert, StyleSheet, Text, View } from "react-native";
-import { format } from "date-fns";
+import { Alert, StyleSheet, Text, View, Modal, Pressable } from "react-native";
+import { format, set } from "date-fns";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AccountContext, ContentContext } from "../context/context";
 import { listViewReq } from "../util/diaryAPI";
 import { checkToken } from "../util/accounts";
+import SimpleTodo from "../component/simpleTodo";
+import CustomButton from "../component/customButton";
+import { TodoDelReq } from "../util/todoAPI";
+
 
 function CalendarView() {
   const navigation = useNavigation();
   const accountCtx = useContext(AccountContext);
   const isfocused = useIsFocused();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [long, setlong] = useState(false)
 
   const [posts, setPosts] = useState(null);
   const [selectedDate, setSelectedDate] = useState(format(new Date(), "yyyy.MM.dd"));
@@ -69,11 +76,9 @@ function CalendarView() {
         }])
       }
     }
-
-
   }
 
-  
+
   /**포커싱, 마운트, 이메일 로그인 될 때 데이터 파인드 해주기. */
   useEffect(() => {
     //토큰유효성검사
@@ -114,9 +119,9 @@ function CalendarView() {
     setSelectedDate(day.dateString)
   }
 
-
-
-
+  const downPressHandle = () => {
+    setModalVisible(false);
+  }
 
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
@@ -125,7 +130,7 @@ function CalendarView() {
         markedDates={markedSelectedDates}
         onDayPress={daySelectHandle}
 
-        onDayLongPress={() => console.log("뭐해줄지고민")}
+        onDayLongPress={(day) => { setlong(day.dateString); setModalVisible(true); }}
 
         maxDate={new Date().toISOString().slice(0, 10)}
         enableSwipeMonths={true}
@@ -143,6 +148,31 @@ function CalendarView() {
           monthTextColor: '#303030',
         }} />
 
+
+
+
+
+
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>{long} Todo</Text>
+          {long ? <SimpleTodo date={long} /> : <></>}
+
+          <Pressable onPress={downPressHandle}>
+            <CustomButton>내리기</CustomButton>
+          </Pressable>
+
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -153,7 +183,45 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e0e0e0',
     height: "80%",
     top: "20%"
+  },
+  centeredView: {
+    flex: 1,
+    width: '100%',
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+    backgroundColor: '#dfdfdf'
+  },
+  modalView: {
+    marginTop: 'auto',
+    width: '100%',
+    height: '40%',
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    backgroundColor: '#fff',
+    overflow: 'hidden',
+    padding: 40,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 3,
+      height: 2
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 5
+
+  },
+  textStyle: {
+    color: "white",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "left",
+    fontWeight: "bold",
+    fontSize: 18
+
   }
+
 });
 
 export default CalendarView;
