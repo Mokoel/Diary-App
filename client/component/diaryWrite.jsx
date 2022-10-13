@@ -1,5 +1,5 @@
 import { useIsFocused, useNavigation, useRoute } from "@react-navigation/native";
-import { Button, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, Keyboard, View, Alert, TouchableOpacity, Image, KeyboardAvoidingView, KeyboardAvoidingViewComponent, Platform, ScrollView } from "react-native";
+import { Button, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, Keyboard, View, Alert, TouchableOpacity, Image, KeyboardAvoidingView, KeyboardAvoidingViewComponent, Platform, ScrollView, SafeAreaView } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import ImagePicker from "./ImagePicker";
 import { imgStorageRegi, createDataRegi } from "../util/diaryAPI";
@@ -117,6 +117,7 @@ function DiaryWrite() {
     }
 
     return (
+        <SafeAreaView style={{flex:1}}>
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
@@ -232,7 +233,7 @@ function DiaryWrite() {
 
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView >
-
+        </SafeAreaView>
     )
 
 }

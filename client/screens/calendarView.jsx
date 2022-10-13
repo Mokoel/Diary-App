@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Calendar } from "react-native-calendars";
-import { Alert, StyleSheet, Text, View, Modal, Pressable } from "react-native";
+import { Alert, StyleSheet, Text, View, Modal, Pressable, SafeAreaView } from "react-native";
 import { format, set } from "date-fns";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AccountContext, ContentContext } from "../context/context";
@@ -125,19 +125,16 @@ function CalendarView() {
   }
 
   return (
+    <SafeAreaView style={{flex:1 , backgroundColor:"#fff"}}>
     <View style={{ backgroundColor: "white", flex: 1 }}>
 
       <Calendar style={styles.calendar}
-
         markedDates={markedSelectedDates}
         onDayPress={daySelectHandle}
-
         onDayLongPress={(day) => { setlong(day.dateString); setModalVisible(true); }}
-
         maxDate={new Date().toISOString().slice(0, 10)}
         enableSwipeMonths={true}
         hideExtraDays={true}
-
         theme={{
           arrowColor: '#f1f3f5',
           dotColor: 'grey',
@@ -148,7 +145,7 @@ function CalendarView() {
           weekVerticalMargin: 15,
           textMonthFontSize: 25,
           monthTextColor: '#303030',
-        }} />
+        }}/>
 
 
       <Modal
@@ -177,6 +174,7 @@ function CalendarView() {
         </View>
       </Modal>
     </View>
+    </SafeAreaView>
   );
 }
 
@@ -185,7 +183,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
     height: "80%",
-    top: "20%"
+   // top: "20%"
   },
   centeredView: {
     flex: 1,

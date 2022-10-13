@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
 import { useEffect, useState, useContext } from 'react';
-import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, FlatList } from 'react-native'
+import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, FlatList, SafeAreaView } from 'react-native'
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { AccountContext, ContentContext } from '../context/context';
 import { TodoCreateReq, TodoDateReq } from '../util/todoAPI';
@@ -57,9 +57,9 @@ function SimpleTodo({ date }) {
   }
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <SafeAreaView style={{ flex: 1 }} >
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={"padding"}>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    
     <View style={styles.todoOutline}>
       <View style={ styles.todoInputBox}>
       <BouncyCheckbox
@@ -77,10 +77,10 @@ function SimpleTodo({ date }) {
         returnKeyType={"done"}
         enablesReturnKeyAutomatically={true}
         onEndEditing={(one) => {
-          setDone(true)
-          setTodoRefresh(true)
+          setDone(true);
+          setTodoRefresh(true);
           todoCreate();
-          setTodo("")
+          setTodo("");
         }}
       />
 </View>
@@ -108,6 +108,7 @@ function SimpleTodo({ date }) {
 
     </TouchableWithoutFeedback>
         </KeyboardAvoidingView >
+        </SafeAreaView>
   );
 }
 

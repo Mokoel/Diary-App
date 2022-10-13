@@ -6,8 +6,8 @@ import { TodoDelReq } from "../util/todoAPI";
 function TodoItem({item}) {
     const [chk, setChk] = useState(false);
 
-    return ( <>
-    <View style={{flexDirection:"row"}}>
+    return ( 
+    <View style={{ flex:1, flexDirection:"row"}}>
               <BouncyCheckbox
                 fillColor="black"
                 iconStyle={{ borderColor: "black" }}
@@ -16,11 +16,12 @@ function TodoItem({item}) {
                 textComponent=
                  { chk ? <Text style={styles.chkTodoText}>  {item.todoContent}</Text> : <Text style={styles.unChktodoText}>  {item.todoContent}</Text>}
                 onPress={ async (isChecked)=>{
+                  setChk(isChecked);
                   if(isChecked){
-                    setChk(isChecked);
                     try {
                       let tododel = await TodoDelReq(item._id);
                       console.log(tododel)
+
                     } catch (err) {
                       console.log(err)
                     }
@@ -30,7 +31,7 @@ function TodoItem({item}) {
                 }}
               />
               </View>
-    </> );
+     );
 }
 
 
