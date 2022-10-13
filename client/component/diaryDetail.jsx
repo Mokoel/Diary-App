@@ -198,18 +198,15 @@ const styles = StyleSheet.create({
     },
     headerTextBox: {
         justifyContent: "center",
-        marginLeft: 10,
+        marginLeft: 10
     },
     imgBox: {
         flex: 1,
         alignItems: "center"
     },
     img: {
-        // flex: 1,
-
         height: 180,
         width: "95%",
-
         borderRadius: 15,
         margin: 10
     },
@@ -232,24 +229,19 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         borderRadius: 10,
         marginTop: 10,
-        flex: 0.3,
+        height:80,
         justifyContent: "center",
         alignItems: "center",
-
     },
     tagText: {
-        //backgroundColor:"skyblue",
-        //borderWidth:2,
         padding: 5,
         borderRadius: 20,
         fontFamily: "GamjaFlower",
         fontSize:20,
-        //marginHorizontal:8,
     },
     contentText: {
         fontSize: 20,
         fontFamily: "GamjaFlower",
-
     },
     centeredView: {
         flex: 1,
@@ -290,7 +282,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     tagModalBox: {
-        //backgroundColor:"red",
         borderWidth: 2,
         borderColor: "#d0d0d0",
         borderRadius: 20,
@@ -311,7 +302,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginRight: 8
     },
-
     todayDate:{
         fontSize: 18,
         fontFamily: "GamjaFlower",
@@ -320,7 +310,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: "GamjaFlower",
     },
-
     miniHeaderInfo: {
         flexDirection: "row"
     },
@@ -330,9 +319,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         borderBottomColor: "grey",
         paddingBottom: 10,
-        borderBottomWidth: 2,
+        borderBottomWidth: 0.7,
         color: "#303030"
-
     },
     modalMenuDelText: {
         marginBottom: 10,
@@ -341,7 +329,7 @@ const styles = StyleSheet.create({
         color: "#303030"
     },
     modalMenuTextBox: {
-        height: 100
+        height: 80
     }
 
 });

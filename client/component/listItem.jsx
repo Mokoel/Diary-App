@@ -6,13 +6,9 @@ import { contentDelete } from "../util/diaryAPI";
 import CustomListButton from "../component/customlistButton"
 
 function ListItem({ item, navigation }) {
-  // const route = useRoute();
-
-
-  //console.log("item!!!!!",item)
+  
   const ctx = useContext(AccountContext);
-
-  const contentCtx = useContext(ContentContext)
+  const contentCtx = useContext(ContentContext);
 
 
   const modifyHandle = (elm) => {
@@ -50,9 +46,9 @@ function ListItem({ item, navigation }) {
     if (item) {
       navigation.navigate("listDetail", { data: item })
     }
-
-
   }
+
+
 
   return (
     <View style={styles.outline}>
@@ -100,8 +96,6 @@ const styles = StyleSheet.create({
   },
   button: {
     marginHorizontal: 10,
-    
-    
   },
   miniHeader: {
     flexDirection: "row",
@@ -111,9 +105,9 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   date: {
-    fontSize: 13,
-    color: "#333",
-    marginLeft: 3,
+    fontSize: 16,
+    color: "#303030",
+    marginLeft: 7,
     fontWeight: "bold"
   },
   contentBox: {
@@ -129,12 +123,11 @@ const styles = StyleSheet.create({
   },
   emoji: {
     fontSize: 25,
-    fontFamily:"GamjaFlower",
   },
   content: {
     marginLeft: 10,
-    fontSize: 15,
-    fontFamily:"GamjaFlower",
+    fontSize: 16,
+    color:"#333",
     width:"70%"
   },
 
@@ -143,11 +136,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-end"
   },
   img: {
-    // flex: 1,
-
     height: 40,
     width: 60,
-
     borderRadius: 5,
     margin: 1
   },

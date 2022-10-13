@@ -2,7 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import CalendarView from './screens/calendarView';
 import { NavigationContainer } from "@react-navigation/native";
-import ListScreen from './screens/listScreen';
 import { AntDesign } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -16,7 +15,7 @@ import { AccountContext, AccountContextProvider, ContentContextProvider } from '
 import DiaryDetail from './component/diaryDetail';
 import ModifyList from './component/modifyList';
 import DiaryDetail_yu from './component/diaryDetail_yu';
-
+import DiaryList from './component/diaryList'
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -28,19 +27,21 @@ export default function App() {
   function CalendarNavigator() {
     return (
       <Stack.Navigator initialRouteName='calendarView'>
-        <Stack.Screen name="calendarView" component={CalendarView} options={{ title: "캘린더보기", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
-        <Stack.Screen name="diaryWrite" component={DiaryWrite} options={{ title: "글작성", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
+        <Stack.Screen name="calendarView" component={CalendarView} />
+        <Stack.Screen name="diaryWrite" component={DiaryWrite} options={{ headerShown: false }} />
         <Stack.Screen name="diaryDetail" component={DiaryDetail_yu} />
         <Stack.Screen name="modifyDetail" component={ModifyList} options={{ title: "리스트 수정", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
+        
       </Stack.Navigator>)
   }
 
   function ListNavigator() {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="diaryList" component={ListScreen} options={{ title: "리스트 목록", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
+        <Stack.Screen name="diaryList" component={DiaryList} options={{ title: "리스트 목록", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         <Stack.Screen name="listDetail" component={DiaryDetail} options={{ title: "리스트 상세내용", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         <Stack.Screen name="modifyList" component={ModifyList} options={{ title: "리스트 수정", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
+        <Stack.Screen name="writeList" component={DiaryWrite} options={{ headerShown: false }} />
       </Stack.Navigator>)
   }
 
@@ -79,6 +80,8 @@ export default function App() {
   if (!loaded) {
     return <></>
   }
+
+
   return (
     <>
       <StatusBar style="auto" />
@@ -86,19 +89,30 @@ export default function App() {
         <ContentContextProvider>
           <NavigationContainer>
             <Tab.Navigator>
-              <Tab.Screen name="calendar" component={CalendarNavigator} options={{
-                title: "캘린더", headerShown: false, tabBarLabelStyle:{ fontFamily: "GamjaFlower",fontSize:12} ,headerTitleStyle: { fontFamily: "GamjaFlower" }, tabBarActiveTintColor:"black", tabBarInactiveTintColor:"grey",
-                tabBarIcon: ({ color, focused }) => <AntDesign name="calendar"  color={ focused ? "black":"grey"} size={20} />
+
+              <Tab.Screen 
+                name="calendar" 
+                component={CalendarNavigator} options={{
+                  tabBarStyle:{/** bottom Tab이랑 헤더 스타일 어떻게 줄지 고민*/},
+                title: "캘린더", 
+                headerShown: false, 
+                tabBarLabelStyle: { fontFamily: "GamjaFlower", fontSize: 12 }, headerTitleStyle: { fontFamily: "GamjaFlower" }, tabBarActiveTintColor: "black", tabBarInactiveTintColor: "grey",
+                tabBarIcon: ({ color, focused }) => <AntDesign name="calendar" color={focused ? "black" : "grey"} size={25} style={{marginBottom:10}} />
               }} />
-              <Tab.Screen name="list" component={ListNavigator}  options={{
-                tabBarActiveTintColor:"black", tabBarInactiveTintColor:"grey",
-                title: "리스트", headerShown: false, tabBarLabelStyle:{ fontFamily: "GamjaFlower",fontSize:12}, headerTitleStyle: { fontFamily: "GamjaFlower" },
-                tabBarIcon: ({ color,focused }) => <AntDesign name="bars" color={focused ? "black":"grey"}  size={20} />
+
+              <Tab.Screen name="list" component={ListNavigator} options={{
+                tabBarActiveTintColor: "black",
+                tabBarInactiveTintColor: "grey",
+                title: "리스트", 
+                headerShown: false,
+                tabBarLabelStyle: { fontFamily: "GamjaFlower", fontSize: 12 }, headerTitleStyle: { fontFamily: "GamjaFlower" },
+                tabBarIcon: ({ color, focused }) => <AntDesign name="bars" color={focused ? "black" : "grey"} size={25} style={{marginBottom:10}}/>
               }} />
+
               <Tab.Screen name="set" component={AccountStackNavigator} options={{
-                tabBarActiveTintColor:"black", tabBarInactiveTintColor:"grey",
-                title: "세팅", headerShown: false, tabBarLabelStyle:{ fontFamily: "GamjaFlower",fontSize:12}, headerTitleStyle: { fontFamily: "GamjaFlower" },
-                tabBarIcon: ({ color,focused }) => <AntDesign name="setting" color={ focused ? "black":"grey"} size={20} />
+                tabBarActiveTintColor: "black", tabBarInactiveTintColor: "grey",
+                title: "세팅", headerShown: false, tabBarLabelStyle: { fontFamily: "GamjaFlower", fontSize: 12 }, headerTitleStyle: { fontFamily: "GamjaFlower" },
+                tabBarIcon: ({ color, focused }) => <AntDesign name="setting" color={focused ? "black" : "grey"} size={25} style={{marginBottom:10}}/>
               }} />
 
             </Tab.Navigator>
