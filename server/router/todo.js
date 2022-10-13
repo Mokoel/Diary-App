@@ -18,6 +18,7 @@ router.post("/find", async (req, resp) => {
 
     try {
         let findDiaryData = await todoSchema.find({ email }).sort({ date }).lean();
+        
         resp.status(200).json({ result: true, data: findDiaryData });
 
     } catch (err) {
@@ -72,11 +73,9 @@ router.post("/create", async (req, resp) => {
 router.post("/delete", async (req, resp) => {
     console.log(req.body)
     let { _id } = req.body;
-
     try {
         let deleteData = await todoSchema.deleteOne({ _id });
         resp.status(200).json({ result: true,  message: "삭제에 성공하였습니다.", data: deleteData })
-
     } catch (err) {
         resp.status(400).json({ result: false, message: "삭제에 실패하였습니다." })
         console.log(err)

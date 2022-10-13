@@ -44,14 +44,11 @@ function SimpleTodo({ date }) {
   }
 
   useEffect(() => {
-    if(date || todoRefresh || isFocused){
+    if(date || todoRefresh){
       todoFind();
       setTodoRefresh(false);
     }
     
-    if (done) {
-      todoCreate();
-    }
 
   }, [done, todoRefresh, isFocused])
 
@@ -73,13 +70,17 @@ function SimpleTodo({ date }) {
         disableBuiltInState
         onPress={() => setIsChecked(!checkboxState)}
       />
-      <TextInput style={styles.todoInput} placeholder={"입력"} 
+      <TextInput style={styles.todoInput}
+      placeholder={"입력"} 
       onChangeText={textHandle}
+      value={todo}
         returnKeyType={"done"}
         enablesReturnKeyAutomatically={true}
         onEndEditing={(one) => {
           setDone(true)
           setTodoRefresh(true)
+          todoCreate();
+          setTodo("")
         }}
       />
 </View>
@@ -95,13 +96,9 @@ function SimpleTodo({ date }) {
         renderItem={({ index, item }) => {
           return (
             <TodoItem item={item}/>
-
           )
         }
-
         }
-
-            
       />
 </View>
 
@@ -117,12 +114,12 @@ function SimpleTodo({ date }) {
 
 const styles = StyleSheet.create({
   todoOutline: {
-    flex: 1
+    flex: 1,
+    padding:10
   },
   todoInput: {
     flex:1,
     paddingHorizontal:10,
-    marginLeft:10,
     width: "70%",
     height: 30,
     borderBottomColor: "#333",

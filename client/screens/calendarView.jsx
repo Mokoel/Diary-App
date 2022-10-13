@@ -6,6 +6,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AccountContext, ContentContext } from "../context/context";
 import { listViewReq } from "../util/diaryAPI";
 import { checkToken } from "../util/accounts";
+import { AntDesign } from '@expo/vector-icons';
 import SimpleTodo from "../component/simpleTodo";
 import CustomButton from "../component/customButton";
 import { TodoDelReq } from "../util/todoAPI";
@@ -125,6 +126,7 @@ function CalendarView() {
 
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
+
       <Calendar style={styles.calendar}
 
         markedDates={markedSelectedDates}
@@ -149,11 +151,6 @@ function CalendarView() {
         }} />
 
 
-
-
-
-
-
       <Modal
         animationType="slide"
         transparent={true}
@@ -162,9 +159,15 @@ function CalendarView() {
           setModalVisible(!modalVisible);
         }}
       >
-
+        <Pressable onPress={() => { console.log("?"); setModalVisible(false) }} style={{ flex: 1, width: "100%" }}>
+        </Pressable>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>{long} Todo</Text>
+          {long ? <Text style={styles.modalText}>{long?.slice(0, 4)}년 {long?.slice(5, 7)}월 {long?.slice(8, 10)}일</Text> : <></>}
+
+          <View style={{ flexDirection: "row" }}>
+            <AntDesign name="checkcircleo" size={14} color="grey" />
+            <Text style={{ fontSize: 13, color: "grey", fontWeight: "bold" }}> 오늘의 할 일을 적어보세요.</Text>
+          </View>
           {long ? <SimpleTodo date={long} /> : <></>}
 
           <Pressable onPress={downPressHandle}>
