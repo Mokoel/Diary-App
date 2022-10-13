@@ -12,16 +12,15 @@ const router = express.Router();
 //2.로그인 -> jsonWebtoken 생성 
 //그 다음 유효성... 코드 복사할꺼얌
 
+
 //로그인 경로 => /api/account/auth
 router.post("/auth", async (req, resp) => {
     let { email, password } = req.body;
 
     //아이디 찾아오기.
     let findUserEmail = await accountSchema.findOne({ email });
-    console.log(findUserEmail)
     
     //(찾아온 데이터가 있으면)찾아온거에서 비밀번호 맞는지 체크(암호화된거 확인)
-
     if (findUserEmail) {
         
    
@@ -43,8 +42,6 @@ router.post("/auth", async (req, resp) => {
             resp.status(400).json({ result: false, message: "비밀번호를 확인해주세요." })
 
         }
-
-
         //디비에서 이메일 찾기 실패
     } else if (!findUserEmail) {
         resp.status(401).json({ result: false, message: "이메일을 확인하세요" })

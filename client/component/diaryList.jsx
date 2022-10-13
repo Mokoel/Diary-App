@@ -8,11 +8,13 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { AccountContext, ContentContext } from "../context/context";
 import { listViewReq } from "../util/diaryAPI";
 import ListItem from "./listItem";
+import { AntDesign } from '@expo/vector-icons'; 
 
 function DiaryList() {
   const [refresh, setRefresh] = useState(false);
@@ -23,22 +25,19 @@ function DiaryList() {
   const [listData, setListData] = useState([]);
 
   const email = ctx?.auth?.email;
+
   // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
   if (!ctx?.auth) {
     return <>
-    <Text style={styles.loginX}>로그인 후 사용해주세요!</Text></>;;
+    <Text style={styles.loginX}>로그인 후 사용해주세요!</Text></>;
   }
+
 
   async function emailFind(){
     
         try {
-        // updateItems();
-        
-          //const newArr = [];
           const datas = await listViewReq(email);
-
-          //newArr.push(datas);
-          setListData([...datas]);
+          setListData(datas.data);
 
         } catch (e) {
           console.log(e);
@@ -48,24 +47,21 @@ function DiaryList() {
   
 
   useEffect(() => {
-
     if(focused){
-
       emailFind()
     }
   }, [focused]);
 
-
-  // ctx.auth 가 없으면 빈화면 보여주기 로그인 안되어있을시 오류 뜨지않게
-  if (!ctx.auth) {
-    return <></>;
+  /**리스트에서 글등록으로 */
+  const writePressHandle = ()=>{
+    navigation.navigate("writeList")
   }
 
 
-  //console.log("email!!!!!!!", email);
   /** 일기 데이터 목록*/
   async function findDatas() {
     try {
+
       const datas = await listViewReq(ctx?.auth?.email);
       setListData(datas.data);
       
@@ -77,18 +73,14 @@ function DiaryList() {
   useEffect(() => {
     findDatas();
   }, [focused,contentCtx?.refresh]);
-  
-  /** 리스트 목록 누르면 디테일창으로 이동 */
-  // const listDetailHandle =(elm)=>{ 
-  //   navigation.navigate("listDetail",{datas:listData,index:elm})
-  // }
 
   return (
     <View style={styles.container}>
+
       <FlatList
         data={listData}
         keyExtractor={(one) => one._id}
-        style={{ width: "95%", height: 50, margin: 5 }}
+        style={{ width: "95%", height: 50, margin: 5 , flex:1}}
         renderItem={({ index, item }) => {
           return <ListItem 
           item={item} 
@@ -96,11 +88,21 @@ function DiaryList() {
           />
         }}
       />
+
+      <TouchableOpacity onPress={writePressHandle}>
+      <AntDesign name="pluscircle" size={40} color="#333" style={styles.plusIcon} />
+      </TouchableOpacity>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  plusIcon:{
+    padding:10,
+    marginBottom:10,
+    borderRadius:15,
+    },
   container: {
     flex: 1,
     textAlign: "center",

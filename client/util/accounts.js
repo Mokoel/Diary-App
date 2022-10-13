@@ -33,3 +33,15 @@ export async function checkRegisterReq(email,password){
   
 }
 
+export async function checkToken(token){
+
+    const response = await axios.post(baseUrl+"/api/account/valid",
+    {
+        token:token
+       
+    });
+
+    return response.data;
+  
+}
+

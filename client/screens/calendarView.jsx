@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Calendar } from "react-native-calendars";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import { format } from "date-fns";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AccountContext, ContentContext } from "../context/context";
 import { listViewReq } from "../util/diaryAPI";
+import { checkToken } from "../util/accounts";
 
 function CalendarView() {
   const navigation = useNavigation();
@@ -13,6 +14,7 @@ function CalendarView() {
 
   const [posts, setPosts] = useState(null);
   const [selectedDate, setSelectedDate] = useState(format(new Date(), "yyyy.MM.dd"));
+  const [tokenRst, setTokenRst] = useState("");
 
 
 
@@ -21,8 +23,8 @@ function CalendarView() {
 
     try {
 
-      if (accountCtx?.auth.email) {
-        let dataRst = await listViewReq(accountCtx?.auth.email);
+      if (accountCtx.auth) {
+        let dataRst = await listViewReq(accountCtx?.auth?.email);
 
         let data = dataRst.data.map((one) => {
           return {
@@ -38,7 +40,7 @@ function CalendarView() {
           };
         })
 
-      setPosts(data);
+        setPosts(data);
 
       } else {
         return;
@@ -51,8 +53,31 @@ function CalendarView() {
 
 
 
+  async function tokenValid() {
+    if (accountCtx.auth) {
+      try {
+        let tokenVal = await checkToken(accountCtx.auth.token);
+        setTokenRst(tokenVal);
+      } catch (err) {
+        console.log(err)
+        Alert.alert("Diary", "로그인 토큰에 문제가 생겼습니다. 다시 로그인해주세요.", [{
+          text: "확인",
+          onPress: () => {
+            accountCtx.dispatch({ type: "logout" })
+            navigation.navigate("set", "login")
+          }
+        }])
+      }
+    }
+
+
+  }
+
+  
   /**포커싱, 마운트, 이메일 로그인 될 때 데이터 파인드 해주기. */
   useEffect(() => {
+    //토큰유효성검사
+    tokenValid();
     data();
   }, [isfocused, accountCtx?.auth?.email])
 
@@ -68,25 +93,24 @@ function CalendarView() {
 
   /**글작성 또는 디테일로 이동 */
   const daySelectHandle = (day) => {
-  let sameDate=[];
-   posts?.forEach(one => {
+    let sameDate = [];
+    posts?.forEach(one => {
       if (one.date.slice(0, 10) === day.dateString) {
         return sameDate.push(one);
       }
-
       return;
     });
- 
-      //console.log(sameDate,"sameDate")
-      if(sameDate.length == 0 || sameDate == undefined || sameDate == null) {
-        navigation.navigate("diaryWrite", [day.dateString]);
-        
 
-      } else if(sameDate.length !== 0 || sameDate !== undefined || sameDate !== null) {
-    
-        navigation.navigate("diaryDetail", { item: sameDate[0] })
-      }
-    
+    //console.log(sameDate,"sameDate")
+    if (sameDate.length == 0 || sameDate == undefined || sameDate == null) {
+      navigation.navigate("diaryWrite", [day.dateString]);
+
+
+    } else if (sameDate.length !== 0 || sameDate !== undefined || sameDate !== null) {
+
+      navigation.navigate("diaryDetail", { item: sameDate[0] })
+    }
+
     setSelectedDate(day.dateString)
   }
 
@@ -95,9 +119,9 @@ function CalendarView() {
 
 
   return (
-    <View style={{backgroundColor:"white",flex:1}}>
+    <View style={{ backgroundColor: "white", flex: 1 }}>
       <Calendar style={styles.calendar}
-        
+
         markedDates={markedSelectedDates}
         onDayPress={daySelectHandle}
 
@@ -128,7 +152,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
     height: "80%",
-    top:"20%"
+    top: "20%"
   }
 });
 

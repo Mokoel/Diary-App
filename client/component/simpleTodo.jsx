@@ -6,6 +6,7 @@ import { View, Text } from 'react-native'
 //bottom Tab 스와이프 설정해주기.
 
 function SimpleTodo() {
+  
   return (<View>
     <Text></Text>
   </View>);

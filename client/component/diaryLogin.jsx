@@ -29,13 +29,8 @@ function DiaryLogin() {
             if (email) {
 
                 const recv = await checkRegisterReq(email, password)  // util폴더 - account.js / 이메일,비밀번호 확인 후 로그인 실행
-                ctx.dispatch({ type: "login", payload: recv })
-                console.log(recv)
                 AsyncStorage.setItem("authLoginSave", JSON.stringify(recv))
-
-                // ctx.dispatch({type:"login",payload:recv})
-                // AsyncStorage.setItem("authLoginSave", JSON.stringify(recv))
-
+                ctx.dispatch({ type: "login", payload: recv })
                 Alert.alert("앱이름", "로그인 성공")
                 navigation.navigate("calendar", { screen: "calendarView", params: { email: email } }) // 로그인 성공하면 캘린더 창으로 이동
 
@@ -43,17 +38,14 @@ function DiaryLogin() {
 
                 Alert.alert("DayGram", "이메일 형식이 맞지않습니다.")
             }
-            
         } catch (e) {
             Alert.alert("DayGram", "이메일 또는 비밀번호가 맞지않습니다.")
             console.log(e)
         }
-
-        //setLoading(false);
-
     }
 
      const loginHandle = () => {
+
         login();
 
     }
@@ -64,7 +56,7 @@ function DiaryLogin() {
             <ActivityIndicator size={36} />
         </View>)
     }
-
+    
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.container}>
@@ -73,6 +65,7 @@ function DiaryLogin() {
                 </Text>
                 <Text style={styles.font}>이메일</Text>
                 <TextInput autoCapitalize="none" keyboardType="email-address" onChangeText={(elm) => setEmail(elm)} style={{ borderWidth: 1, width: "60%", fontFamily: "GamjaFlower", fontSize: 20, borderWidth: 1, borderRadius: 5, paddingLeft: 7 }}></TextInput>
+
                 <Text style={styles.font}>비밀번호</Text>
                 <TextInput secureTextEntry={true} onChangeText={(elm) => setPassword(elm)} style={{ borderWidth: 1, width: "60%", fontFamily: "GamjaFlower", fontSize: 20, borderWidth: 1, borderRadius: 5, paddingLeft: 7 }}></TextInput>
                 <View style={{ marginTop: 20 }}>

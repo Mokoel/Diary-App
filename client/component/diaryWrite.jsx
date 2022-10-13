@@ -40,20 +40,16 @@ function DiaryWrite() {
             <Text style={styles.loginX}>로그인 후 사용해주세요!</Text></>;
     }
 
-
-
-    const handleConfirm = (date) => {
-        console.warn("A date has been picked: ", date);
-        hideDatePicker();
-    };
     useEffect(() => {
-        setCreateDate(route?.params)
+        let today = new Date().toISOString().slice(0, 10);
+        setCreateDate(route?.params || today)
     }, [route.params])
 
     const calendarViewHandle = () => {
 
         setAndDatePicker(true)
     }
+
 
     /**[서버]스토리지 폴더에 저장*/
     const imageRegiHandle = async (img, base64data) => {
@@ -67,12 +63,9 @@ function DiaryWrite() {
         }
     }
 
-
-
     const contentChangeHandle = (val) => {
         setContent(val)
     }
-
 
 
     /**글 등록 데이터: email, content, nickname, image, emoji, chooseDate, createdAt, tag  // !!!필수 데이터: email, content, nickname */
@@ -123,17 +116,10 @@ function DiaryWrite() {
 
     }
 
-
-
     return (
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}
-            >
-
-
-
+        <KeyboardAvoidingView style={{ flex: 1, marginTop: 30 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
-
                     <View style={styles.firstHeader}>
 
                         <EmojiComponent onEmoji={emojiPressHandle} />
@@ -170,13 +156,9 @@ function DiaryWrite() {
                         </ScrollView>
                     </View>
 
-
-
                     {Platform.OS === "ios" ?
-
                         <View style={styles.iosButtonGroup}>
                             <View style={styles.iosIconButton}>
-
                                 <View style={styles.iosImgPick}>
                                     <ImagePicker onImage={imageRegiHandle} />
                                 </View>
@@ -211,6 +193,7 @@ function DiaryWrite() {
                             <View style={styles.AndIconButton}>
                                 <View style={styles.AndImgPick}>
 
+
                                     <ImagePicker onImage={imageRegiHandle} />
 
                                 </View>
@@ -229,7 +212,7 @@ function DiaryWrite() {
                                     value={dateValue}
                                     mode="date"
                                     is24Hour={true}
-                                    
+
                                     onChange={(d) => {
                                         if (d.type == "set") {
                                             let selDate = new Date(d.nativeEvent.timestamp).toISOString().slice(0, 10);
@@ -240,6 +223,7 @@ function DiaryWrite() {
                                     }
                                     }
                                 />
+
                                 : null}
 
                             <TouchableOpacity onPress={createPressHandle}
@@ -267,6 +251,7 @@ function DiaryWrite() {
 
 const styles = StyleSheet.create({
     inputBox: {
+
         //backgroundColor:"red",
         flex: 8,
         borderBottomWidth: 1,
@@ -316,16 +301,11 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        flex: 2,
         justifyContent: "center",
         alignItems: "flex-end",
         marginRight: 10,
-
     },
     calender: {
-        // flex: 1,
-        //justifyContent: "center",
-        // alignItems: "center",
         backgroundColor: "#d0d0d0",
         marginHorizontal: 3,
         borderRadius: 10,
@@ -337,7 +317,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderRadius: 20,
         marginBottom: "2%",
-        justifyContent: "center"
+        justifyContent: "center",
+        justifyContent: "space-between"
     },
     iosIconButton: {
         flexDirection: "row",
@@ -354,7 +335,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderRadius: 20,
         minHeight: 300
-
     },
 
     loginX: {
@@ -366,16 +346,12 @@ const styles = StyleSheet.create({
     AndButtonGroup: {
         flex: 1,
         flexDirection: "row",
-        //borderRadius: 20,
-        //marginBottom: "2%",
-        //justifyContent: "center"
+        justifyContent: "space-between"
     },
     AndIconButton: {
-        //backgroundColor:"red",
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "center",
-        // justifyContent: "flex-start",
     },
     AndImgPick: {
         paddingVertical: 6,
