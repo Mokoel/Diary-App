@@ -5,32 +5,6 @@ import { TodoDelReq } from "../util/todoAPI";
 
 function TodoItem({item}) {
     const [chk, setChk] = useState(false);
-    const [checkboxState, setIsChecked] = useState(false);
-    const [chkVal, setChkVal] = useState();
-
-
-    async function todoDel(chkVal) {
-
-      try {
-        let tododel = await TodoDelReq(chkVal);
-        console.log(tododel)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-  
-    //console.log(chkVal)
-    const delpressHandle = (val)=>{
-    
-      setChk(!chk);
-      setChkVal(item._id);
-
-      if(!chk){
-        todoDel(chkVal)
-        console.log(chkVal,chk)
-      }
-     
-    }
 
     return ( <>
     <View style={{flexDirection:"row"}}>
@@ -41,7 +15,19 @@ function TodoItem({item}) {
                 isChecked={chk}
                 textComponent=
                  { chk ? <Text style={styles.chkTodoText}>  {item.todoContent}</Text> : <Text style={styles.unChktodoText}>  {item.todoContent}</Text>}
-                onPress={delpressHandle}
+                onPress={ async (isChecked)=>{
+                  if(isChecked){
+                    setChk(isChecked);
+                    try {
+                      let tododel = await TodoDelReq(item._id);
+                      console.log(tododel)
+                    } catch (err) {
+                      console.log(err)
+                    }
+
+                  }
+                 
+                }}
               />
               </View>
     </> );
