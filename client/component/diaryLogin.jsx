@@ -1,6 +1,6 @@
 // 로그인 페이지
 
-import { ActivityIndicator, Alert, Button, StyleSheet, Text, TextInput, View, TouchableWithoutFeedback, Keyboard, Pressable } from "react-native";
+import { ActivityIndicator, Alert, Button, StyleSheet, Text, TextInput, View, TouchableWithoutFeedback, Keyboard, Pressable, TouchableOpacity } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { useContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -14,7 +14,7 @@ function DiaryLogin() {
     const [password, setPassword] = useState();
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation()
-    
+
     const ctx = useContext(AccountContext);
 
     /** 가입하기 페이지로 이동 네비게이션 */
@@ -44,7 +44,7 @@ function DiaryLogin() {
         }
     }
 
-     const loginHandle = () => {
+    const loginHandle = () => {
 
         login();
 
@@ -56,7 +56,7 @@ function DiaryLogin() {
             <ActivityIndicator size={36} />
         </View>)
     }
-    
+
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.container}>
@@ -69,12 +69,14 @@ function DiaryLogin() {
                 <Text style={styles.font}>비밀번호</Text>
                 <TextInput secureTextEntry={true} onChangeText={(elm) => setPassword(elm)} style={{ borderWidth: 1, width: "60%", fontFamily: "GamjaFlower", fontSize: 20, borderWidth: 1, borderRadius: 5, paddingLeft: 7 }}></TextInput>
                 <View style={{ marginTop: 20 }}>
-                    
-                    <Pressable onPress={loginHandle}>
-        <CustomButton>로그인</CustomButton>
-        </Pressable>
+
+                    <TouchableOpacity onPress={loginHandle}>
+                        <CustomButton>로그인</CustomButton>
+                    </TouchableOpacity>
                 </View>
-                
+
+
+
                 <View style={{ marginTop: 10 }}>
                     <Text style={styles.font} onPress={joinHandle}>가입하기</Text>
                 </View>
