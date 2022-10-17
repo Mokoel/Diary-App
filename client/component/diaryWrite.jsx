@@ -11,6 +11,7 @@ import CustomButton from "./customButton";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ko } from "date-fns/locale";
+import { checkToken } from "../util/accounts";
 
 
 /**글 등록 창
@@ -74,7 +75,9 @@ function DiaryWrite() {
 
         try {
             let data = await createDataRegi(ctx.auth?.email, content, ctx.auth?.nickname, image, emoji, createDate, new Date(), tag);
-            console.log(data, "등록결과")
+
+            let tokenValid = await checkToken(ctx.auth?.token);
+            console.log(tokenValid)
 
 
             Alert.alert("Diary", "일기 등록에 성공하셨습니다.", [
@@ -95,7 +98,7 @@ function DiaryWrite() {
 
 
         } catch (err) {
-            Alert.alert("Diary", "내용을 입력해주세요!", [
+            Alert.alert("Diary", "내용을 입력해주세요", [
                 {
                     text: '확인',
                     onPress: () => console.log('Install Pressed')

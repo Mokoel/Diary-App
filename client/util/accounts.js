@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 
-let baseUrl = "http://192.168.0.2:8080"
+let baseUrl = "http://192.168.4.25:8080"
 
 /** 회원가입 api요청*/
 export async function sendRegisterReq(nickname,email,password){
@@ -33,6 +33,8 @@ export async function checkRegisterReq(email,password){
   
 }
 
+
+/**토큰검사 */
 export async function checkToken(token){
 
     const response = await axios.post(baseUrl+"/api/account/valid",

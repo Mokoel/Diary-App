@@ -23,19 +23,14 @@ function DiaryLogin() {
     }
 
     async function login() {
-
         try {
-
             if (email) {
-
                 const recv = await checkRegisterReq(email, password)  // util폴더 - account.js / 이메일,비밀번호 확인 후 로그인 실행
                 AsyncStorage.setItem("authLoginSave", JSON.stringify(recv))
                 ctx.dispatch({ type: "login", payload: recv })
                 Alert.alert("앱이름", "로그인 성공")
                 navigation.navigate("calendar", { screen: "calendarView", params: { email: email } }) // 로그인 성공하면 캘린더 창으로 이동
-
-            } else if (email) {
-
+            } else {
                 Alert.alert("DayGram", "이메일 형식이 맞지않습니다.")
             }
         } catch (e) {

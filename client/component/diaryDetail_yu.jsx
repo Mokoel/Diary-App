@@ -88,7 +88,7 @@ function DiaryDetail_yu() {
     <View style={styles.miniHeader}>
       <View style={styles.miniHeaderInfo}>
         <View>
-          {item.emoji !== "" ? <Text style={styles.emoji}>{item.emoji}</Text> : null}
+        {item.emoji ? <Text style={styles.emoji}>{item.emoji}</Text> : <Entypo style={styles.emoji} name="emoji-neutral" size={37} color="grey" />}
         </View>
         <View style={styles.headerTextBox}>
           <Text style={styles.todayDate}>{item.chooseDate.slice(0, 10)}</Text>

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View , Alert} from 'react-native';
 import CalendarView from './screens/calendarView';
 import { NavigationContainer } from "@react-navigation/native";
 import { AntDesign , Ionicons} from '@expo/vector-icons';
@@ -10,7 +10,7 @@ import DiaryWrite from './component/diaryWrite';
 import DiaryLogin from './component/diaryLogin';
 import DiaryJoin from './component/diaryJoin';
 import DiaryInfo from './component/diaryInfo';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AccountContext, AccountContextProvider, ContentContextProvider } from './context/context';
 import DiaryDetail from './component/diaryDetail';
 import ModifyList from './component/modifyList';
@@ -80,6 +80,8 @@ export default function App() {
   if (!loaded) {
     return <></>
   }
+
+
 
 
   return (
