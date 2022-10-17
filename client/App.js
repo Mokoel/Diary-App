@@ -72,7 +72,6 @@ export default function App() {
     )
   }
 
-
   const [loaded] = useFonts({
     "GamjaFlower": require("./assets/fonts/GamjaFlower-Regular.ttf"),
   })
@@ -80,9 +79,6 @@ export default function App() {
   if (!loaded) {
     return <></>
   }
-
-
-
 
   return (
     <>
@@ -94,7 +90,9 @@ export default function App() {
 
               <Tab.Screen 
                 name="calendar" 
+
                 component={CalendarNavigator} options={{
+                  unmountOnBlur : true,
                 title: "캘린더", 
                 headerShown: false, 
                 tabBarShowLabel:false,
@@ -102,6 +100,7 @@ export default function App() {
               }} />
 
               <Tab.Screen name="list" component={ListNavigator} options={{
+                unmountOnBlur : true,
                 tabBarActiveTintColor: "black",
                 tabBarInactiveTintColor: "grey",
                 title: "리스트", 
@@ -111,6 +110,7 @@ export default function App() {
               }} />
     
               <Tab.Screen name="set" component={AccountStackNavigator} options={{
+                unmountOnBlur : true,
                 tabBarActiveTintColor: "black", tabBarInactiveTintColor: "grey",
 
                 title: "세팅", headerShown: false,   tabBarShowLabel:false, headerTitleStyle: { fontFamily: "GamjaFlower" },

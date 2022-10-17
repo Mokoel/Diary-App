@@ -12,8 +12,8 @@ import { Octicons } from '@expo/vector-icons';
 
 function DiaryInfo() {
 
+  const navigation = useNavigation();
   const ctx = useContext(AccountContext);
-    const navigation = useNavigation();
   
     const logoutHandle = ()=>{
 
@@ -25,8 +25,7 @@ function DiaryInfo() {
           text:"로그아웃",
           onPress:()=>{
             ctx.dispatch({type:"logout"});
-            AsyncStorage.removeItem("authLoginSave")
-            navigation.navigate("set", { screen: "login" })
+            AsyncStorage.removeItem("authLoginSave");
           }
         }
       ])

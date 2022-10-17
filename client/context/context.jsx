@@ -15,9 +15,9 @@ const authReducer = (state = null, action) => {
         case "logout":
             return null;
     }
+
 }
 
-//1. 토큰 저장
 export function AccountContextProvider({ children }) {
     // mainpage에서 마운트 될 때 Ayncstorage 확인하기.
     const [auth, dispatch] = useReducer(authReducer, null);

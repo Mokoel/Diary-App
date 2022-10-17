@@ -30,7 +30,7 @@ function ListItem({ item, navigation }) {
             text: "삭제",
             onPress: () => {
               const deleteList = contentDelete(_id);
-              contentCtx.setRefresh(true)
+              contentCtx.setRefresh(true);
               Alert.alert("Diary", "삭제성공.");
 
             },

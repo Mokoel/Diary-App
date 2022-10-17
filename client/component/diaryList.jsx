@@ -75,7 +75,9 @@ function DiaryList() {
   }
 
   useEffect(() => {
-    findDatas();
+    if(focused) {
+       findDatas();
+    }
   }, [focused, contentCtx?.refresh]);
 
   return (
