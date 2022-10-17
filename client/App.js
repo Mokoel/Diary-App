@@ -37,7 +37,7 @@ export default function App() {
 
   function ListNavigator() {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator >
         <Stack.Screen name="diaryList" component={DiaryList} options={{ title: "리스트 목록", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         <Stack.Screen name="listDetail" component={DiaryDetail} options={{ title: "리스트 상세내용", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         <Stack.Screen name="modifyList" component={ModifyList} options={{ title: "리스트 수정", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
@@ -48,7 +48,7 @@ export default function App() {
 
 
   function GuestStackNavigator() {
-    return (<Stack.Navigator>
+    return (<Stack.Navigator initialRouteName='login' >
       <Stack.Screen name="login" component={DiaryLogin} options={{ title: "로그인", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
       <Stack.Screen name="join" component={DiaryJoin} options={{ title: "회원가입", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
     </Stack.Navigator>)
