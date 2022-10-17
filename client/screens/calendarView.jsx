@@ -140,6 +140,7 @@ function CalendarView() {
         theme={{
           arrowColor: '#f1f3f5',
           dotColor: 'grey',
+          disabledDotColor:"blue",
           todayTextColor: 'black',
           textDayFontFamily: "GamjaFlower",
           textMonthFontFamily: "GamjaFlower",

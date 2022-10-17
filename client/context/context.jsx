@@ -15,7 +15,7 @@ const authReducer = (state = null, action) => {
         case "logout":
             return null;
     }
-    return null;
+    
 }
 
 //1. 토큰 저장
