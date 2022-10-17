@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     },
     tagContent: {
         fontSize: 14,
-
+        maxWidth:"90%",
     },
     tagEmoji: {
         fontSize: 20,
