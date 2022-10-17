@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "calendar",
+    "name": "DayGram",
     "slug": "calendar",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -18,13 +18,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
+        "versionCode": 1,
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.mokoel.calendar"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -38,6 +44,13 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends.",
           "cameraPermission": "The app accesses your photos to let you share them with your friends."
-        }]]
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "48430e45-02ba-40ea-a9bc-f9c912b1385f"
+      }
+    }
   }
 }

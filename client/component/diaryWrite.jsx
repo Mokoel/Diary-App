@@ -47,7 +47,6 @@ function DiaryWrite() {
     }, [route.params])
 
     const calendarViewHandle = () => {
-
         setAndDatePicker(true)
     }
 
@@ -71,16 +70,15 @@ function DiaryWrite() {
 
     /**글 등록 데이터: email, content, nickname, image, emoji, chooseDate, createdAt, tag  // !!!필수 데이터: email, content, nickname */
     const createPressHandle = async () => {
+        let today = new Date().toISOString().slice(0,10);
 
-
+        if(createDate <= today){
         try {
             let data = await createDataRegi(ctx.auth?.email, content, ctx.auth?.nickname, image, emoji, createDate, new Date(), tag);
 
             let tokenValid = await checkToken(ctx.auth?.token);
             console.log(tokenValid)
-
-
-            Alert.alert("Diary", "일기 등록에 성공하셨습니다.", [
+            Alert.alert("DayGram", "일기 등록에 성공하셨습니다.", [
 
                 {
                     text: '확인',
@@ -89,8 +87,8 @@ function DiaryWrite() {
                         contentCtx?.setImgPreview(null)
                         setContent("")
                         setTag("")
-                        navigation.navigate("list")
-
+                        setEmoji("")
+                        navigation.navigate("list",{loading:"loading"})
                     }
                 }
             ])
@@ -98,13 +96,20 @@ function DiaryWrite() {
 
 
         } catch (err) {
-            Alert.alert("Diary", "내용을 입력해주세요", [
+            Alert.alert("DayGram", "내용을 입력해주세요", [
                 {
                     text: '확인',
                     onPress: () => console.log('Install Pressed')
                 }
             ])
         }
+    }else{
+        Alert.alert("DayGram","오늘 이전의 날짜로 날짜를 다시 선택해주세요!")
+    }
+
+
+
+
     }
 
 
@@ -155,6 +160,7 @@ function DiaryWrite() {
 
                         </View>
                     </ScrollView>
+
                     {Platform.OS === "ios" ?
                         <View style={styles.iosButtonGroup}>
                             <View style={styles.iosIconButton}>
