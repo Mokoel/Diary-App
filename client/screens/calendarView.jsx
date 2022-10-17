@@ -61,30 +61,33 @@ function CalendarView() {
 
 
 
-  async function tokenValid() {
-    if (accountCtx.auth) {
-      try {
-        let tokenVal = await checkToken(accountCtx.auth.token);
-        setTokenRst(tokenVal);
-      } catch (err) {
-        console.log(err)
-        Alert.alert("Diary", "로그인 토큰에 문제가 생겼습니다. 다시 로그인해주세요.", [{
-          text: "확인",
-          onPress: () => {
-            accountCtx.dispatch({ type: "logout" })
-            navigation.navigate("set", "login")
-          }
-        }])
-      }
-    }
-  }
-
 
   /**포커싱, 마운트, 이메일 로그인 될 때 데이터 파인드 해주기. */
   useEffect(() => {
-    //토큰유효성검사
-    tokenValid();
     data();
+    if(accountCtx.auth){
+      !async function () {
+        if (accountCtx.auth) {
+          try {
+            let tokenVal = await checkToken(accountCtx.auth.token);
+            setTokenRst(tokenVal);
+          } catch (err) {
+            console.log(err)
+            Alert.alert("Diary", "로그인 토큰에 문제가 생겼습니다. 다시 로그인해주세요.", [{
+              text: "확인",
+              onPress: () => {
+                accountCtx.dispatch({ type: "logout" })
+                navigation.navigate("set", "login")
+              }
+            }])
+          }
+        }
+      }();
+
+    }
+   
+  
+  
   }, [isfocused, accountCtx?.auth?.email])
 
 
@@ -146,7 +149,8 @@ function CalendarView() {
           todayBackgroundColor: "#f1f3f5",
           weekVerticalMargin: 15,
           textMonthFontSize: 25,
-          monthTextColor: '#303030'
+          monthTextColor: '#303030',
+          style: {marginTop:30}
         }}/>
 
 
@@ -184,6 +188,7 @@ const styles = StyleSheet.create({
   calendar: {
     height: "80%",
     marginTop:100
+
   },
   centeredView: {
     flex: 1,
