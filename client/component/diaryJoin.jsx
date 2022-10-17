@@ -32,22 +32,22 @@ function DiaryJoin() {
             if(regex.test(email) &&password==checkPassword){  // 이메일 형식이 맞고 비밀번호와 재확인 비밀번호가 같으면 
                 // 이메일 중복 체크 넣어야할듯
                 const recv = await sendRegisterReq(nickname,email,password)
-                Alert.alert("앱이름","회원가입이 완료되었습니다.")
+                Alert.alert("DayGram","회원가입이 완료되었습니다.")
                 const recv2 = await checkRegisterReq(email,password)  // 회원가입하면서 동시에 로그인 실행
                 ctx.dispatch({type:"login",payload:recv2})
                 AsyncStorage.setItem("authLoginSave", JSON.stringify(recv2))
                 navigation.navigate("calendar")
                 
             }else if(!nickname){
-                Alert.alert("앱이름","닉네임을 입력해주세요.")
+                Alert.alert("DayGram","닉네임을 입력해주세요.")
             }else if(!regex.test(email)){
-                Alert.alert("앱이름","이메일 형식이 맞지않습니다.")
+                Alert.alert("DayGram","이메일 형식이 맞지않습니다.")
             }else{
-                Alert.alert("앱이름","비밀번호가 같지 않습니다.")
+                Alert.alert("DayGram","비밀번호가 같지 않습니다.")
             }
 
         }catch(e){
-        Alert.alert("앱이름","회원가입이 처리되지 않았습니다.")
+        Alert.alert("DayGram","회원가입이 처리되지 않았습니다.")
         console.log(e)
         }
         setLoading(false);

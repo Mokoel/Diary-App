@@ -30,7 +30,7 @@ function DiaryLogin() {
 
                 AsyncStorage.setItem("authLoginSave", JSON.stringify(recv))
                 ctx.dispatch({ type: "login", payload: recv })
-                Alert.alert("앱이름", "로그인 성공")
+                Alert.alert("DayGram", "로그인 성공")
                 
            return navigation.navigate("calendar", { screen: "calendarView", params: { email: email } }) // 로그인 성공하면 캘린더 창으로 이동
              

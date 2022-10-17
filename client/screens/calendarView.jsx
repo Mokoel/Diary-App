@@ -70,7 +70,7 @@ function CalendarView() {
 
   /**날짜 밑에 점 찍어주는 변수*/
   const markedSelectedDates = posts?.reduce((acc, current) => {
-    let markDate = current.date.slice(0, 10);
+    let markDate = current?.date?.slice(0, 10);
     acc[markDate] = { marked: true };
     return acc;
   }, {});
@@ -81,7 +81,7 @@ function CalendarView() {
   const daySelectHandle = (day) => {
     let sameDate = [];
     posts?.forEach(one => {
-      if (one.date.slice(0, 10) === day.dateString) {
+      if (one?.date.slice(0, 10) === day.dateString) {
         return sameDate.push(one);
       }
       return;

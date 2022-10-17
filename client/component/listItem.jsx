@@ -9,20 +9,21 @@ import { Entypo } from '@expo/vector-icons';
 function ListItem({ item, navigation }) {
   
   const ctx = useContext(AccountContext);
-
-  const contentCtx = useContext(ContentContext)
+  const contentCtx = useContext(ContentContext);
 
 
   const modifyHandle = (elm) => {
     navigation.navigate("modifyList", elm);
   };
 
+
   const deleteHandle = () => {
     const _id = item._id;
 
+
     if (ctx.auth) {
       try {
-        Alert.alert("Diary", "삭제 하시겠습니까?", [
+        Alert.alert("DayGram", "삭제 하시겠습니까?", [
           {
             text: "취소",
           },
@@ -31,14 +32,14 @@ function ListItem({ item, navigation }) {
             onPress: () => {
               const deleteList = contentDelete(_id);
               contentCtx.setRefresh(true);
-              Alert.alert("Diary", "삭제성공.");
+              Alert.alert("DayGram", "삭제성공.");
 
             },
           },
         ]);
 
       } catch (e) {
-        Alert.alert("Diary", "실패.");
+        Alert.alert("DayGram", "실패.");
         console.log(e);
       }
     }
@@ -53,7 +54,7 @@ function ListItem({ item, navigation }) {
   return (
     <View style={styles.outline}>
       <View style={styles.miniHeader}>
-        <Text style={styles.date}>{item.chooseDate.substr(0, 10)}</Text>
+        <Text style={styles.date}>{item?.chooseDate?.substr(0, 10)}</Text>
 
         <View style={styles.buttonBox}>
           <TouchableOpacity onPress={()=>modifyHandle(item)}>
@@ -72,7 +73,7 @@ function ListItem({ item, navigation }) {
       </View>
       <Pressable onPress={detailPressHandle}>
         <View style={styles.contentBox} >
-            {item.emoji ? <Text style={styles.emoji}>{item.emoji}</Text> : <Entypo name="emoji-neutral" size={27} color="#d0d0d0" />}
+            {item.emoji ? <Text style={styles.emoji}>{item.emoji}</Text> : <Entypo name="emoji-happy" size={27} color="#d0d0d0" />}
           
 
 

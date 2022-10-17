@@ -44,7 +44,7 @@ function DiaryDetail({ route }) {
     //수정하기 
     const modiPressHandle = () => {
         console.log(data, "수정하기 아이템")
-        navigation.navigate("modifyDetail", data);
+        navigation.navigate("modifyList", data);
         setDotModalVisible(false);
     }
 

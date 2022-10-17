@@ -65,7 +65,7 @@ function DiaryList() {
       try {
         const datas = await listViewReq(ctx.auth.email);
         setListData(datas.data);
-
+        console.log("!@@!@!@!@@",datas.data)
       } catch (e) {
         console.log(e);
       }
@@ -75,7 +75,7 @@ function DiaryList() {
   }
 
   useEffect(() => {
-    if(focused) {
+    if(focused||contentCtx?.refresh) {
        findDatas();
     }
   }, [focused, contentCtx?.refresh]);

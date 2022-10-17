@@ -17,7 +17,7 @@ function DiaryInfo() {
   
     const logoutHandle = ()=>{
 
-      Alert.alert("앱이름","로그아웃 하시겠습니까?",[
+      Alert.alert("DayGram","로그아웃 하시겠습니까?",[
         {
           text:"취소",
         },
