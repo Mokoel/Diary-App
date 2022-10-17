@@ -1,5 +1,5 @@
 
-import { useRoute ,useNavigation} from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
 
 import { View, Text, StyleSheet, Image, Modal, Pressable, TouchableOpacity, ScrollView, Alert } from "react-native";
@@ -18,7 +18,7 @@ function DiaryDetail({ route }) {
     const accountCtx = useContext(AccountContext);
 
     const navigation = useNavigation();
-    
+
     async function findTag(one) {
 
         try {
@@ -34,92 +34,101 @@ function DiaryDetail({ route }) {
         setSearchTag(one)
         setModalVisible(true);
         findTag(one);
-      }
-    
-      const dotMenuPressHandle = () => {
+    }
+
+    const dotMenuPressHandle = () => {
         setDotModalVisible(true);
-      }
-    
+    }
 
-  //수정하기 
-  const modiPressHandle = () => {
-    console.log(data, "수정하기 아이템")
-    navigation.navigate("modifyDetail", data);
-    setDotModalVisible(false);
-  }
 
-  //삭제하기
-  const delPressHandle = () => {
-    setDotModalVisible(false);
+    //수정하기 
+    const modiPressHandle = () => {
+        console.log(data, "수정하기 아이템")
+        navigation.navigate("modifyDetail", data);
+        setDotModalVisible(false);
+    }
 
-    Alert.alert("", "게시물을 삭제하시겠습니까?", [{
-      text: "확인",
-      onPress: async () => {
-        try {
-          let ItemDel = await contentDelete(data._id);
-          console.log(ItemDel, "삭제데이터")
-        } catch (err) {
-          console.log(err)
+    //삭제하기
+    const delPressHandle = () => {
+        setDotModalVisible(false);
+
+        Alert.alert("", "게시물을 삭제하시겠습니까?", [{
+            text: "확인",
+            onPress: async () => {
+                try {
+                    let ItemDel = await contentDelete(data._id);
+                    console.log(ItemDel, "삭제데이터")
+                } catch (err) {
+                    console.log(err)
+                }
+                //캘린더로 돌아가기
+                navigation.goBack();
+            }
+        }, {
+            text: "취소",
+            onPress: () => { console.log("삭제취소") }
+        }])
+    }
+
+
+    /**맨 앞쪽에 공백들어가는 태그배열 걸러주기(공백없애기)*/
+    let tagData = [];
+    if (data.tag[0] !== "") {
+        data.tag.forEach((elm) => tagData.push(elm))
+    } else {
+       for(let i = 1; i< data.tag.length; i++){
+             tagData.push(data.tag[i])
         }
-        //캘린더로 돌아가기
-        navigation.goBack();
-      }
-    }, {
-      text: "취소",
-      onPress: () => { console.log("삭제취소") }
-    }])
-  }
+    }
 
-  //올리기
-
-
+    console.log(tagData, "<==tagData")
     return (
         <View style={styles.outlineBox}>
-        <View style={styles.miniHeader}>
-      <View style={styles.miniHeaderInfo}>
-        <View>
-        {data.emoji ? <Text style={styles.emoji}>{data.emoji}</Text> : <Entypo style={styles.emoji} name="emoji-neutral" size={37} color="grey" />}
-        </View>
-        <View style={styles.headerTextBox}>
-          <Text  style={styles.todayDate}>{data?.chooseDate.slice(0, 10)}</Text>
-          <Text style={styles.nickname}>{data?.nickname}</Text>
-        </View>
+            <View style={styles.miniHeader}>
+                <View style={styles.miniHeaderInfo}>
+                    <View>
+                        {data.emoji ? <Text style={styles.emoji}>{data.emoji}</Text> : <Entypo style={styles.emoji} name="emoji-neutral" size={37} color="grey" />}
+                    </View>
+                    <View style={styles.headerTextBox}>
+                        <Text style={styles.todayDate}>{data?.chooseDate.slice(0, 10)}</Text>
+                        <Text style={styles.nickname}>{data?.nickname}</Text>
+                    </View>
 
-      </View>
+                </View>
 
-      <TouchableOpacity style={styles.dotmenu} onPress={dotMenuPressHandle}>
-        <Entypo name="dots-three-vertical" size={14} color="#333" />
-      </TouchableOpacity>
+                <TouchableOpacity style={styles.dotmenu} onPress={dotMenuPressHandle}>
+                    <Entypo name="dots-three-vertical" size={14} color="#333" />
+                </TouchableOpacity>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={dotModalVisible}
-        onRequestClose={() => {
-          setDotModalVisible(!dotModalVisible);
-        }}
-      >
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={dotModalVisible}
+                    onRequestClose={() => {
+                        setDotModalVisible(!dotModalVisible);
+                    }}
+                >
 
-        <View style={styles.centeredView}>
-          <Pressable onPress={() => { console.log("?"); setDotModalVisible(false) }} style={{ flex: 1, width: "100%" }}>
-          </Pressable>
-          <View style={styles.modalView}>
-            <View style={styles.modalMenuTextBox}>
-              <TouchableOpacity onPress={modiPressHandle}>
-                <Text style={styles.modalMenuModiText}>수정하기</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={delPressHandle}>
-                <Text style={styles.modalMenuDelText}>삭제하기</Text>
-              </TouchableOpacity>
+                    <View style={styles.centeredView}>
+                        <Pressable onPress={() => { console.log("?"); setDotModalVisible(false) }} style={{ flex: 1, width: "100%" }}>
+                        </Pressable>
+                        <View style={styles.modalView}>
+                            <View style={styles.modalMenuTextBox}>
+                                <TouchableOpacity onPress={modiPressHandle}>
+                                    <Text style={styles.modalMenuModiText}>수정하기</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={delPressHandle}>
+                                    <Text style={styles.modalMenuDelText}>삭제하기</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
+
+
+
             </View>
-          </View>
-        </View>
-      </Modal>
-
-
-
-
-    </View>
             <ScrollView>
                 <View style={styles.imgBox}>
                     {data.image !== "" ?
@@ -136,7 +145,7 @@ function DiaryDetail({ route }) {
 
             <View style={styles.tagBox}>
                 {
-                    data.tag.map((one, index) => {
+                    tagData.map((one, index) => {
 
                         return <TouchableOpacity key={index} onPress={() => { tagPressHandle(one); }}><Text key={index} style={styles.tagText} >#{one}</Text></TouchableOpacity>
                     })
@@ -229,7 +238,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         borderRadius: 10,
         marginTop: 10,
-        height:80,
+        height: 80,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -237,7 +246,7 @@ const styles = StyleSheet.create({
         padding: 5,
         borderRadius: 20,
         fontFamily: "GamjaFlower",
-        fontSize:20,
+        fontSize: 20,
     },
     contentText: {
         fontSize: 20,
@@ -257,7 +266,8 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 32,
         backgroundColor: '#fff',
         overflow: 'hidden',
-        padding: 40
+        padding: 40,
+
     },
     button: {
         borderRadius: 20,
@@ -295,17 +305,17 @@ const styles = StyleSheet.create({
     },
     tagContent: {
         fontSize: 14,
-        
+
     },
     tagEmoji: {
         fontSize: 20,
         marginRight: 8
     },
-    todayDate:{
+    todayDate: {
         fontSize: 18,
         fontFamily: "GamjaFlower",
     },
-    nickname:{
+    nickname: {
         fontSize: 18,
         fontFamily: "GamjaFlower",
     },
