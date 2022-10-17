@@ -187,7 +187,8 @@ function CalendarView() {
 const styles = StyleSheet.create({
   calendar: {
     height: "80%",
-    marginTop:60,
+    marginTop:100
+
   },
   centeredView: {
     flex: 1,
