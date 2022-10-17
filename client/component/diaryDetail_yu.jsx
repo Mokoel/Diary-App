@@ -79,7 +79,17 @@ function DiaryDetail_yu() {
 
   }
 
+ /**맨 앞쪽에 공백들어가는 태그배열 걸러주기(공백없애기)*/
+ let tagItem = [];
+ if (item.tag[0] !== "") {
+  item.tag.forEach((elm) => tagItem.push(elm))
+ } else {
+    for(let i = 1; i< item.tag.length; i++){
+      tagItem.push(item.tag[i])
+     }
+ }
 
+ console.log(tagItem, "<==tagData")
 
 
 
@@ -145,7 +155,7 @@ function DiaryDetail_yu() {
     </ScrollView>
     <View style={styles.tagBox}>
       {
-        item.tag.map((one, index) => {
+        tagItem.map((one, index) => {
           return <TouchableOpacity key={index} onPress={() => { tagPressHandle(one); }}><Text key={index} style={styles.tagText} >#{one}</Text></TouchableOpacity>
         })
       }
