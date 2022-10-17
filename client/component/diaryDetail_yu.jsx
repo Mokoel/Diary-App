@@ -297,7 +297,7 @@ tagDate: {
 },
 tagContent: {
     fontSize: 14,
-    
+    maxWidth:"85%"
 },
 tagEmoji: {
     fontSize: 20,
