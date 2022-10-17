@@ -15,7 +15,6 @@ const authReducer = (state = null, action) => {
         case "logout":
             return null;
     }
-    return null;
 }
 
 //1. 토큰 저장
@@ -25,13 +24,11 @@ export function AccountContextProvider({ children }) {
     const [done, setDone] = useState(false);
 
     useEffect(() => {
-
         AsyncStorage.getItem("authLoginSave").then((data) => {
-
             if (data) {
                 dispatch({ type: "login", payload: JSON.parse(data) })
             }
-            setDone(true);
+        setDone(true);
         })
     }, []);
 

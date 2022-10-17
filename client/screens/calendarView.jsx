@@ -65,30 +65,7 @@ function CalendarView() {
   /**포커싱, 마운트, 이메일 로그인 될 때 데이터 파인드 해주기. */
   useEffect(() => {
     data();
-    if(accountCtx.auth){
-      !async function () {
-        if (accountCtx.auth) {
-          try {
-            let tokenVal = await checkToken(accountCtx.auth.token);
-            setTokenRst(tokenVal);
-          } catch (err) {
-            console.log(err)
-            Alert.alert("Diary", "로그인 토큰에 문제가 생겼습니다. 다시 로그인해주세요.", [{
-              text: "확인",
-              onPress: () => {
-                accountCtx.dispatch({ type: "logout" })
-                navigation.navigate("set", "login")
-              }
-            }])
-          }
-        }
-      }();
-
-    }
-   
-  
-  
-  }, [isfocused, accountCtx?.auth?.email])
+  }, [isfocused, accountCtx?.auth])
 
 
   /**날짜 밑에 점 찍어주는 변수*/
