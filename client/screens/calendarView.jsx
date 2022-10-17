@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Calendar } from "react-native-calendars";
-import { Alert, StyleSheet, Text, View, Modal, Pressable, SafeAreaView } from "react-native";
+import { Alert, StyleSheet, Text, View, Modal, Pressable, SafeAreaView, KeyboardAvoidingView } from "react-native";
 import { format, set } from "date-fns";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AccountContext, ContentContext } from "../context/context";
@@ -106,7 +106,7 @@ function CalendarView() {
 
   return (
     <SafeAreaView style={{flex:1 , backgroundColor:"#fff"}}>
-
+<KeyboardAvoidingView style={{flex:1 }}>
     <View style={{ backgroundColor: "white", flex: 1 }}>
 
       <Calendar style={styles.calendar}
@@ -157,6 +157,7 @@ function CalendarView() {
         </View>
       </Modal>
     </View>
+    </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

@@ -95,9 +95,6 @@ function SimpleTodo({ date }) {
         }
       />
 </View>
-
-
-
     </View>
 
     </TouchableWithoutFeedback>
@@ -119,8 +116,6 @@ const styles = StyleSheet.create({
     height: 30,
     borderBottomColor: "#333",
     borderBottomWidth: 1,
-    marginVertical:5
-
   },
   chkTodoText: {
     textDecorationLine:"solid",
