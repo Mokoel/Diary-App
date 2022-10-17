@@ -26,7 +26,7 @@ function DiaryInfo() {
           onPress:()=>{
             ctx.dispatch({type:"logout"});
             AsyncStorage.removeItem("authLoginSave")
-            navigation.navigate("set")
+            navigation.navigate("set", { screen: "login" })
           }
         }
       ])
