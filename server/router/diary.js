@@ -22,7 +22,7 @@ router.post("/img/:fileName", (req, resp) => {
     
     try{
 
-        resp.json({result:true, path:"http://192.168.4.25:8080/storage/img/" + req.params.fileName});
+        resp.json({result:true, path:"http://192.168.4.93:8080/storage/img/" + req.params.fileName});
 
     }catch(err){
         resp.json({result:false , msg:"사진 등록에 실패했습니다."})

@@ -34,7 +34,7 @@ function DiaryLogin() {
                 Alert.alert("앱이름", "로그인 성공")
                 navigation.navigate("calendar", { screen: "calendarView", params: { email: email } }) // 로그인 성공하면 캘린더 창으로 이동
 
-            } else if (email) {
+            } else {
 
                 Alert.alert("DayGram", "이메일 형식이 맞지않습니다.")
             }
