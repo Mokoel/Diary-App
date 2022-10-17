@@ -126,7 +126,8 @@ function CalendarView() {
           todayBackgroundColor: "#f1f3f5",
           weekVerticalMargin: 15,
           textMonthFontSize: 25,
-          monthTextColor: '#303030'
+          monthTextColor: '#303030',
+          style: {marginTop:30}
         }}/>
 
 
@@ -164,6 +165,7 @@ const styles = StyleSheet.create({
   calendar: {
     height: "80%",
     marginTop:100
+
   },
   centeredView: {
     flex: 1,

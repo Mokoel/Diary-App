@@ -192,28 +192,27 @@ const styles = StyleSheet.create({
   outlineBox: {
     flex: 1,
     margin: 10
-  },
-  miniHeader: {
+},
+miniHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
-  },
-  headerTextBox: {
+},
+headerTextBox: {
     justifyContent: "center",
-    marginLeft: 10,
-  },
-  imgBox: {
+    marginLeft: 10
+},
+imgBox: {
     flex: 1,
     alignItems: "center"
-  },
-  img: {
-    // flex: 1,
-    height: 200,
-    width: 200,
+},
+img: {
+    height: 180,
+    width: "95%",
     borderRadius: 15,
     margin: 10
-  },
-  contentBox: {
+},
+contentBox: {
     flex: 2,
     borderWidth: 3,
     borderColor: "#d0d0d0",
@@ -221,44 +220,39 @@ const styles = StyleSheet.create({
     padding: 20,
     margin: 10,
     backgroundColor: "#d0d0d0"
-  },
-  emoji: {
+},
+emoji: {
     fontSize: 40,
     marginLeft: 10
-  },
-  tagBox: {
+},
+tagBox: {
     flexDirection: "row",
     borderWidth: 2,
     marginHorizontal: 10,
     borderRadius: 10,
     marginTop: 10,
-    flex: 0.3,
+    height:80,
     justifyContent: "center",
-    alignItems: "center"
-
-  },
-  tagText: {
-    //backgroundColor:"skyblue",
-    //borderWidth:2,
+    alignItems: "center",
+},
+tagText: {
     padding: 5,
     borderRadius: 20,
     fontFamily: "GamjaFlower",
-    fontSize: 20,
-    //marginHorizontal:8,
-  },
-  contentText: {
+    fontSize:20,
+},
+contentText: {
     fontSize: 20,
     fontFamily: "GamjaFlower",
-
-  },
-  centeredView: {
+},
+centeredView: {
     flex: 1,
     width: '100%',
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
-  },
-  modalView: {
+},
+modalView: {
     marginTop: 'auto',
     width: '100%',
     borderTopLeftRadius: 32,
@@ -266,53 +260,50 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     overflow: 'hidden',
     padding: 40
-  },
-  button: {
+},
+button: {
     borderRadius: 20,
     padding: 10,
     elevation: 2
-  },
-  buttonOpen: {
+},
+buttonOpen: {
     backgroundColor: "#F194FF",
-  },
-  buttonClose: {
+},
+buttonClose: {
     backgroundColor: "#2196F3",
-  },
-  textStyle: {
+},
+textStyle: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center"
-  },
-  modalText: {
+},
+modalText: {
     marginBottom: 15,
     textAlign: "left",
     fontSize: 20,
-    fontWeight: "bold",
-    
-  },
-  tagModalBox: {
-    //backgroundColor:"red",
+    fontWeight: "bold"
+},
+tagModalBox: {
     borderWidth: 2,
     borderColor: "#d0d0d0",
     borderRadius: 20,
     padding: 8,
     marginBottom: 10
-  },
-  tagDate: {
+},
+tagDate: {
     fontWeight: "bold",
     fontStyle: "italic",
     marginLeft: 10
-  },
-  tagContent: {
+},
+tagContent: {
     fontSize: 14,
     
-  },
-  tagEmoji: {
+},
+tagEmoji: {
     fontSize: 20,
     marginRight: 8
-  },
-
-  todayDate:{
+},
+todayDate:{
     fontSize: 18,
     fontFamily: "GamjaFlower",
 },
@@ -320,33 +311,27 @@ nickname:{
     fontSize: 18,
     fontFamily: "GamjaFlower",
 },
-
-  miniHeaderInfo: {
+miniHeaderInfo: {
     flexDirection: "row"
-  },
-  modalMenuModiText: {
+},
+modalMenuModiText: {
     marginBottom: 10,
-    fontSize: 17,
+    fontSize: 15,
     textAlign: "center",
     borderBottomColor: "grey",
     paddingBottom: 10,
-    borderBottomWidth: 2,
-    color: "#303030",
-    fontFamily: "GamjaFlower",
-
-  },
-  modalMenuDelText: {
+    borderBottomWidth: 0.7,
+    color: "#303030"
+},
+modalMenuDelText: {
     marginBottom: 10,
-    fontSize: 17,
+    fontSize: 15,
     textAlign: "center",
-    color: "#303030",
-    fontFamily: "GamjaFlower",
-  },
-  modalMenuTextBox: {
-    height: 100
-  }
-
-
+    color: "#303030"
+},
+modalMenuTextBox: {
+    height: 80
+}
 });
 
 export default DiaryDetail_yu;
