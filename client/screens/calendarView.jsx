@@ -126,9 +126,11 @@ function CalendarView() {
 
   return (
     <SafeAreaView style={{flex:1 , backgroundColor:"#fff"}}>
+
     <View style={{ backgroundColor: "white", flex: 1 }}>
 
       <Calendar style={styles.calendar}
+
         markedDates={markedSelectedDates}
         onDayPress={daySelectHandle}
         onDayLongPress={(day) => { setlong(day.dateString); setModalVisible(true); }}
@@ -144,7 +146,7 @@ function CalendarView() {
           todayBackgroundColor: "#f1f3f5",
           weekVerticalMargin: 15,
           textMonthFontSize: 25,
-          monthTextColor: '#303030',
+          monthTextColor: '#303030'
         }}/>
 
 
@@ -161,7 +163,7 @@ function CalendarView() {
         <View style={styles.modalView}>
           {long ? <Text style={styles.modalText}>{long?.slice(0, 4)}년 {long?.slice(5, 7)}월 {long?.slice(8, 10)}일</Text> : <></>}
 
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row"}}>
             <AntDesign name="checkcircleo" size={14} color="grey" />
             <Text style={{ fontSize: 13, color: "grey", fontWeight: "bold" }}> 오늘의 할 일을 적어보세요.</Text>
           </View>
@@ -182,8 +184,7 @@ const styles = StyleSheet.create({
   calendar: {
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
-    height: "80%",
-   // top: "20%"
+    height: "80%"
   },
   centeredView: {
     flex: 1,
@@ -199,6 +200,7 @@ const styles = StyleSheet.create({
     height: '40%',
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
+    borderWidth:2,
     backgroundColor: '#fff',
     overflow: 'hidden',
     padding: 40,
@@ -210,7 +212,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 4,
     elevation: 5
-
   },
   textStyle: {
     color: "white",
