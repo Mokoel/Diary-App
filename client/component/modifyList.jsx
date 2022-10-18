@@ -33,6 +33,7 @@ function ModifyList() {
         setEmoji(item.emoji)
         setContent(item.content)
         setTag(item.tag.join("#"))
+        setImage(item.image)
       },[])
      
    
@@ -85,9 +86,10 @@ function ModifyList() {
                     onPress: () => {
                         contentCtx?.setEmojiPreview(null)
                         contentCtx?.setImgPreview(null)
-                        setContent("")
-                        setTag("")
-                        setEmoji("")
+                        setContent("");
+                        setTag("");
+                        setEmoji("");
+                        setImage(null);
                         navigation.goBack()
                     }
                 }
@@ -123,11 +125,11 @@ function ModifyList() {
         >
 
             <View style={styles.container}>
-
+            <ScrollView>
                 <View style={styles.firstHeader}>
 
                     
-                <Text style={styles.emojiText}>{item?.emoji !== null ? item?.emoji  :<Entypo name="emoji-happy" size={50} color="grey" />}</Text>
+                <Text style={styles.emoji}>{item?.emoji !== null ? item?.emoji  :<Entypo name="emoji-happy" size={50} color="grey" />}</Text>
                     
                     <Text style={styles.date}>{createDate}</Text>
                 </View>
@@ -139,9 +141,9 @@ function ModifyList() {
                         value={tag}
                         style={styles.tag}
                     />
-                    <ScrollView>
-                        {contentCtx?.imgPreview !== null ? <View style={styles.imagePreviewBox}>
-                            {contentCtx?.imgPreview !== null ? <Image source={{ uri: contentCtx.imgPreview }} style={{ flex: 1 }} /> : null}
+                    
+                        {image !== null&& image!=="" ? <View style={styles.imagePreviewBox}>
+                            {image !== null&& image!=="" ? <Image source={{ uri: image }} style={{ flex: 1 }} /> : null}
                         </View> :
                             null}
 
@@ -152,8 +154,8 @@ function ModifyList() {
                             onChangeText={contentChangeHandle}
                             style={styles.input}
                         />
-                    </ScrollView>
                 </View>
+                    </ScrollView>
 
 
                 {Platform.OS === "ios" ?

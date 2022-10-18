@@ -60,7 +60,7 @@ function DiaryDetail_yu() {
     setDotModalVisible(false);
 
     Alert.alert("", "게시물을 삭제하시겠습니까?", [{
-      text: "확인",
+      text: "삭제",
       onPress: async () => {
         try {
           let ItemDel = await contentDelete(item._id);

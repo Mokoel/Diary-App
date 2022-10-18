@@ -88,7 +88,7 @@ function DiaryWrite() {
                         setContent("")
                         setTag("")
                         setEmoji("")
-                        navigation.navigate("list",{loading:"loading"})
+                        navigation.goBack()
                     }
                 }
             ])
@@ -281,6 +281,7 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         minHeight: 350,
         textAlignVertical: 'top',
+        marginTop:5
     },
     emoji: {
         fontSize: 40,

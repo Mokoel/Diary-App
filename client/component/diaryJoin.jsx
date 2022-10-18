@@ -29,7 +29,7 @@ function DiaryJoin() {
 
         !async function(){
         try{
-            if(regex.test(email) &&password==checkPassword){  // 이메일 형식이 맞고 비밀번호와 재확인 비밀번호가 같으면 
+            if(regex.test(email) &&password==checkPassword&&nickname){  // 이메일 형식이 맞고 비밀번호와 재확인 비밀번호가 같으면 
                 // 이메일 중복 체크 넣어야할듯
                 const recv = await sendRegisterReq(nickname,email,password)
                 Alert.alert("DayGram","회원가입이 완료되었습니다.")
