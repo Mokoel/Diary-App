@@ -121,8 +121,8 @@ function ModifyList() {
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}
         >
-
             <View style={styles.container}>
+<ScrollView >
 
                 <View style={styles.firstHeader}>
 
@@ -139,7 +139,7 @@ function ModifyList() {
                         value={tag}
                         style={styles.tag}
                     />
-                    <ScrollView>
+                    
                         {contentCtx?.imgPreview !== null ? <View style={styles.imagePreviewBox}>
                             {contentCtx?.imgPreview !== null ? <Image source={{ uri: contentCtx.imgPreview }} style={{ flex: 1 }} /> : null}
                         </View> :
@@ -152,8 +152,8 @@ function ModifyList() {
                             onChangeText={contentChangeHandle}
                             style={styles.input}
                         />
-                    </ScrollView>
                 </View>
+                    </ScrollView>
 
 
                 {Platform.OS === "ios" ?
