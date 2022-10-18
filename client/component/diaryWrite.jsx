@@ -88,7 +88,7 @@ function DiaryWrite() {
                         setContent("")
                         setTag("")
                         setEmoji("")
-                        navigation.navigate("list",{loading:"loading"})
+                        navigation.goBack()
                     }
                 }
             ])

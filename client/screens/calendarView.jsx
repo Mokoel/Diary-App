@@ -150,9 +150,7 @@ function CalendarView() {
           </View>
           {long ? <SimpleTodo date={long} /> : <></>}
 
-          <Pressable onPress={downPressHandle}>
-            <CustomButton>내리기</CustomButton>
-          </Pressable>
+
 
         </View>
       </Modal>

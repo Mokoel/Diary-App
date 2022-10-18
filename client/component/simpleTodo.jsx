@@ -15,7 +15,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 function SimpleTodo({ date }) {
   const [checkboxState, setIsChecked] = useState(false);
-  const [todo, setTodo] = useState(false);
+  const [todo, setTodo] = useState("");
   const [done, setDone] = useState(false);
   const [chk, setChk] = useState(false);
   const [findTodo, setFindTodo] = useState(null);
