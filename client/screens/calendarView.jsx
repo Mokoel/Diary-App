@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Calendar } from "react-native-calendars";
-import { Alert, StyleSheet, Text, View, Modal, Pressable, SafeAreaView } from "react-native";
+import { Alert, StyleSheet, Text, View, Modal, Pressable, SafeAreaView, KeyboardAvoidingViewComponent, KeyboardAvoidingView } from "react-native";
 import { format, set } from "date-fns";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { AccountContext, ContentContext } from "../context/context";
@@ -141,6 +141,7 @@ function CalendarView() {
       >
         <Pressable onPress={() => { console.log("?"); setModalVisible(false) }} style={{ flex: 1, width: "100%" }}>
         </Pressable>
+        <KeyboardAvoidingView behavior="padding" style={{flex:1}} >
         <View style={styles.modalView}>
           {long ? <Text style={styles.modalText}>{long?.slice(0, 4)}년 {long?.slice(5, 7)}월 {long?.slice(8, 10)}일</Text> : <></>}
 
@@ -155,6 +156,7 @@ function CalendarView() {
           </Pressable>
 
         </View>
+        </KeyboardAvoidingView>
       </Modal>
     </View>
     </SafeAreaView>
@@ -176,6 +178,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#dfdfdf'
   },
   modalView: {
+    flex:1,
     marginTop: 'auto',
     width: '100%',
     height: '40%',

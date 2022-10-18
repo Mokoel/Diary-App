@@ -28,7 +28,7 @@ function ModifyList() {
     const chooseDate = createDate;
     const {_id, email, nickname, createdAt} = item;
     const [dateChk,setDateChk] = useState(false);
-
+    const [elm, setElm] = useState(null);
     useEffect(()=>{
         setEmoji(item.emoji)
         setContent(item.content)
@@ -72,23 +72,21 @@ function ModifyList() {
     const createPressHandle = async () => {
         let today = new Date().toISOString().slice(0,10);
 
-
-
-
         if(chooseDate <= today){
         try {
             let data = await createUpdate(_id, email, content, nickname, image, emoji, chooseDate, createdAt, tag);
+           
             Alert.alert("DayGram", "일기 수정에 성공하셨습니다.", [
 
                 {
                     text: '확인',
                     onPress: () => {
-                        contentCtx?.setEmojiPreview(null)
-                        contentCtx?.setImgPreview(null)
-                        setContent("")
-                        setTag("")
-                        setEmoji("")
-                        navigation.goBack()
+                        contentCtx?.setEmojiPreview(null);
+                        contentCtx?.setImgPreview(null);
+                        setContent("");
+                        setTag("");
+                        setEmoji("");
+                        navigation.goBack();
                     }
                 }
             ])
@@ -127,7 +125,7 @@ function ModifyList() {
                 <View style={styles.firstHeader}>
 
                     
-                <Text style={styles.emojiText}>{item?.emoji !== null ? item?.emoji  :<Entypo name="emoji-happy" size={50} color="grey" />}</Text>
+                <Text style={styles.emoji}>{item?.emoji !== null ? item?.emoji  :<Entypo name="emoji-happy" size={50} color="grey" />}</Text>
                     
                     <Text style={styles.date}>{createDate}</Text>
                 </View>
