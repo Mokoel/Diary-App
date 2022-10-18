@@ -33,26 +33,6 @@ function DiaryList() {
   }
 
 
-  // async function emailFind(){
-
-  //       try {
-  //         const datas = await listViewReq(email);
-  //         setListData(datas.data);
-
-  //       } catch (e) {
-  //         console.log(e);
-  //     }
-  //   }
-
-
-  // useEffect(() => {
-
-  //   if(focused){
-  //     emailFind()
-  //   }
-
-  // }, [focused]);
-
   /**리스트에서 글등록으로 */
   const writePressHandle = () => {
     navigation.navigate("writeList")
