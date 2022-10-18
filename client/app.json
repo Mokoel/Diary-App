@@ -26,11 +26,14 @@
         "versionCode": 1,
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+
       },
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ],
+
       "package": "com.mokoel.calendar"
+
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -49,7 +52,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "48430e45-02ba-40ea-a9bc-f9c912b1385f"
+        "projectId": "900b7fd0-e298-44a1-858e-b30166406aac"
       }
     }
   }
