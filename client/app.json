@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DayGram",
-    "slug": "calendar",
+    "name": "daygram",
+    "slug": "daygram",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,26 +27,11 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ],
-      "package": "com.mokoel.calendar"
+      "package": "com.mokoel.daygram"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "expo": {
-      "userInterfaceStyle": "automatic"
-    },
-    "plugins": [
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "The app accesses your photos to let you share them with your friends.",
-          "cameraPermission": "The app accesses your photos to let you share them with your friends."
-        }
-      ]
-    ],
     "extra": {
       "eas": {
         "projectId": "48430e45-02ba-40ea-a9bc-f9c912b1385f"

@@ -25,7 +25,7 @@ function ImagePicker({ onImage }) {
                 const res = await requestAlbumPermission();
 
                 if (!res.granted) {
-                    Alert.alert("Diary", "사진앨범 접근권한이 필요합니다.");
+                    Alert.alert("DayGram", "사진앨범 접근권한이 필요합니다.");
                     return;
                 }
 
