@@ -14,7 +14,7 @@ function TodoItem({item}) {
                 size={20}
                 isChecked={chk}
                 textComponent=
-                 { chk ? <Text style={styles.chkTodoText}>  {item.todoContent}</Text> : <Text style={styles.unChktodoText}>  {item.todoContent}</Text>}
+                 { chk ? <Text style={styles.chkTodoText}>  {item?.todoContent}</Text> : <Text style={styles.unChktodoText}>  {item?.todoContent}</Text>}
                 onPress={ async (isChecked)=>{
                   setChk(isChecked);
                   if(isChecked){

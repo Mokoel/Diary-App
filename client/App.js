@@ -28,7 +28,7 @@ export default function App() {
     return (
       <Stack.Navigator initialRouteName='calendarView'>
         <Stack.Screen name="calendarView" component={CalendarView}  options={{ headerShown: false }} />
-        <Stack.Screen name="diaryWrite" component={DiaryWrite} />
+        <Stack.Screen name="diaryWrite" component={DiaryWrite}  />
         <Stack.Screen name="diaryDetail" component={DiaryDetail_yu} />
         <Stack.Screen name="modifyDetail" component={ModifyList} options={{ title: "리스트 수정", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         
@@ -41,7 +41,7 @@ export default function App() {
         <Stack.Screen name="diaryList" component={DiaryList} options={{ title: "리스트 목록", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         <Stack.Screen name="listDetail" component={DiaryDetail} options={{ title: "리스트 상세내용", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
         <Stack.Screen name="modifyList" component={ModifyList} options={{ title: "리스트 수정", headerTitleStyle: { fontFamily: "GamjaFlower" } }} />
-        <Stack.Screen name="writeList" component={DiaryWrite} options={{ headerShown: false }} />
+        <Stack.Screen name="writeList" component={DiaryWrite} options={{ headerShown: false}} />
       </Stack.Navigator>)
   }
 
