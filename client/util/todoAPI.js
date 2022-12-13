@@ -2,7 +2,7 @@ import axios from "axios";
 
 /** 이미지등록 API 함수*/
 
-let baseUrl = "http://192.168.4.93:8080"
+let baseUrl = "http://192.168.4.25:8080"
 
 
 /**투두등록 */
