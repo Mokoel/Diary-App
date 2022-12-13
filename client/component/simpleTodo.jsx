@@ -102,9 +102,6 @@ function SimpleTodo({ date }) {
         }
       />
 </View>
-
-
-
     </View>
 
     </TouchableWithoutFeedback>
