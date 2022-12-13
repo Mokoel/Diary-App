@@ -16,6 +16,7 @@ function CalendarView() {
   const navigation = useNavigation();
   const accountCtx = useContext(AccountContext);
   const isfocused = useIsFocused();
+  const [todoChk, setTodoChk] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   const [long, setlong] = useState(false)
@@ -101,8 +102,10 @@ function CalendarView() {
   }
 
   const downPressHandle = () => {
+    setTodoChk(true)
     setModalVisible(false);
   }
+
 
   return (
     <SafeAreaView style={{flex:1 , backgroundColor:"#fff"}}>
@@ -139,19 +142,22 @@ function CalendarView() {
           setModalVisible(!modalVisible);
         }}
       >
-        <Pressable onPress={() => { console.log("?"); setModalVisible(false) }} style={{ flex: 1, width: "100%" }}>
+   
+        <Pressable onPress={() => { console.log("?"); setModalVisible(false) }} style={{  width: "100%", flex:1 }}>
         </Pressable>
         <KeyboardAvoidingView behavior="padding" style={{flex:1}}>
         <View style={styles.modalView}>
           {long ? <Text style={styles.modalText}>{long?.slice(0, 4)}년 {long?.slice(5, 7)}월 {long?.slice(8, 10)}일</Text> : <></>}
 
-          <View style={{ flexDirection: "row"}}>
+          <View style={{ flexDirection: "row" }}>
           <AntDesign name="checkcircleo" size={14} color={accountCtx.auth ? "grey": "red"} />
+
            {accountCtx.auth ? <Text style={{ fontSize: 13, color: "grey", fontWeight: "bold" }}> 오늘의 할 일을 적어보세요.</Text> : <Text style={{ fontSize: 13, color: "red", fontWeight: "bold" }}> 로그인 후 사용해주세요!</Text>}
           </View>
-          {long ? <SimpleTodo date={long} /> : <></>}
-          <Pressable onPress={downPressHandle}>
-            <CustomButton>내리기</CustomButton>
+
+          {long ? <SimpleTodo date={long}  /> : <></>}
+          <Pressable onPress={downPressHandle} >
+            <CustomButton>확인</CustomButton>
           </Pressable>
         </View>
         </KeyboardAvoidingView>
@@ -179,7 +185,7 @@ const styles = StyleSheet.create({
     flex:1,
     marginTop: 'auto',
     width: '100%',
-    height: '40%',
+    height: '60%',
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
     borderWidth:2,
