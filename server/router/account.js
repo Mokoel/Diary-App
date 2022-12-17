@@ -7,10 +7,8 @@ import bcrypt from "bcrypt";
 
 const router = express.Router();
 //어카운트에서 해야할 일
-//!!이메일 정규식체크
 
-//2.로그인 -> jsonWebtoken 생성 
-//그 다음 유효성... 코드 복사할꺼얌
+//2.로그인 -> jsonWebtoken 생성
 
 
 //로그인 경로 => /api/account/auth
